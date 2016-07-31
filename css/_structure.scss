@@ -12,8 +12,13 @@ nav.app-bar {
 }
 
 nav.app-bar > button.nav-icon {
+  float:              left;
   background-color:   transparent;
   border:             none;
   -webkit-appearance: none;
   outline:            none;
+}
+
+nav.app-bar > span.app-title {
+  float:              left;
 }

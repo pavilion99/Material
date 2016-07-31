@@ -21,6 +21,39 @@
 }
 
 @font-face {
+  font-family:                'Roboto';
+  font-style:                 normal;
+  font-weight:                300;
+  src:                        local('Roboto Light'),
+                              local('Roboto-Light'),
+                              url(https://fonts.gstatic.com/s/roboto/v15/Hgo13k-tfSpn0qi1SFdUfVtXRa8TVwTICgirnJhmVJw.woff2) format('woff2'),
+                              url(../font/RobotoLight-Latin.woff2) format('woff2');
+  unicode-range:              U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family:                'Roboto';
+  font-style:                 normal;
+  font-weight:                500;
+  src:                        local('Roboto Medium'),
+                              local('Roboto-Medium'),
+                              url(https://fonts.gstatic.com/s/roboto/v15/RxZJdnzeo3R5zSexge8UUVtXRa8TVwTICgirnJhmVJw.woff2) format('woff2'),
+                              url(../font/RobotoMedium-Latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family:                'Roboto';
+  font-style:                 normal;
+  font-weight:                700;
+  src:                        local('Roboto Bold'),
+                              local('Roboto-Bold'),
+                              url(https://fonts.gstatic.com/s/roboto/v15/d-6IYplOFocCacKzxwXSOFtXRa8TVwTICgirnJhmVJw.woff2) format('woff2'),
+                              url(../font/RobotoBold-Latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
   font-family:                'Material Icons';
   font-style:                 normal;
   font-weight:                400;
@@ -44,7 +77,7 @@ $text-button-line-height:     32px;
 
 @mixin text-title($size) {
   font-size:                  $size * 1px;
-  font-weight:                600;
+  font-weight:                500;
   line-height:                $text-title-line-height;
 }
 
@@ -69,7 +102,7 @@ $text-button-line-height:     32px;
 @mixin text-button($size) {
   font-size:                  $size * 1px;
   text-transform:             uppercase;
-  font-weight:                600;
+  font-weight:                500;
   line-height:                $text-button-line-height;
 }
 
@@ -224,7 +257,7 @@ $text-button-line-height:     32px;
 
 .text-menu {
   font-size:                  14px;
-  font-weight:                600;
+  font-weight:                500;
   line-height:                32px;
 }
 

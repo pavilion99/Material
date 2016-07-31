@@ -16,6 +16,10 @@ nav.app-bar > button.nav-icon {
   margin:                     ($base - $icon-height) / 2 12px ($base - $icon-height) / 2 -4px;
 }
 
+nav.app-bar > span.app-title {
+  line-height:                $base;
+}
+
 .w-1 {
   width:                      $base;
 }
