@@ -1,0 +1,19 @@
+html, body {
+  margin:             0;
+}
+
+button {
+  cursor:             pointer;
+  padding:            0;
+}
+
+nav.app-bar {
+  position:           fixed;
+}
+
+nav.app-bar > button.nav-icon {
+  background-color:   transparent;
+  border:             none;
+  -webkit-appearance: none;
+  outline:            none;
+}

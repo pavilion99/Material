@@ -1,8 +1,8 @@
 @mixin shadow($height) {
-  -moz-box-shadow:    0 0 (4 * $height * 1px) rgba(0, 0, 0, 0.12);
-  -webkit-box-shadow: 0 0 (4 * $height * 1px) rgba(0, 0, 0, 0.12);
-  -o-box-shadow:      0 0 (4 * $height * 1px) rgba(0, 0, 0, 0.12);
-  box-shadow:         0 0 (4 * $height * 1px) rgba(0, 0, 0, 0.12);
+  -moz-box-shadow:    0 2px (4 * $height * 1px) rgba(0, 0, 0, 0.38);
+  -webkit-box-shadow: 0 2px (4 * $height * 1px) rgba(0, 0, 0, 0.38);
+  -o-box-shadow:      0 2px (4 * $height * 1px) rgba(0, 0, 0, 0.38);
+  box-shadow:         0 2px (4 * $height * 1px) rgba(0, 0, 0, 0.38);
 }
 
 input[type="checkbox"].switch {
@@ -54,10 +54,6 @@ nav.app-bar {
 .menu {
   @include shadow(8);
 }
-
-/*.ambient-shadow {
-  @include ambient-shadow(0px, 0px, 25px, 2px, rgba(0, 0, 0, 0.12));
-}*/
 
 div.card, section.card, article.card {
   @extend .card;

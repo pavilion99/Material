@@ -322,62 +322,101 @@ $white:               #FFFFFF;
 $a-light:             $white;
 $a-dark:              rgb(54%, 54%, 54%);
 
-// TODO: Figure out how to implement text-dark and text-light properly
 // Dark Text Settings
+@mixin dark-hint {
+  color:              rgba(0, 0, 0, 0.38);
+}
+
+.text-dark.secondary {
+  color:              rgba(0, 0, 0, 0.54);
+}
+
+.text-dark.hint {
+  @include dark-hint;
+}
+
+.text-dark.disabled {
+  @include dark-hint;
+}
+
 .text-dark {
   color:              rgba(0, 0, 0, 0.87);
 
   .secondary {
-    color:            rgba(0, 0, 0, 0.54);
+    @extend .text-dark.secondary;
   }
 
   .hint {
-    color:            rgba(0, 0, 0, 0.38);
+    @extend .text-dark.hint;
   }
 
   .disabled {
-    @extend .text-dark.hint;
+    @extend .text-dark.disabled;
   }
 }
 
-.text-dark .icon {
+@mixin dark-icon {
   opacity:            0.54;
 }
 
-.text-dark .icon.active {
-  @extend .text.dark .icon;
+.text-dark .material-icons {
+  @include dark-icon;
 }
 
-.text-dark .icon.inactive {
+.text-dark .material-icons.active {
+  @include dark-icon;
+}
+
+.text-dark .material-icons.inactive {
   opacity:            0.38;
 }
 
 // Light Text Settings
+@mixin light-hint {
+  color:            rgba(255, 255, 255, 0.5);
+}
+
+.text-light.secondary {
+  color:            rgba(255, 255, 255, 0.7);
+}
+
+.text-light.hint {
+  @include light-hint;
+}
+
+.text-light.disabled {
+  @include light-hint;
+}
+
 .text-light {
   color:              rgba(255, 255, 255, 1.0);
 
   .secondary {
-    color:            rgba(255, 255, 255, 0.7);
+    @extend .text-light.secondary;
   }
 
   .hint {
-    color:            rgba(255, 255, 255, 0.5);
+    @extend .text-light.hint;
   }
 
   .disabled {
-    @extend .text-light.hint;
+    @extend .text-light.disabled;
   }
 }
 
-.text-light .icon {
+@mixin light-icon {
   opacity:            1.0;
 }
 
-.text-light .icon.active {
-  @extend .text-light .icon;
+.text-light .material-icons {
+  @include light-icon;
 }
 
-.text-light .icon.inactive {
+.text-light .material-icons.active {
+  @include light-icon;
+}
+
+.text-light .material-icons.inactive {
   opacity:            0.5;
 }
 
@@ -397,7 +436,7 @@ body.theme-light {
 
 
 //Dark Theme
-.theme-dark nav.app-bar {
+body.theme-dark nav.app-bar {
   background-color:   $grey-900;
 }
 
@@ -405,6 +444,116 @@ body.theme-dark {
   background-color:   #303030;
 }
 
-.theme-dark .card {
+body.theme-dark .card {
   background-color:   $grey-800;
 }
+
+// App Bar - 500
+// FAB - Accent
+// Other Data - 300
+
+body.red nav.app-bar,
+nav.app-bar.red {
+  background-color:   $red-500;
+  @extend .text-light;
+}
+
+body.pink nav.app-bar,
+nav.app-bar.pink {
+  background-color:   $pink-500;
+  @extend .text-light;
+}
+
+body.purple nav.app-bar,
+nav.app-bar.purple {
+  background-color:   $purple-500;
+  @extend .text-light;
+}
+
+body.deep-purple nav.app-bar,
+nav.app-bar.deep-purple {
+  background-color:   $deep-purple-500;
+  @extend .text-light;
+}
+
+body.indigo nav.app-bar,
+nav.app-bar.indigo {
+  background-color:   $indigo-500;
+  @extend .text-light;
+}
+
+body.blue nav.app-bar,
+nav.app-bar.blue {
+  background-color:   $blue-500;
+  @extend .text-light;
+}
+
+body.light-blue nav.app-bar,
+nav.app-bar.light-blue {
+  background-color:   $light-blue-500;
+}
+
+body.cyan nav.app-bar,
+nav.app-bar.cyan {
+  background-color:   $cyan-500;
+}
+
+body.teal nav.app-bar,
+nav.app-bar.teal {
+  background-color:   $teal-500;
+  @extend .text-light;
+}
+
+body.green nav.app-bar,
+nav.app-bar.green {
+  background-color:   $green-500;
+}
+
+body.light-green nav.app-bar,
+nav.app-bar.light-green {
+  background-color:   $light-green-500;
+}
+
+body.lime nav.app-bar,
+nav.app-bar.lime {
+  background-color:   $lime-500;
+}
+
+body.yellow nav.app-bar,
+nav.app-bar.yellow {
+  background-color:   $yellow-500;
+}
+
+body.amber nav.app-bar,
+nav.app-bar.amber {
+  background-color:   $amber-500;
+}
+
+body.orange nav.app-bar,
+nav.app-bar.orange {
+  background-color:   $orange-500;
+}
+
+body.deep-orange nav.app-bar,
+nav.app-bar.deep-orange {
+  background-color:   $deep-orange-500;
+  @extend .text-light;
+}
+
+body.brown nav.app-bar,
+nav.app-bar.brown {
+  background-color:   $brown-500;
+  @extend .text-light;
+}
+
+body.grey nav.app-bar,
+nav.app-bar.grey {
+  background-color:   $grey-500;
+}
+
+body.blue-grey nav.app-bar,
+nav.app-bar.blue-grey {
+  background-color:   $blue-grey-500;
+  @extend .text-light;
+}
+

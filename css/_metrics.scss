@@ -1,0 +1,97 @@
+$base:                        64px;
+$icon-height:                 48px;
+
+nav.app-bar {
+  height:                     $base;
+  left:                       0;
+  right:                      0;
+  padding-left:               16px;
+  padding-right:              16px;
+}
+
+nav.app-bar > button.nav-icon {
+  line-height:                $icon-height;
+  padding-left:               12px;
+  padding-right:              12px;
+  margin:                     ($base - $icon-height) / 2 12px ($base - $icon-height) / 2 -4px;
+}
+
+.w-1 {
+  width:                      $base;
+}
+
+.w-2 {
+  width:                      $base * 2;
+}
+
+.w-3 {
+  width:                      $base * 3;
+}
+
+.w-4 {
+  width:                      $base * 4;
+}
+
+.w-5 {
+  width:                      $base * 5;
+}
+
+.w-6 {
+  width:                      $base * 6;
+}
+
+.w-7 {
+  width:                      $base * 7;
+}
+
+.w-8 {
+  width:                      $base * 8;
+}
+
+.w-9 {
+  width:                      $base * 9;
+}
+
+.w-10 {
+  width:                      $base * 10;
+}
+
+.h-1 {
+  height:                     $base;
+}
+
+.h-2 {
+  height:                     $base * 2;
+}
+
+.h-3 {
+  height:                     $base * 3;
+}
+
+.h-4 {
+  height:                     $base * 4;
+}
+
+.h-5 {
+  height:                     $base * 5;
+}
+
+.h-6 {
+  height:                     $base * 6;
+}
+
+.h-7 {
+  height:                     $base * 7;
+}
+
+.h-8 {
+  height:                     $base * 8;
+}
+
+.h-9 {
+  height:                     $base * 9;
+}
+
+.h-10 {
+  height:                     $base * 10;
+}
