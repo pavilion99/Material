@@ -1,10 +1,9 @@
 html, body {
-  margin:             0;
+  height:             100%;
 }
 
 button {
   cursor:             pointer;
-  padding:            0;
 }
 
 nav.app-bar {
@@ -21,4 +20,46 @@ nav.app-bar > button.nav-icon {
 
 nav.app-bar > span.app-title {
   float:              left;
+}
+
+nav.nav-bottom {
+  position:           fixed;
+  text-align:         center;
+  transition:         bottom $duration-fast $sharp-curve;
+}
+
+nav.nav-bottom > .nav-bottom-wrapper {
+  display:            table;
+  margin:             auto;
+}
+
+nav.nav-bottom a.nav-link {
+  display:            table-cell;
+}
+
+nav.nav-bottom a.nav-link > span.nav-link-icon {
+  display:            block;
+}
+
+nav.nav-bottom a.nav-link > span.nav-link-text {
+  vertical-align:     top;
+}
+
+nav.nav-bottom.shifting a.nav-link span.nav-link-text,
+nav.nav-bottom.shifting a.nav-link.inactive span.nav-link-text{
+  display:            none;
+}
+
+nav.nav-bottom.shifting a.nav-link.active span.nav-link-text {
+  display:            unset;
+}
+
+nav.nav-bottom.offscreen {
+  bottom:             -1 * $bottom-nav-height;
+}
+
+section.content {
+  position:           fixed;
+  overflow-y:         auto;
+  overflow-x:         hidden;
 }

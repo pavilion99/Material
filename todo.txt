@@ -2,3 +2,6 @@ Figure out joining and splitting
 Generate radial transformations
 Ripple effect
 Mobile resizing
+
+Bottom nav autohide
+Bottom nav shifting CSS

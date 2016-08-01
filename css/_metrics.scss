@@ -1,12 +1,23 @@
-$base:                        64px;
-$icon-height:                 48px;
+html, body {
+  margin:                     0;
+}
+
+button {
+  padding:                    0;
+}
 
 nav.app-bar {
   height:                     $base;
+  top:                        0;
   left:                       0;
   right:                      0;
   padding-left:               16px;
   padding-right:              16px;
+  z-index:                    4;
+}
+
+nav.app-bar.dense {
+  height:                     $dense;
 }
 
 nav.app-bar > button.nav-icon {
@@ -16,86 +27,82 @@ nav.app-bar > button.nav-icon {
   margin:                     ($base - $icon-height) / 2 12px ($base - $icon-height) / 2 -4px;
 }
 
+nav.app-bar.dense > button.nav-icon {
+  margin:                     ($dense - $icon-height) / 2 12px ($dense - $icon-height) / 2 -4px;
+}
+
+nav.app-bar.dense > span.app-title {
+  line-height:                $dense;
+}
+
 nav.app-bar > span.app-title {
   line-height:                $base;
 }
 
-.w-1 {
-  width:                      $base;
+nav.nav-bottom a.nav-link {
+  padding:                    6px 12px 10px 12px;
+  height:                     $bottom-nav-height - 16px;
+  min-width:                  80px - 24px;
+  max-width:                  168px - 24px;
+  width:                      168px - 24px;
 }
 
-.w-2 {
-  width:                      $base * 2;
+nav.nav-bottom.shifting a.nav-link,
+nav.nav-bottom.shifting a.nav-link.inactive{
+  max-width:                  96px;
+  min-width:                  56px;
+
+  span.nav-link-icon {
+    line-height:              $bottom-nav-height - 16px;
+    vertical-align:           text-bottom;
+  }
 }
 
-.w-3 {
-  width:                      $base * 3;
+nav.nav-bottom.shifting a.nav-link.active {
+  padding:                    6px 0 10px 0 !important;
+  max-width:                  168px;
+  min-width:                  96px;
+
+  span.nav-link-icon {
+    line-height:              24px;
+  }
 }
 
-.w-4 {
-  width:                      $base * 4;
+nav.nav-bottom a.nav-link > span.nav-link-text {
+  line-height:                24px;
 }
 
-.w-5 {
-  width:                      $base * 5;
+nav.nav-bottom {
+  height:                     56px;
+  bottom:                     0;
+  left:                       0;
+  right:                      0;
+  z-index:                    8;
 }
 
-.w-6 {
-  width:                      $base * 6;
+section.content {
+  left:                       0;
+  right:                      0;
+  top:                        0;
+  bottom:                     0;
+  padding:                    16px;
 }
 
-.w-7 {
-  width:                      $base * 7;
+section.content.margin-nav-left {
+  bottom:                     $bottom-nav-height;
+  left:                       0;
 }
 
-.w-8 {
-  width:                      $base * 8;
+section.content.margin-app-bar {
+  top:                       $base;
 }
 
-.w-9 {
-  width:                      $base * 9;
-}
+@for $i from 1 through 20 {
+  .w-#{$i} {
+    width:                    $base * $i;
+  }
 
-.w-10 {
-  width:                      $base * 10;
-}
-
-.h-1 {
-  height:                     $base;
-}
-
-.h-2 {
-  height:                     $base * 2;
-}
-
-.h-3 {
-  height:                     $base * 3;
-}
-
-.h-4 {
-  height:                     $base * 4;
-}
-
-.h-5 {
-  height:                     $base * 5;
-}
-
-.h-6 {
-  height:                     $base * 6;
-}
-
-.h-7 {
-  height:                     $base * 7;
-}
-
-.h-8 {
-  height:                     $base * 8;
-}
-
-.h-9 {
-  height:                     $base * 9;
-}
-
-.h-10 {
-  height:                     $base * 10;
+  .h-#{$i} {
+    height:                   $base * $i;
+  }
 }

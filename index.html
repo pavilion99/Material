@@ -2,14 +2,42 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
+		<script src="js/jquery-3.1.0.min.js"></script>
 		<script src="js/material.js"></script>
 		<link rel="stylesheet" href="css/material.css" />
 		<title>Title</title>
 	</head>
-	<body class="theme-light deep-orange" lang="en">
-        <nav class="app-bar">
-            <button class="material-icons nav-icon">menu</button>
-            <span class="app-title">Style</span>
+	<body class="theme-dark" lang="en">
+        <nav class="app-bar teal">
+	        <button class="material-icons nav-icon">menu</button>
+	        <span class="app-title">Style</span>
         </nav>
+		<nav class="nav-bottom text-light teal-700 text-active-orange-300 shifting">
+			<div class="nav-bottom-wrapper">
+				<a class="nav-link" href="#">
+					<span class="material-icons nav-link-icon">android</span>
+					<span class="nav-link-text">Android</span>
+				</a>
+				<a class="nav-link" href="#">
+					<span class="material-icons nav-link-icon">class</span>
+					<span class="nav-link-text">Class</span>
+				</a>
+				<a class="nav-link" href="#">
+					<span class="material-icons nav-link-icon">explore</span>
+					<span class="nav-link-text">Explore</span>
+				</a>
+				<a class="nav-link" href="#">
+					<span class="material-icons nav-link-icon">fingerprint</span>
+					<span class="nav-link-text">Fingerprint</span>
+				</a>
+				<a class="nav-link" href="#">
+					<span class="material-icons nav-link-icon">theaters</span>
+					<span class="nav-link-text">Theaters</span>
+				</a>
+			</div>
+		</nav>
+		<section class="content margin-app-bar margin-nav-left">
+			<div class="card w-5 h-20"></div>
+		</section>
 	</body>
 </html>
