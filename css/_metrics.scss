@@ -39,58 +39,12 @@ nav.app-bar > span.app-title {
   line-height:                $base;
 }
 
-nav.nav-bottom a.nav-link {
-  padding:                    6px 12px 10px 12px;
-  height:                     $bottom-nav-height - 16px;
-  min-width:                  80px - 24px;
-  max-width:                  168px - 24px;
-  width:                      168px - 24px;
-}
-
-nav.nav-bottom.shifting a.nav-link,
-nav.nav-bottom.shifting a.nav-link.inactive{
-  max-width:                  96px;
-  min-width:                  56px;
-
-  span.nav-link-icon {
-    line-height:              $bottom-nav-height - 16px;
-    vertical-align:           text-bottom;
-  }
-}
-
-nav.nav-bottom.shifting a.nav-link.active {
-  padding:                    6px 0 10px 0 !important;
-  max-width:                  168px;
-  min-width:                  96px;
-
-  span.nav-link-icon {
-    line-height:              24px;
-  }
-}
-
-nav.nav-bottom a.nav-link > span.nav-link-text {
-  line-height:                24px;
-}
-
-nav.nav-bottom {
-  height:                     56px;
-  bottom:                     0;
-  left:                       0;
-  right:                      0;
-  z-index:                    8;
-}
-
 section.content {
   left:                       0;
   right:                      0;
   top:                        0;
   bottom:                     0;
   padding:                    16px;
-}
-
-section.content.margin-nav-left {
-  bottom:                     $bottom-nav-height;
-  left:                       0;
 }
 
 section.content.margin-app-bar {

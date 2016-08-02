@@ -1,10 +1,12 @@
 @import 'var';
 
-@import 'typography';
-@import 'env';
-@import 'color';
-@import 'imagery';
-@import 'metrics';
-@import 'motion';
-@import 'structure';
+@import "color";
+@import "env";
+@import "imagery";
+@import "metrics";
+@import "motion";
 @import "responsive";
+@import "structure";
+@import "typography";
+
+@import "components/bottom_navigation";

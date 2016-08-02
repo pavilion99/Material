@@ -5,3 +5,5 @@ Mobile resizing
 
 Bottom nav autohide
 Bottom nav shifting CSS
+
+Imagery

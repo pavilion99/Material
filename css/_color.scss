@@ -34,15 +34,6 @@
   }
 }
 
-nav.nav-bottom.text-dark span,
-nav.nav-bottom.text-dark .inactive span {
-  color:            $dark-hint;
-}
-
-nav.nav-bottom.text-dark .active span {
-  color:            $dark;
-}
-
 .text-light.secondary {
   color:            $light-secondary;
 }
@@ -69,15 +60,6 @@ nav.nav-bottom.text-dark .active span {
   .disabled {
     @extend .text-light.disabled;
   }
-}
-
-nav.nav-bottom.text-light span,
-nav.nav-bottom.text-light .inactive span {
-  color:              $light-hint;
-}
-
-nav.nav-bottom.text-light .active span {
-  color:              $light;
 }
 
 // Light Theme
@@ -239,11 +221,6 @@ body.theme-dark .card {
   @each $val in $vals {
     .#{$color}-#{$val} {
       @include color($color, $val);
-    }
-
-    nav.nav-bottom.text-active-#{$color}-#{$val} a.nav-link.active span.nav-link-text,
-    nav.nav-bottom.text-active-#{$color}-#{$val} a.nav-link.active span.nav-link-icon {
-      @include text-color($color, $val);
     }
   }
 }

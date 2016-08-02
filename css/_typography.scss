@@ -330,23 +330,6 @@ button[lang|="te"], button[lang|="th"], button[lang|="ur"], button[lang|="vi"],
   @extend .text-display-2;
 }
 
-nav.nav-bottom a.nav-link {
-  color:                      inherit;
-  text-decoration:            none;
-}
-
-nav.nav-bottom a.nav-link > span.nav-link-text {
-  font-size:                  12px
-}
-
-nav.nav-bottom a.nav-link.inactive > span.nav-link-text {
-  font-size:                  12px;
-}
-
-nav.nav-bottom a.nav-link.active > span.nav-link-text {
-  font-size:                  14px;
-}
-
 .material-icons {
   /*noinspection CssNoGenericFontName*/
   font-family: 'Material Icons';
@@ -362,14 +345,8 @@ nav.nav-bottom a.nav-link.active > span.nav-link-text {
   direction: ltr;
   color:  inherit;
 
-  /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
   text-rendering: optimizeLegibility;
-
-  /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
-
-  /* Support for IE. */
   font-feature-settings: 'liga';
 }
