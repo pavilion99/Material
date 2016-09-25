@@ -32,11 +32,11 @@ nav.app-bar.dense > button.nav-icon {
 }
 
 nav.app-bar.dense > span.app-title {
-  line-height:                $dense;
+  line-height:                $dense !important;
 }
 
 nav.app-bar > span.app-title {
-  line-height:                $base;
+  line-height:                $base !important;
 }
 
 section.content {
@@ -49,6 +49,10 @@ section.content {
 
 section.content.margin-app-bar {
   top:                       $base;
+}
+
+.card {
+  padding:                    5px;
 }
 
 @for $i from 1 through 20 {

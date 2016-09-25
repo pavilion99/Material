@@ -1,0 +1,67 @@
+body.theme-light div.text-field input[type="text"],
+input[type="text"].dark {
+
+}
+
+body.theme-dark div.text-field input[type="text"],
+input[type="text"].light {
+
+}
+
+body.theme-dark div.text-field span.text-field-label {
+  color:                              $light-hint;
+}
+
+body.theme-light div.text-field span.text-field-label {
+  color:                              $dark-hint;
+}
+
+div.text-field {
+  position:                           relative;
+  padding-top:                        36px;
+  height:                             36px;
+
+  hr.text-field-separator {
+    border:                             0;
+    border-bottom:                      1px solid $dark-input-border;
+    padding:                            8px 0 0 0;
+    margin:                             0 0 7px;
+  }
+
+  input[type="text"] {
+    font-size:                          16px;
+    height:                             16px;
+    padding:                            0;
+    outline:                            none;
+    display:                            block;
+    width:                              100%;
+  }
+
+  input[type="text"]:focus {
+    outline:                            none;
+  }
+
+  input[type="text"]::-webkit-input-placeholder,
+  input[type="text"]::-moz-placeholder,
+  input[type="text"]:-ms-input-placeholder,
+  input[type="text"]:-moz-placeholder {
+    opacity:                            0;
+  }
+
+  span.text-field-label {
+    display:                            inline-block;
+    position:                           absolute;
+    line-height:                        18px;
+    height:                             16px;
+    bottom:                             20px;
+    font-size:                          16px;
+    transition:                         font-size $duration-fast $acceleration-curve, bottom $duration-fast $acceleration-curve;
+    pointer-events:                     none;
+  }
+
+  span.text-field-label.active {
+    bottom:                             20px + 16px + 4px;
+    font-size:                          12px;
+  }
+
+}

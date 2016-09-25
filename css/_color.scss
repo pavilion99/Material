@@ -217,6 +217,10 @@ body.theme-dark .card {
   @extend %text-#{$color}-#{$val};
 }
 
+@mixin border-color($color, $val) {
+  @extend %border-#{$color}-#{$val};
+}
+
 @each $color in $colors {
   @each $val in $vals {
     .#{$color}-#{$val} {
@@ -230,5 +234,29 @@ body.theme-dark .card {
     .#{$color}-a-#{$val} {
       @include accent-color($color, $val);
     }
+  }
+}
+
+@each $color in $colors {
+  @each $val in $vals {
+    .text-#{$color}-#{$val} {
+      @include text-color($color, $val);
+    }
+  }
+
+  .text-#{$color}-500 {
+    @include text-color($color, 500);
+  }
+}
+
+@each $color in $colors {
+  @each $val in $vals {
+    .border-#{$color}-#{$val} {
+      @include border-color($color, $val);
+    }
+  }
+
+  .border-#{$color}-500 {
+    @include border-color($color, 500);
   }
 }

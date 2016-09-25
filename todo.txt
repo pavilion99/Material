@@ -1,4 +1,4 @@
-Figure out joining and splitting
+IFigure out joining and splitting
 Generate radial transformations
 Ripple effect
 Mobile resizing
