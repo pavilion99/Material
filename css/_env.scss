@@ -1,3 +1,10 @@
+@mixin no-shadow() {
+  -moz-box-shadow:    none;
+  -webkit-box-shadow: none;
+  -o-box-shadow:      none;
+  box-shadow:         none;
+}
+
 @mixin shadow($height) {
   -moz-box-shadow:    0 2px (4 * $height * 1px) rgba(0, 0, 0, 0.38);
   -webkit-box-shadow: 0 2px (4 * $height * 1px) rgba(0, 0, 0, 0.38);

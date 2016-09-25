@@ -1,5 +1,8 @@
 function init() {
     initTextFields();
+    window.snackbars = [];
+    window.snackbar_running = false;
+    window.snackbar_timeout = null;
 }
 
 function initTextFields() {
@@ -77,6 +80,73 @@ function textFieldChange() {
 
 function errorCheck(val) {
     return val.length > 60;
+}
+
+function snackbar_runner() {
+    if (window.snackbars.length != 0) {
+        var bar = document.createElement("DIV");
+        bar.classList.add("snackbar");
+        bar.classList.add("ready");
+
+        var t = document.createElement("P");
+        t.classList.add("snackbar-text");
+        t.textContent = window.snackbars[0].text;
+
+        bar.appendChild(t);
+
+        if (window.snackbars[0].button) {
+            var sep = document.createElement("SPAN");
+            sep.classList.add("separator");
+            bar.appendChild(sep);
+
+            var action = document.createElement("P");
+            action.classList.add("snackbar-text");
+            action.classList.add("action");
+            action.classList.add("text-" + window.snackbars[0].button["color"]);
+            action.addEventListener("click", window.snackbars[0].button["callback"]);
+            action.textContent = window.snackbars[0].button["text"];
+
+            bar.appendChild(action);
+
+            var cfix = document.createElement("DIV");
+            cfix.classList.add("clearfix");
+
+            bar.appendChild(cfix);
+        }
+
+        document.body.appendChild(bar);
+
+        window.setTimeout(function() {
+            bar.classList.remove("ready");
+        }, 10);
+
+        window.setTimeout(function() {
+            bar.classList.add("done");
+        }, 200 + 5000);
+        window.setTimeout(function() {
+            bar.parentNode.removeChild(bar);
+        }, 200 + 5000 + 200);
+
+        window.snackbars.shift();
+    } else {
+        window.snackbar_running = false;
+        window.clearInterval(window.snackbar_timeout);
+    }
+}
+
+function snackbar(text, button) {
+    window.snackbars.push({"text": text, "button": button});
+
+    if (!window.snackbar_running) {
+        window.snackbar_running = true;
+
+        snackbar_runner();
+        window.snackbar_timeout = window.setInterval(function() {
+            snackbar_runner();
+        }, 5600);
+    }
+
+    return window.snackbars;
 }
 
 window.addEventListener("load", init);

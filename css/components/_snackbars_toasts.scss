@@ -1,0 +1,65 @@
+div.snackbar {
+  height:                         48px;
+  min-width:                      288px;
+  max-width:                      568px;
+  border-radius:                  2px;
+  background-color:               #323232;
+
+  padding:                        0 24px 0 24px;
+
+  position:                       fixed;
+  bottom:                         0;
+  left:                           50%;
+  transform:                      translate(-50%, 0);
+
+  transition:                     bottom $duration-slow $standard-curve;
+
+  @include no-shadow();
+}
+
+div.snackbar p.snackbar-text {
+  margin:                         0;
+  float:                          left;
+  display:                        inline;
+
+  opacity:                        1.0;
+
+  @include font(14, "light");
+  line-height:                    48px;
+
+  transition:                     opacity $duration-slow $standard-curve 0.15s;
+}
+
+div.snackbar.ready {
+  bottom:                         -48px;
+}
+
+div.snackbar.ready p.snackbar-text {
+  opacity:                        0;
+}
+
+div.snackbar.done {
+  bottom:                         -48px;
+}
+
+div.snackbar span.separator {
+  margin:                         0;
+  float:                          left;
+  width:                          48px;
+  padding:                        0;
+  height:                         100%;
+}
+
+div.snackbar p.snackbar-text.action {
+  margin:                         0;
+  text-transform:                 uppercase;
+  float:                          right;
+}
+
+div.snackbar p.snackbar-text.action:hover {
+  cursor:                         pointer;
+}
+
+div.snackbar div.clearfix {
+  clear:                          both;
+}

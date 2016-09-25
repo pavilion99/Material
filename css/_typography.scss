@@ -75,6 +75,15 @@ $text-body-line-height:       25px;
 $text-caption-line-height:    32px;
 $text-button-line-height:     32px;
 
+@mixin font($size, $color) {
+  font-size:                  $size * 1px;
+  @if ($color == "light") {
+    color:                    $light;
+  } @else if($color == "dark") {
+    color:                    $dark;
+  }
+}
+
 @mixin text-title($size) {
   font-size:                  $size * 1px;
   font-weight:                500;
