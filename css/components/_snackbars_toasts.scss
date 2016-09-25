@@ -12,7 +12,7 @@ div.snackbar {
   left:                           50%;
   transform:                      translate(-50%, 0);
 
-  transition:                     bottom $duration-slow $standard-curve;
+  transition:                     bottom $duration-slow $deceleration-curve;
 
   @include no-shadow();
 }
@@ -39,6 +39,7 @@ div.snackbar.ready p.snackbar-text {
 }
 
 div.snackbar.done {
+  transition:                     bottom $duration-slow $acceleration-curve;
   bottom:                         -48px;
 }
 

@@ -1,8 +1,11 @@
 function init() {
     initTextFields();
+
     window.snackbars = [];
     window.snackbar_running = false;
     window.snackbar_timeout = null;
+
+    initProgressBars();
 }
 
 function initTextFields() {
@@ -41,6 +44,70 @@ function initTextFields() {
             element.parentNode.removeChild(element);
         }
     )
+}
+
+function initProgressBars() {
+    var bars = document.getElementsByTagName("PROGRESS");
+
+    $("progress:not([value]):not([data-type=\"circular\"])").each(
+        function (index, bar) {
+            var container = document.createElement("DIV");
+            container.classList.add("progress-container");
+
+            var bar1 = document.createElement("DIV");
+            bar1.classList.add("indeterminate-bar");
+            var bar2 = document.createElement("DIV");
+            bar2.classList.add("indeterminate-bar");
+
+            container.appendChild(bar1);
+            container.appendChild(bar2);
+
+            bar.parentNode.insertBefore(container, bar);
+            bar.parentNode.removeChild(bar);
+        }
+    );
+
+    $("progress[data-type=\"circular\"]:not([value])").each(
+        function (index, bar) {
+            var container = document.createElement("DIV");
+            container.classList.add("progress-container");
+
+            var bar1 = document.createElement("DIV");
+            bar1.classList.add("indeterminate-bar");
+            var bar2 = document.createElement("DIV");
+            bar2.classList.add("indeterminate-bar");
+
+            container.appendChild(bar1);
+            container.appendChild(bar2);
+
+            bar.parentNode.insertBefore(container, bar);
+            bar.parentNode.removeChild(bar);
+        }
+    );
+
+    $("progress[value]:not([data-type=\"circular\"])").each (
+        function (index, bar) {
+            var container = document.createElement("DIV");
+            container.classList.add("progress-container");
+
+            var bar1 = document.createElement("DIV");
+            bar1.classList.add("determinate-bar");
+
+            container.appendChild(bar1);
+
+            bar1.id = bar.id;
+
+            bar1.dataset.value = bar.value;
+            bar1.dataset["max"] = bar.getAttribute("max");
+
+            bar.parentNode.insertBefore(container, bar);
+            bar.parentNode.removeChild(bar);
+
+            window.setTimeout(function() {
+                progress_update(bar1.id);
+            }, 50);
+        }
+    );
 }
 
 function textFieldChange() {
@@ -147,6 +214,23 @@ function snackbar(text, button) {
     }
 
     return window.snackbars;
+}
+
+function progress_update(id) {
+    var bar = document.getElementById(id);
+    var perc = (parseFloat(bar.dataset.value) / parseFloat(bar.dataset["max"])) * 100.0;
+
+    bar.style.width = perc + "%";
+}
+
+function progress_set(id, value) {
+    var bar = document.getElementById(id);
+
+    if (parseFloat(bar.dataset.value) >= value)
+        return;
+
+    document.getElementById(id).dataset.value = value;
+    progress_update(id);
 }
 
 window.addEventListener("load", init);
