@@ -1,3 +1,7 @@
+@import "../motion";
+@import "../typography";
+@import "../env";
+
 div.snackbar {
   height:                         48px;
   min-width:                      288px;
@@ -13,6 +17,8 @@ div.snackbar {
   transform:                      translate(-50%, 0);
 
   transition:                     bottom $duration-slow $deceleration-curve;
+
+  z-index:                        6;
 
   @include no-shadow();
 }
@@ -63,4 +69,21 @@ div.snackbar p.snackbar-text.action:hover {
 
 div.snackbar div.clearfix {
   clear:                          both;
+}
+
+@media(max-width: 959px) {
+
+  nav.nav-bottom ~ div.snackbar.ready {
+    bottom:                       12px;
+  }
+
+  nav.nav-bottom ~ div.snackbar {
+    bottom:                       12px;
+  }
+
+  nav.nav-bottom ~ div.snackbar.done {
+    transition:                     bottom $duration-slow $acceleration-curve;
+    bottom:                         -48px;
+  }
+
 }

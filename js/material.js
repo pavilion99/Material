@@ -47,12 +47,11 @@ function initTextFields() {
 }
 
 function initProgressBars() {
-    var bars = document.getElementsByTagName("PROGRESS");
-
     $("progress:not([value]):not([data-type=\"circular\"])").each(
         function (index, bar) {
             var container = document.createElement("DIV");
             container.classList.add("progress-container");
+            container.id = bar.id;
 
             var bar1 = document.createElement("DIV");
             bar1.classList.add("indeterminate-bar");
@@ -69,16 +68,26 @@ function initProgressBars() {
 
     $("progress[data-type=\"circular\"]:not([value])").each(
         function (index, bar) {
+            var ns = "http://www.w3.org/2000/svg";
+
             var container = document.createElement("DIV");
             container.classList.add("progress-container");
+            container.classList.add("circular");
+            container.id = bar.id;
 
-            var bar1 = document.createElement("DIV");
-            bar1.classList.add("indeterminate-bar");
-            var bar2 = document.createElement("DIV");
-            bar2.classList.add("indeterminate-bar");
+            var rotate = document.createElementNS(ns, "svg");
+            rotate.classList.add("indeterminate-spinner");
+            rotate.setAttribute("width", "50");
+            rotate.setAttribute("height", "50");
 
-            container.appendChild(bar1);
-            container.appendChild(bar2);
+            var circle = document.createElementNS(ns, "circle");
+            circle.setAttribute("cx", "25");
+            circle.setAttribute("cy", "25");
+            circle.setAttribute("r", "20");
+
+            rotate.appendChild(circle);
+
+            container.appendChild(rotate);
 
             bar.parentNode.insertBefore(container, bar);
             bar.parentNode.removeChild(bar);
@@ -89,22 +98,59 @@ function initProgressBars() {
         function (index, bar) {
             var container = document.createElement("DIV");
             container.classList.add("progress-container");
+            container.id = bar.id;
 
             var bar1 = document.createElement("DIV");
             bar1.classList.add("determinate-bar");
 
             container.appendChild(bar1);
 
-            bar1.id = bar.id;
+            bar1.id = bar.id + "-bar";
 
-            bar1.dataset.value = bar.value;
-            bar1.dataset["max"] = bar.getAttribute("max");
+            container.dataset.value = bar.value;
+            container.dataset["max"] = bar.getAttribute("max");
 
             bar.parentNode.insertBefore(container, bar);
             bar.parentNode.removeChild(bar);
 
             window.setTimeout(function() {
-                progress_update(bar1.id);
+                progress_update(container.id);
+            }, 50);
+        }
+    );
+
+    $("progress[data-type=\"circular\"][value]").each(
+        function (index, bar) {
+            var ns = "http://www.w3.org/2000/svg";
+
+            var container = document.createElement("DIV");
+            container.classList.add("progress-container");
+            container.classList.add("circular");
+            container.id = bar.id;
+
+            var rotate = document.createElementNS(ns, "svg");
+            rotate.classList.add("determinate-spinner");
+            rotate.setAttribute("width", "50");
+            rotate.setAttribute("height", "50");
+
+            var circle = document.createElementNS(ns, "circle");
+            circle.id = bar.id + "-bar";
+            circle.setAttribute("cx", "25");
+            circle.setAttribute("cy", "25");
+            circle.setAttribute("r", "20");
+
+            rotate.appendChild(circle);
+
+            container.appendChild(rotate);
+
+            container.dataset.value = bar.value;
+            container.dataset["max"] = bar.getAttribute("max");
+
+            bar.parentNode.insertBefore(container, bar);
+            bar.parentNode.removeChild(bar);
+
+            window.setTimeout(function() {
+                progress_update(container.id);
             }, 50);
         }
     );
@@ -118,12 +164,12 @@ function textFieldChange() {
             label.classList.add("active");
     } else {
         var isError = false;
-        if (typeof window[this.dataset.errorTest] == "function")
-            isError = window[this.dataset.errorTest](this.value);
+        if (typeof window[this.dataset["errorTest"]] == "function")
+            isError = window[this.dataset["errorTest"]](this.value);
 
         var errorColor = "red";
-        if (this.dataset.errorColor)
-            errorColor = this.dataset.errorColor;
+        if (this.dataset["errorColor"])
+            errorColor = this.dataset["errorColor"];
 
         var clazz = "text-" + errorColor + "-500";
         var clazz2 = "border-" + errorColor + "-500";
@@ -145,6 +191,7 @@ function textFieldChange() {
     }
 }
 
+//noinspection JSUnusedGlobalSymbols
 function errorCheck(val) {
     return val.length > 60;
 }
@@ -217,19 +264,30 @@ function snackbar(text, button) {
 }
 
 function progress_update(id) {
-    var bar = document.getElementById(id);
-    var perc = (parseFloat(bar.dataset.value) / parseFloat(bar.dataset["max"])) * 100.0;
+    var progress = document.getElementById(id);
 
-    bar.style.width = perc + "%";
+    if (progress.classList.contains("circular")) {
+        var circle = document.getElementById(id + "-bar");
+        var percent = (parseFloat(progress.dataset.value) / parseFloat(progress.dataset["max"]));
+        var str = percent * Math.PI * 2 * 20;
+        var dash = (1.0 - percent) * Math.PI * 2 * 20;
+
+        circle.style.strokeDasharray = str + ", " + dash;
+    } else {
+        var bar = document.getElementById(id + "-bar");
+        var perc = (parseFloat(progress.dataset.value) / parseFloat(progress.dataset["max"])) * 100.0;
+
+        bar.style.width = perc + "%";
+    }
 }
 
+//noinspection JSUnusedGlobalSymbols
 function progress_set(id, value) {
-    var bar = document.getElementById(id);
-
-    if (parseFloat(bar.dataset.value) >= value)
+    var progress = document.getElementById(id);
+    if (parseFloat(progress.dataset.value) >= value)
         return;
 
-    document.getElementById(id).dataset.value = value;
+    progress.dataset.value = value;
     progress_update(id);
 }
 
