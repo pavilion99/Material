@@ -1,0 +1,19 @@
+@import "../var";
+
+body.theme-dark {
+  hr {
+    border-top-color:         $divider-light;
+  }
+}
+
+body.theme-light {
+  hr {
+    border-top-color:         $divider-dark;
+  }
+}
+
+hr {
+  border:                     none;
+  border-top:                 1px solid;
+  margin:                     0;
+}

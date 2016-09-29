@@ -6,6 +6,37 @@ function init() {
     window.snackbar_timeout = null;
 
     initProgressBars();
+
+    fadeImages();
+    hideLaunchScreen();
+}
+
+function hideLaunchScreen() {
+    $("div.launch-screen").each(
+        function (index, element) {
+            element.classList.add("hidden");
+        }
+    );
+}
+
+function preInit() {
+    initImages();
+}
+
+function initImages() {
+    $("img.fade").each (
+        function (index, element) {
+            element.classList.add("unready");
+        }
+    );
+}
+
+function fadeImages() {
+    $("img.fade").each (
+        function (index, element) {
+            element.classList.remove("unready");
+        }
+    );
 }
 
 function initTextFields() {
@@ -291,4 +322,5 @@ function progress_set(id, value) {
     progress_update(id);
 }
 
+document.addEventListener("DOMContentLoaded", preInit);
 window.addEventListener("load", init);

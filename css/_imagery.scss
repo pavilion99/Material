@@ -1,0 +1,27 @@
+@import "motion";
+
+@keyframes image-fade {
+  0% {
+    -webkit-filter:                   contrast(0%) opacity(0%) saturate(20%);
+  }
+
+  50% {
+    -webkit-filter:                   contrast(80%) opacity(100%) saturate(73%);
+  }
+
+  75% {
+    -webkit-filter:                   contrast(100%) opacity(100%) saturate(87%);
+  }
+
+  100% {
+    -webkit-filter:                   contrast(100%) opacity(100%) saturate(100%);
+  }
+}
+
+img.fade {
+  -webkit-animation:                  image-fade 2s $standard-curve 0s 1;
+}
+
+img.fade.unready {
+  -webkit-animation:                  none;
+}

@@ -1,0 +1,157 @@
+@import "../typography";
+
+@-webkit-keyframes background-pulse {
+  50% {
+    background-size:                  120% 300%;
+  }
+}
+
+@keyframes background-pulse {
+  50% {
+    background-size:                  120% 300%;
+  }
+}
+
+@keyframes background-press {
+  0% {
+    background-image:                 radial-gradient(ellipse at center, rgba(153, 153, 153, 0.08) 0%, rgba(153, 153, 153, 0.08) 50%, rgba(153, 153, 153, 0.30) 50%, rgba(153, 153, 153, 0.30) 100%);
+    background-size:                  100% 272%;
+  }
+
+  100% {
+    background-image:                 radial-gradient(ellipse at center, rgba(153, 153, 153, 0) 0%, rgba(153, 153, 153, 0) 50%, rgba(153, 153, 153, 0) 50%, rgba(153, 153, 153, 0) 100%);
+    background-size:                  120% 300%;
+  }
+}
+
+/* This type of button (the default) should be used in the following cases:
+ * - Inline (some cases)
+ */
+button,
+button.raised,
+input[type="button"],
+input[type="button"].raised,
+input[type="submit"].raised,
+input[type="submit"],
+a.button,
+a.button.raised
+.button.raised
+.button {
+  min-height:                         36px;
+  margin:                             0;
+  border-radius:                      2px;
+  padding-left:                       16px;
+  padding-right:                      16px;
+  line-height:                        36px;
+  font-size:                          14px;
+  font-weight:                        500;
+  outline:                            none;
+}
+
+button.dense
+input[type="button"].dense,
+input[type="submit"].dense,
+a.button.dense,
+.button.dense {
+  height:                             32px !important;
+  min-height:                         32px !important;
+  font-size:                          13px !important;
+}
+
+
+/* Flat buttons should be used in the following cases:
+ * - On toolbars
+ * - In dialogs
+ * - Inline (some cases)
+ */
+button.flat,
+input[type="button"].flat,
+input[type="submit"].flat,
+a.button.flat,
+.button.flat {
+  height:                             36px;
+  min-width:                          64px;
+  border-radius:                      2px;
+  padding-left:                       8px;
+  padding-right:                      8px;
+  margin:                             6px 8px 6px 8px;
+
+  cursor:                             pointer;
+}
+
+body.theme-light {
+  button.flat,
+  input[type="button"].flat,
+  input[type="submit"].flat,
+  a.button.flat,
+  .button.flat {
+    /* Find a way to make the background image here */
+  }
+
+  button.flat:focus,
+  input[type="button"].flat:focus,
+  input[type="submit"].flat:focus,
+  a.button.flat:focus,
+  .button.flat:focus {
+    -webkit-animation:                background-pulse 3s $standard-curve 0s infinite;
+    // background:                       rgba(153, 153, 153, 0.20) url(../img/button-backg.png);
+    // background-position:              center;
+    // background-size:                  100% auto;
+    // background-repeat:                no-repeat;
+    // transition:                       background-size 2s;
+    background-image:                 radial-gradient(ellipse at center, rgba(153, 153, 153, 0.08) 0%, rgba(153, 153, 153, 0.08) 50%, rgba(153, 153, 153, 0.30) 50%, rgba(153, 153, 153, 0.30) 100%);
+    background-position:              center center;
+    background-size:                  100% 272%;
+    background-repeat:                no-repeat;
+  }
+
+  button.flat:active,
+  input[type="button"].flat:active,
+  input[type="submit"].flat:active,
+  a.button.flat:active,
+  .button.flat:active {
+    -webkit-animation:                background-press 1s $standard-curve 0s 1;
+  }
+
+  button.flat.disabled,
+  input[type="button"].flat.disabled,
+  input[type="submit"].flat.disabled,
+  a.button.flat.disabled,
+  .button.flat.disabled {
+    color:                            rgba(0, 0, 0, 0.26);
+  }
+}
+
+body.theme-dark {
+  button.flat,
+  input[type="button"].flat,
+  input[type="submit"].flat,
+  a.button.flat,
+  .button.flat {
+
+  }
+
+  button.flat:focus,
+  input[type="button"].flat:focus,
+  input[type="submit"].flat:focus,
+  a.button.flat:focus,
+  .button.flat:focus {
+    background-color:                 rgba(204, 204, 204, 0.125);
+  }
+
+  button.flat:active,
+  input[type="button"].flat:active,
+  input[type="submit"].flat:active,
+  a.button.flat:active,
+  .button.flat:active {
+    background-color:                 rgba(204, 204, 204, 0.25);
+  }
+
+  button.flat.disabled,
+  input[type="button"].flat.disabled,
+  input[type="submit"].flat.disabled,
+  a.button.flat.disabled,
+  .button.flat.disabled {
+    color:                            rgba(255, 255, 255, 0.30);
+  }
+}

@@ -86,6 +86,16 @@ $text-button-line-height:     32px;
   }
 }
 
+@mixin font($size, $color, $weight) {
+  font-size:                  $size * 1px;
+  @if ($color == "light") {
+    color:                    $light;
+  } @else if($color == "dark") {
+    color:                    $dark;
+  }
+  font-weight:                $weight;
+}
+
 @mixin text-title($size) {
   font-size:                  $size * 1px;
   font-weight:                500;
@@ -327,6 +337,18 @@ button[lang|="te"], button[lang|="th"], button[lang|="ur"], button[lang|="vi"],
   @extend button.lang-dense;
   text-transform:             none;
   font-weight:                bold !important;
+}
+
+.uppercase {
+  text-transform:             uppercase;
+}
+
+.capitalize {
+  text-transform:             capitalize;
+}
+
+.lowercase {
+  text-transform:             lowercase;
 }
 
 .h1 {
