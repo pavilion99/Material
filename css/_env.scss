@@ -20,6 +20,8 @@ input[type="checkbox"].switch {
   @include shadow(2);
 
   background-color: #fff;
+
+  margin:           8px auto 8px auto;
 }
 
 .card.raised {

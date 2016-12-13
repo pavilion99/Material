@@ -219,8 +219,20 @@ body.theme-dark .card {
   @extend %text-#{$color}-#{$val};
 }
 
+@mixin text-accent-color($color, $val) {
+  @extend %text-#{$color}-a-#{$val};
+}
+
 @mixin border-color($color, $val) {
   @extend %border-#{$color}-#{$val};
+}
+
+@each $color in $accented-colors {
+  @each $val in $accented-vals {
+    .text-#{$color}-a-#{$val} {
+      @include text-accent-color($color, $val);
+    }
+  }
 }
 
 @each $color in $colors {
