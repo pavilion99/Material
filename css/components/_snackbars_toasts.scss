@@ -73,15 +73,15 @@ div.snackbar div.clearfix {
 
 @media(max-width: 959px) {
 
-  nav.nav-bottom ~ div.snackbar.ready {
-    bottom:                       12px;
+  div.snackbar.nav-bottom.ready {
+    bottom:                       56px;
   }
 
-  nav.nav-bottom ~ div.snackbar {
-    bottom:                       12px;
+  div.snackbar.nav-bottom {
+    bottom:                       56px;
   }
 
-  nav.nav-bottom ~ div.snackbar.done {
+  div.snackbar.nav-bottom.done {
     transition:                     bottom $duration-slow $acceleration-curve;
     bottom:                         -48px;
   }

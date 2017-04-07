@@ -1,4 +1,5 @@
 @import "../typography";
+@import "../motion";
 
 @-webkit-keyframes background-pulse {
   50% {
@@ -34,8 +35,8 @@ input[type="button"].raised,
 input[type="submit"].raised,
 input[type="submit"],
 a.button,
-a.button.raised
-.button.raised
+a.button.raised,
+.button.raised,
 .button {
   min-height:                         36px;
   margin:                             0;
@@ -48,7 +49,7 @@ a.button.raised
   outline:                            none;
 }
 
-button.dense
+button.dense,
 input[type="button"].dense,
 input[type="submit"].dense,
 a.button.dense,
@@ -96,15 +97,14 @@ body.theme-light {
   a.button.flat:focus,
   .button.flat:focus {
     -webkit-animation:                background-pulse 3s $standard-curve 0s infinite;
-    // background:                       rgba(153, 153, 153, 0.20) url(../img/button-backg.png);
+    animation:                        background-pulse 3s $standard-curve 0s infinite;
+    // background:                       rgba(153, 153, 153, 0.20) url(../img/button-background.png);
     // background-position:              center;
     // background-size:                  100% auto;
     // background-repeat:                no-repeat;
     // transition:                       background-size 2s;
-    background-image:                 radial-gradient(ellipse at center, rgba(153, 153, 153, 0.08) 0%, rgba(153, 153, 153, 0.08) 50%, rgba(153, 153, 153, 0.30) 50%, rgba(153, 153, 153, 0.30) 100%);
-    background-position:              center center;
     background-size:                  100% 272%;
-    background-repeat:                no-repeat;
+    background:                       radial-gradient(ellipse at center, rgba(153, 153, 153, 0.08) 0%, rgba(153, 153, 153, 0.08) 50%, rgba(153, 153, 153, 0.30) 50%, rgba(153, 153, 153, 0.30) 100%) no-repeat center center;
   }
 
   button.flat:active,

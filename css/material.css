@@ -15612,13 +15612,13 @@ div.snackbar div.clearfix {
   clear: both; }
 
 @media (max-width: 959px) {
-  nav.nav-bottom ~ div.snackbar.ready {
-    bottom: 12px; }
+  div.snackbar.nav-bottom.ready {
+    bottom: 56px; }
 
-  nav.nav-bottom ~ div.snackbar {
-    bottom: 12px; }
+  div.snackbar.nav-bottom {
+    bottom: 56px; }
 
-  nav.nav-bottom ~ div.snackbar.done {
+  div.snackbar.nav-bottom.done {
     transition: bottom 0.2s cubic-bezier(0.4, 0, 1, 1);
     bottom: -48px; } }
 .red-100 {
@@ -26702,8 +26702,8 @@ input[type="button"].raised,
 input[type="submit"].raised,
 input[type="submit"],
 a.button,
-a.button.raised
-.button.raised
+a.button.raised,
+.button.raised,
 .button {
   min-height: 36px;
   margin: 0;
@@ -26715,7 +26715,7 @@ a.button.raised
   font-weight: 500;
   outline: none; }
 
-button.dense
+button.dense,
 input[type="button"].dense,
 input[type="submit"].dense,
 a.button.dense,
@@ -26756,10 +26756,9 @@ body.theme-light input[type="submit"].flat:focus,
 body.theme-light a.button.flat:focus,
 body.theme-light .button.flat:focus {
   -webkit-animation: background-pulse 3s cubic-bezier(0.4, 0, 0.2, 1) 0s infinite;
-  background-image: radial-gradient(ellipse at center, rgba(153, 153, 153, 0.08) 0%, rgba(153, 153, 153, 0.08) 50%, rgba(153, 153, 153, 0.3) 50%, rgba(153, 153, 153, 0.3) 100%);
-  background-position: center center;
+  animation: background-pulse 3s cubic-bezier(0.4, 0, 0.2, 1) 0s infinite;
   background-size: 100% 272%;
-  background-repeat: no-repeat; }
+  background: radial-gradient(ellipse at center, rgba(153, 153, 153, 0.08) 0%, rgba(153, 153, 153, 0.08) 50%, rgba(153, 153, 153, 0.3) 50%, rgba(153, 153, 153, 0.3) 100%) no-repeat center center; }
 body.theme-light button.flat:active,
 body.theme-light input[type="button"].flat:active,
 body.theme-light input[type="submit"].flat:active,

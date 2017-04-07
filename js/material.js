@@ -5,7 +5,10 @@ function init() {
     window.snackbar_running = false;
     window.snackbar_timeout = null;
 
+    window.scrollTopOld = document.body.scrollTop;
+
     initProgressBars();
+    initFloatingActionButtons();
 
     fadeImages();
     hideLaunchScreen();
@@ -187,6 +190,57 @@ function initProgressBars() {
     );
 }
 
+function initFloatingActionButtons() {
+    $("button.fab").each(
+        function (element, index) {
+            var top = parseInt(element.dataset["y"]);
+            var left = parseInt(element.dataset["x"]);
+
+            if (top < 16) {
+                if (element.id != null) {
+                    console.warn("Your floating action button with id " + element.id  + " does not conform to material design guidelines. Floating action buttons should be at least 16px from all screen edges. Fix your floating action button's 'data-y' attribute to resolve this.");
+                } else {
+                    console.warn("One of your floating action buttons does not conform to material design guidelines. Floating action buttons should be at least 16px from all screen edges. Fix your floating action button's 'data-y' attribute to resolve this.");
+                }
+            }
+
+            if (left < 16) {
+                if (element.id != null) {
+                    console.warn("Your floating action button with id " + element.id  + " does not conform to material design guidelines. Floating action buttons should be at least 16px from all screen edges. Fix your floating action button's 'data-x' attribute to resolve this.");
+                } else {
+                    console.warn("One of your floating action buttons does not conform to material design guidelines. Floating action buttons should be at least 16px from all screen edges. Fix your floating action button's 'data-x' attribute to resolve this.");
+                }
+            }
+
+            element.style.top = top + "px";
+            element.style.left = left + "px";
+
+            var icon = element.dataset["icon"];
+            var iconSpan = document.createElement("SPAN");
+            iconSpan.classList.add("material-icons");
+            iconSpan.textContent = icon;
+
+            var options = element.children;
+            for (var i = 0; i < options; i++) {
+                var el = options[i];
+
+                var optionIconName = el.dataset["icon"];
+                var optionIcon = document.createElement("SPAN");
+                optionIcon.classList.add("material-icons");
+                optionIcon.textContent = optionIconName;
+
+                el.appendChild(optionIcon);
+            }
+
+            $(element).prepend(iconSpan);
+        }
+    );
+}
+
+function floatingActionButtonColor() {
+    // TODO: fade FAB color on click
+}
+
 function textFieldChange() {
     var label = this.parentElement.getElementsByClassName("text-field-label")[0];
     var hr = this.parentElement.getElementsByClassName("text-field-separator")[0];
@@ -261,6 +315,10 @@ function snackbar_runner() {
 
         document.body.appendChild(bar);
 
+        if ($(document.body).find("nav.nav-bottom").length > 0) {
+            bar.classList.add("nav-bottom");
+        }
+
         window.setTimeout(function() {
             bar.classList.remove("ready");
         }, 10);
@@ -322,5 +380,30 @@ function progress_set(id, value) {
     progress_update(id);
 }
 
+function processScroll() {
+    if (document.body.scrollTop > window.scrollTopOld) {
+        // Scrolling down
+
+        $("nav.nav-bottom.scrollfade").each(
+            function(index, element) {
+                element.classList.add("offscreen");
+            }
+        );
+
+        window.scrollTopOld = document.body.scrollTop;
+    } else if (document.body.scrollTop < window.scrollTopOld) {
+        // Scrolling up
+
+        $("nav.nav-bottom.scrollfade").each(
+            function (index, element) {
+                element.classList.remove("offscreen");
+            }
+        );
+
+        window.scrollTopOld = document.body.scrollTop;
+    }
+}
+
 document.addEventListener("DOMContentLoaded", preInit);
 window.addEventListener("load", init);
+window.addEventListener("scroll", processScroll);
