@@ -1,9 +1,16 @@
 function init() {
+	window.material = {};
+	window.material.temp = {};
+	window.material.fab = {};
+	window.material.fab.int = {};
+	window.material.fab.val = {};
+	window.material.curFab = 0;
+
     initTextFields();
 
-    window.snackbars = [];
-    window.snackbar_running = false;
-    window.snackbar_timeout = null;
+    window.material.snackbars = [];
+    window.material.snackbar_running = false;
+    window.material.snackbar_timeout = null;
 
     window.scrollTopOld = document.body.scrollTop;
 
@@ -192,12 +199,12 @@ function initProgressBars() {
 
 function initFloatingActionButtons() {
     $("button.fab").each(
-        function (element, index) {
+        function (index, element) {
             var top = parseInt(element.dataset["y"]);
             var left = parseInt(element.dataset["x"]);
 
             if (top < 16) {
-                if (element.id != null) {
+                if (element.id !== null) {
                     console.warn("Your floating action button with id " + element.id  + " does not conform to material design guidelines. Floating action buttons should be at least 16px from all screen edges. Fix your floating action button's 'data-y' attribute to resolve this.");
                 } else {
                     console.warn("One of your floating action buttons does not conform to material design guidelines. Floating action buttons should be at least 16px from all screen edges. Fix your floating action button's 'data-y' attribute to resolve this.");
@@ -205,7 +212,7 @@ function initFloatingActionButtons() {
             }
 
             if (left < 16) {
-                if (element.id != null) {
+                if (element.id !== null) {
                     console.warn("Your floating action button with id " + element.id  + " does not conform to material design guidelines. Floating action buttons should be at least 16px from all screen edges. Fix your floating action button's 'data-x' attribute to resolve this.");
                 } else {
                     console.warn("One of your floating action buttons does not conform to material design guidelines. Floating action buttons should be at least 16px from all screen edges. Fix your floating action button's 'data-x' attribute to resolve this.");
@@ -220,7 +227,7 @@ function initFloatingActionButtons() {
             iconSpan.classList.add("material-icons");
             iconSpan.textContent = icon;
 
-            var options = element.children;
+            /*var options = element.children;
             for (var i = 0; i < options; i++) {
                 var el = options[i];
 
@@ -230,15 +237,180 @@ function initFloatingActionButtons() {
                 optionIcon.textContent = optionIconName;
 
                 el.appendChild(optionIcon);
+            }*/
+
+            element.appendChild(iconSpan);
+
+            var id = element.id;
+            var options = $("[data-fab=" + id + "]");
+
+            for (var i = 0; i < options.length; i++) {
+            	var el = options[i];
+
+
+			}
+
+            if (element.classList.contains("speed-dial")) {
+				element.addEventListener("mousedown", floatingActionButtonSpeedDialToggle, true);
             }
 
-            $(element).prepend(iconSpan);
+            element.style.transform = "scale(1)";
+
+            if($(document.body).find("div.launch-screen").length > 0) {
+            	element.classList.add("delay");
+			}
+
+			element.addEventListener("mouseover", floatingActionButtonColorApply, true);
+			element.addEventListener("focus", floatingActionButtonColorApply, true);
+			element.addEventListener("mouseout", floatingActionButtonColorRemove, true);
+			element.addEventListener("blur", floatingActionButtonColorRemove, true);
+
+            window.material.curFab++;
+            element.dataset.materialId = window.material.curFab;
         }
     );
 }
 
-function floatingActionButtonColor() {
+function floatingActionButtonSpeedDialToggle(e) {
+	//TODO: Make the speed-dial function work properly
+
+	var el = e.currentTarget;
+	var icon = el.children[0];
+
+	if (el.classList.contains("selected")) {
+		window.setTimeout(
+			function() {
+				icon.style.opacity = "0.4";
+				icon.style.transform = "rotate(-45deg)";
+
+				window.setTimeout(
+					function() {
+						icon.style.transition = "transform 0s, rotate 0s";
+
+						window.setTimeout(
+							function() {
+								icon.style.transform = "rotate(45deg)";
+								icon.textContent = el.dataset["icon"];
+
+								window.setTimeout(
+									function() {
+										el.classList.remove("selected");
+										icon.style.transition = "transform 0.15s, rotate 0.15s";
+
+										icon.style.transform = "unset";
+										icon.style.opacity = "unset";
+									},
+									20
+								);
+							},
+							10
+						);
+					},
+					100
+				);
+			}
+			,10
+		);
+	} else {
+		icon.classList.add("selected");
+
+		window.setTimeout(
+			function() {
+				icon.textContent = "close";
+				icon.style.transition = "transform 0s, rotate 0s";
+
+				window.setTimeout(
+					function() {
+						icon.style.transform = "rotate(-45deg)";
+
+						window.setTimeout(
+							function() {
+								icon.style.transition = "transform 0.15s, opacity 0.15s";
+
+								window.setTimeout(
+									function() {
+										icon.style.opacity = "1.0";
+										icon.style.transform = "rotate(0deg)";
+									},
+									20
+								);
+							},
+							10
+						);
+					},
+					20
+				);
+			},
+			150
+		);
+	}
+
+	el.classList.toggle("selected");
+}
+
+function floatingActionButtonColorApply(e) {
     // TODO: fade FAB color on click
+	var el = e.currentTarget;
+	var id = el.dataset.materialId;
+
+	if (!(id in window.material.fab.val)) {
+		window.material.fab.val[id] = 0;
+	}
+
+	if (id in window.material.fab.int && id !== null) {
+		window.clearInterval(window.material.fab.int[id]);
+	}
+
+	var r = 10;
+
+	window.material.fab.int[id] = window.setInterval(
+		function() {
+			if (window.material.fab.val[id] >= 150) {
+				window.clearInterval(window.material.fab.int[id]);
+				window.material.fab.int[id] = null;
+				return;
+			}
+
+			var k = 0.001 * window.material.fab.val[id];
+
+			el.style.backgroundImage = "radial-gradient(circle at center, rgba(0, 0, 0, " + k + "), rgba(0, 0, 0, " + k + ")";
+
+
+			window.material.fab.val[id] += r;
+		}, r
+	);
+}
+
+function floatingActionButtonColorRemove(e) {
+	var el = e.currentTarget;
+	var id = el.dataset.materialId;
+
+	if (!(id in window.material.fab.val)) {
+		window.material.fab.val[id] = 0;
+	}
+
+	if (id in window.material.fab.int && id !== null) {
+		window.clearInterval(window.material.fab.int[id]);
+	}
+
+	var r = 10;
+
+	window.material.fab.int[id] = window.setInterval(
+		function() {
+			if (window.material.fab.val[id] <= 0) {
+				window.clearInterval(window.material.fab.int[id]);
+				window.material.fab.int[id] = null;
+				return;
+			}
+
+			var k = 0.001 * window.material.fab.val[id];
+
+			el.style.backgroundImage = "radial-gradient(circle at center, rgba(0, 0, 0, " + k + "), rgba(0, 0, 0, " + k + ")";
+
+
+			window.material.fab.val[id] -= r;
+		}, r
+	);
 }
 
 function textFieldChange() {
@@ -249,7 +421,7 @@ function textFieldChange() {
             label.classList.add("active");
     } else {
         var isError = false;
-        if (typeof window[this.dataset["errorTest"]] == "function")
+        if (typeof window[this.dataset["errorTest"]] === "function")
             isError = window[this.dataset["errorTest"]](this.value);
 
         var errorColor = "red";
@@ -266,7 +438,7 @@ function textFieldChange() {
             label.classList.remove(clazz);
         }
 
-        if (this.value == "") {
+        if (this.value === "") {
             if (label.classList.contains("active"))
                 label.classList.remove("active");
         } else {
@@ -282,18 +454,18 @@ function errorCheck(val) {
 }
 
 function snackbar_runner() {
-    if (window.snackbars.length != 0) {
+    if (window.material.snackbars.length !== 0) {
         var bar = document.createElement("DIV");
         bar.classList.add("snackbar");
         bar.classList.add("ready");
 
         var t = document.createElement("P");
         t.classList.add("snackbar-text");
-        t.textContent = window.snackbars[0].text;
+        t.textContent = window.material.snackbars[0].text;
 
         bar.appendChild(t);
 
-        if (window.snackbars[0].button) {
+        if (window.material.snackbars[0].button) {
             var sep = document.createElement("SPAN");
             sep.classList.add("separator");
             bar.appendChild(sep);
@@ -301,9 +473,9 @@ function snackbar_runner() {
             var action = document.createElement("P");
             action.classList.add("snackbar-text");
             action.classList.add("action");
-            action.classList.add("text-" + window.snackbars[0].button["color"]);
-            action.addEventListener("click", window.snackbars[0].button["callback"]);
-            action.textContent = window.snackbars[0].button["text"];
+            action.classList.add("text-" + window.material.snackbars[0].button["color"]);
+            action.addEventListener("click", window.material.snackbars[0].button["callback"]);
+            action.textContent = window.material.snackbars[0].button["text"];
 
             bar.appendChild(action);
 
@@ -330,26 +502,26 @@ function snackbar_runner() {
             bar.parentNode.removeChild(bar);
         }, 200 + 5000 + 200);
 
-        window.snackbars.shift();
+        window.material.snackbars.shift();
     } else {
-        window.snackbar_running = false;
-        window.clearInterval(window.snackbar_timeout);
+        window.material.snackbar_running = false;
+        window.clearInterval(window.material.snackbar_timeout);
     }
 }
 
 function snackbar(text, button) {
-    window.snackbars.push({"text": text, "button": button});
+    window.material.snackbars.push({"text": text, "button": button});
 
-    if (!window.snackbar_running) {
-        window.snackbar_running = true;
+    if (!window.material.snackbar_running) {
+        window.material.snackbar_running = true;
 
         snackbar_runner();
-        window.snackbar_timeout = window.setInterval(function() {
+        window.material.snackbar_timeout = window.setInterval(function() {
             snackbar_runner();
         }, 5600);
     }
 
-    return window.snackbars;
+    return window.material.snackbars;
 }
 
 function progress_update(id) {

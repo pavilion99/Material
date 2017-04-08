@@ -2048,17 +2048,23 @@ input[type="checkbox"].switch {
   -o-box-shadow: 0 2px 64px rgba(0, 0, 0, 0.38);
   box-shadow: 0 2px 64px rgba(0, 0, 0, 0.38); }
 
-.fab.pressed {
+button.fab.selected, button.fab:active {
   -moz-box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38);
   -webkit-box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38);
   -o-box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38);
   box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38); }
 
-.fab {
+button.fab {
   -moz-box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
   -webkit-box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
   -o-box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
   box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38); }
+
+button.fab-option {
+  -moz-box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38);
+  -webkit-box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38);
+  -o-box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38); }
 
 .refresh {
   -moz-box-shadow: 0 2px 12px rgba(0, 0, 0, 0.38);
@@ -2078,7 +2084,7 @@ nav.app-bar {
   -o-box-shadow: 0 2px 64px rgba(0, 0, 0, 0.38);
   box-shadow: 0 2px 64px rgba(0, 0, 0, 0.38); }
 
-.snackbar {
+div.snackbar {
   -moz-box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
   -webkit-box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
   -o-box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
@@ -15506,17 +15512,23 @@ input[type="checkbox"].switch {
   -o-box-shadow: 0 2px 64px rgba(0, 0, 0, 0.38);
   box-shadow: 0 2px 64px rgba(0, 0, 0, 0.38); }
 
-.fab.pressed {
+button.fab.selected, button.fab:active {
   -moz-box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38);
   -webkit-box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38);
   -o-box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38);
   box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38); }
 
-.fab {
+button.fab {
   -moz-box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
   -webkit-box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
   -o-box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
   box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38); }
+
+button.fab-option {
+  -moz-box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38);
+  -webkit-box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38);
+  -o-box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 2px 48px rgba(0, 0, 0, 0.38); }
 
 .refresh {
   -moz-box-shadow: 0 2px 12px rgba(0, 0, 0, 0.38);
@@ -15536,7 +15548,7 @@ nav.app-bar {
   -o-box-shadow: 0 2px 64px rgba(0, 0, 0, 0.38);
   box-shadow: 0 2px 64px rgba(0, 0, 0, 0.38); }
 
-.snackbar {
+div.snackbar {
   -moz-box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
   -webkit-box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
   -o-box-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
@@ -26810,6 +26822,54 @@ body.theme-dark .button.flat.disabled {
   width: 25%;
   box-sizing: border-box; }
 
+button.fab {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0;
+  height: 56px;
+  width: 56px;
+  transition: transform 0.15s, box-shadow 0.15s, height 0.15s, width 0.15s;
+  border-radius: 56px;
+  z-index: 6;
+  min-height: unset;
+  line-height: unset;
+  border-width: 0;
+  transform: scale(0); }
+  button.fab span.material-icons {
+    line-height: 35px;
+    transition: transform 0.15s, opacity 0.15s;
+    transform: rotate(0deg);
+    opacity: 1.0; }
+
+button.fab.delay {
+  transition: transform 0.15s linear 0.15s, box-shadow 0.15s, height 0.15s, width 0.15s; }
+
+button.fab.selected {
+  z-index: 12; }
+  button.fab.selected span.material-icons {
+    opacity: 0.4;
+    transform: rotate(45deg);
+    transition-delay: 0.15s; }
+
+button.fab.mini {
+  height: 40px;
+  width: 40px; }
+
+button.fab-option {
+  display: none;
+  height: 40px;
+  width: 40px;
+  border: none;
+  border-radius: 40px;
+  position: fixed;
+  z-index: 12;
+  background-color: #fff; }
+
+@media (max-width: 460px) {
+  button.fab {
+    height: 40px;
+    width: 40px; } }
 @keyframes launch-image-in {
   0% {
     transform: scale(0.95) translate(-50%, -50%);
