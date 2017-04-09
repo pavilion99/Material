@@ -1,0 +1,98 @@
+@import "../var";
+@import "../motion";
+
+div.expansion-panel {
+  width: 100%;
+  padding: 0 24px 0 24px;
+  height: 48px;
+
+  box-sizing: border-box;
+
+  background-color: #fff;
+
+  overflow: hidden;
+  transition: transform $duration-fast, height $duration-fast, padding $duration-fast, margin $duration-fast;
+
+  div.expand-icon {
+    color: rgba(0, 0, 0, 0.38);
+    transform: rotate(0deg);
+    transition: transform $duration-fast, color $duration-fast;
+    display: inline-block;
+    float: right;
+
+    span.material-icons {
+      line-height: 48px;
+    }
+  }
+
+  div.expand-icon:hover, div.expand-icon:focus {
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+  div.content-container {
+    width: calc(100% - 42px);
+
+    div.title {
+      margin-right: 16px;
+      font-size: 15px;
+      line-height: 48px;
+      color: rgba(0, 0, 0, 0.87);
+    }
+
+    div.title-multiline {
+      margin-right: 16px;
+
+      span.main {
+        font-size: 15px;
+        color: rgba(0, 0, 0, 0.87);
+      }
+
+      span.subtitle {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.54);
+      }
+    }
+
+    div.summary {
+      font-size: 15px;
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+    div.summary.primary {
+      margin-right: 16px;
+    }
+
+    div.summary.secondary {
+
+    }
+  }
+
+  div.actions {
+    button.flat {
+
+    }
+  }
+}
+
+div.expansion-panel.open {
+  height: auto;
+
+  padding: 20px 24px 16px 24px;
+  margin: 16px 0 16px 0;
+
+  div.title {
+    line-height: 24px;
+  }
+
+  div.expand-icon {
+    transform: rotate(90deg);
+  }
+}
+
+div.expansion-panel:focus {
+  background-color: $grey-200;
+}
+
+div.expansion-panel ~ div.expansion-panel {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}

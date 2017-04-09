@@ -1,3 +1,5 @@
+@import "../motion";
+
 @keyframes launch-image-in {
   0% {
     transform:                        scale(0.95) translate(-50%, -50%);

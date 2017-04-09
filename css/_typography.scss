@@ -364,8 +364,7 @@ button[lang|="te"], button[lang|="th"], button[lang|="ur"], button[lang|="vi"],
 }
 
 .material-icons {
-  /*noinspection CssNoGenericFontName*/
-  font-family: 'Material Icons';
+  font-family: 'Material Icons', sans-serif;
   font-weight: normal;
   font-style: normal;
   font-size: 24px;

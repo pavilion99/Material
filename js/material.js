@@ -245,7 +245,9 @@ function initFloatingActionButtons() {
             var options = $("[data-fab=" + id + "]");
 
             for (var i = 0; i < options.length; i++) {
-            	var el = options[i];
+                // TODO: Animate these damn options
+                //noinspection JSUnusedLocalSymbols
+                var el = options[i];
 
 
 			}
@@ -556,7 +558,7 @@ function processScroll() {
     if (document.body.scrollTop > window.scrollTopOld) {
         // Scrolling down
 
-        $("nav.nav-bottom.scrollfade").each(
+        $("nav.nav-bottom.scroll-fade").each(
             function(index, element) {
                 element.classList.add("offscreen");
             }
@@ -566,7 +568,7 @@ function processScroll() {
     } else if (document.body.scrollTop < window.scrollTopOld) {
         // Scrolling up
 
-        $("nav.nav-bottom.scrollfade").each(
+        $("nav.nav-bottom.scroll-fade").each(
             function (index, element) {
                 element.classList.remove("offscreen");
             }
