@@ -1,17 +1,17 @@
 @import "../var";
 @import "../motion";
+@import "../env";
 
 div.expansion-panel {
-  width: 100%;
-  padding: 0 24px 0 24px;
-  height: 48px;
+  padding: 0;
+  min-height: 48px;
+  max-height: 48px;
 
   box-sizing: border-box;
 
   background-color: #fff;
 
-  overflow: hidden;
-  transition: transform $duration-fast, height $duration-fast, padding $duration-fast, margin $duration-fast;
+  transition: padding $duration-fast, margin $duration-fast;
 
   div.expand-icon {
     color: rgba(0, 0, 0, 0.38);
@@ -19,9 +19,12 @@ div.expansion-panel {
     transition: transform $duration-fast, color $duration-fast;
     display: inline-block;
     float: right;
+    margin-right: 24px;
 
     span.material-icons {
-      line-height: 48px;
+      margin-top: 12px;
+      height: 24px;
+      cursor: pointer;
     }
   }
 
@@ -29,17 +32,27 @@ div.expansion-panel {
     color: rgba(0, 0, 0, 0.54);
   }
 
-  div.content-container {
-    width: calc(100% - 42px);
+  div.summary-container {
+    width: calc(100% - 40px - 24px - 24px);
+    height: 48px;
+
+    padding-left: 24px;
+
+    display: inline-block;
+    float: left;
 
     div.title {
+      height: 48px;
       margin-right: 16px;
       font-size: 15px;
       line-height: 48px;
       color: rgba(0, 0, 0, 0.87);
+      display: inline-block;
+      float: left;
+      width: calc((100% - 42px) * 0.26);
     }
 
-    div.title-multiline {
+    div.title.multiline {
       margin-right: 16px;
 
       span.main {
@@ -54,8 +67,13 @@ div.expansion-panel {
     }
 
     div.summary {
+      height: 48px;
       font-size: 15px;
       color: rgba(0, 0, 0, 0.54);
+      display: inline-block;
+      float: left;
+      line-height: 48px;
+      width: calc((100% - 42px) * 0.37);
     }
 
     div.summary.primary {
@@ -67,17 +85,50 @@ div.expansion-panel {
     }
   }
 
-  div.actions {
-    button.flat {
+  div.content-container {
+    width: calc(100% - 40px - 24px - 24px);
+    padding-left: 24px;
+    max-height: 0;
+    display: none;
 
+    overflow: hidden;
+
+    div.content-left, div.content-center, div.content-right {
+      height: 0;
+      display: inline-block;
+    }
+
+    div.content-left {
+      width: calc((100% - 42px) * 0.26);
+      margin-right: 16px;
+    }
+
+    div.content-center {
+      width: calc((100% - 42px) * 0.37);
+      margin-right: 16px;
+    }
+
+    div.content-right {
+      width: calc((100% - 42px) * 0.37);
+    }
+  }
+
+  div.actions {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    display: none;
+    width: 100%;
+
+    height: 0;
+
+    button {
+      float: right;
     }
   }
 }
 
 div.expansion-panel.open {
-  height: auto;
+  max-height: 100vh;
 
-  padding: 20px 24px 16px 24px;
   margin: 16px 0 16px 0;
 
   div.title {
@@ -85,14 +136,73 @@ div.expansion-panel.open {
   }
 
   div.expand-icon {
-    transform: rotate(90deg);
+    transform: rotate(180deg);
+  }
+
+  div.content-container {
+    max-height: 100vh;
+  }
+
+  div.actions, div.content-container {
+    display: inline-block;
+  }
+
+  div.actions {
+    height: auto;
   }
 }
 
 div.expansion-panel:focus {
   background-color: $grey-200;
+  outline: none;
 }
 
 div.expansion-panel ~ div.expansion-panel {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+div.card div.expansion-panel {
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+div.card ~ div.expansion-panel {
+  margin-top: -10px;
+}
+
+div.card ~ div.expansion-panel.open {
+  margin-top: 8px;
+}
+
+div.card ~ div.expansion-panel {
+  position: relative;
+}
+
+div.card ~ div.expansion-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.38);
+}
+
+div.expansion-panel ~ div.card {
+  box-shadow: none;
+  margin-top: 0;
+  position: relative;
+  z-index: auto;
+}
+
+div.expansion-panel ~ div.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  @include shadow(2);
 }

@@ -32,3 +32,8 @@ section.content {
 input {
   border:             none;
 }
+
+span.clearfix {
+  clear: both;
+  display: block;
+}

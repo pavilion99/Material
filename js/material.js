@@ -7,6 +7,7 @@ function init() {
 	window.material.curFab = 0;
 
     initTextFields();
+    initExpansionPanels();
 
     window.material.snackbars = [];
     window.material.snackbar_running = false;
@@ -64,6 +65,7 @@ function initTextFields() {
 
             var input = document.createElement("input");
             input.setAttribute("type", "text");
+            input.setAttribute("id", element.id);
             input.addEventListener("focus", textFieldChange);
             input.addEventListener("blur", textFieldChange);
 
@@ -576,6 +578,55 @@ function processScroll() {
 
         window.scrollTopOld = document.body.scrollTop;
     }
+}
+
+function initExpansionPanels() {
+	var panels = $("div.expansion-panel");
+
+	for (var i = 0; i < panels.length; i++) {
+		var el = panels[i];
+
+		var title = $(el).find("div.title");
+		var primary = $(el).find("div.summary.primary");
+		var secondary = $(el).find("div.summary.secondary");
+
+		if ($(el).find("div.expand-icon").length === 0) {
+			var expand = document.createElement("DIV");
+			expand.classList.add("expand-icon");
+
+			var icon = document.createElement("SPAN");
+			icon.classList.add("material-icons");
+			icon.textContent = "expand_more";
+
+			expand.appendChild(icon);
+
+			el.insertBefore(expand, $(el).find("div.content-container")[0]);
+		}
+
+		var extend = $(el).find("div.expand-icon")[0];
+		extend.addEventListener("mousedown",
+			function() {
+				$(this).closest("div.expansion-panel")[0].classList.toggle("open");
+			}
+		);
+
+		var actions = $(el).find("div.actions")[0];
+		var clearfix = document.createElement("SPAN");
+		clearfix.classList.add("clearfix");
+
+		var content = $(el).find("div.content-container")[0].appendChild(clearfix.cloneNode());
+
+		var close = $(actions).find("button[data-action='close']");
+		if (close.length > 0) {
+			close[0].addEventListener("mousedown",
+				function() {
+					$(this).closest("div.expansion-panel")[0].classList.remove("open");
+				}
+			);
+		}
+
+		actions.appendChild(clearfix);
+	}
 }
 
 document.addEventListener("DOMContentLoaded", preInit);

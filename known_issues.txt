@@ -1,0 +1,1 @@
+Shadows "jump" when expanding expansion panels placed outside of cards.
