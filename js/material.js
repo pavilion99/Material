@@ -64,8 +64,9 @@ function initTextFields() {
             label.textContent = element.getAttribute("placeholder");
 
             var input = document.createElement("input");
-            input.setAttribute("type", "text");
-            input.setAttribute("id", element.id);
+            for (var i = 0; i < element.attributes.length; i++) {
+            	input.setAttribute(element.attributes[i].nodeName, element.attributes[i].nodeValue);
+			}
             input.addEventListener("focus", textFieldChange);
             input.addEventListener("blur", textFieldChange);
 
@@ -627,6 +628,20 @@ function initExpansionPanels() {
 
 		actions.appendChild(clearfix);
 	}
+}
+
+function openPicker(element) {
+	var top = $(element).offset().top;
+	var left = $(element).offset().left;
+
+	var picker = document.createElement("DIV");
+	picker.classList.add("picker");
+	picker.classList.add(element.dataset.type);
+
+	picker.style.top = top + "px";
+	picker.style.left = left + "px";
+
+
 }
 
 document.addEventListener("DOMContentLoaded", preInit);

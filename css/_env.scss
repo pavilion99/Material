@@ -74,6 +74,11 @@ nav.nav-bottom {
   @include shadow(8);
 }
 
+div.picker {
+  @include shadow(24);
+  z-index: 24;
+}
+
 div.card, section.card, article.card {
   @extend .card;
   // TODO: finish this declaration to include all elements that might need an ambient shadow

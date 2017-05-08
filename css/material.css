@@ -2103,6 +2103,13 @@ nav.nav-bottom {
   -o-box-shadow: 0 2px 32px rgba(0, 0, 0, 0.38);
   box-shadow: 0 2px 32px rgba(0, 0, 0, 0.38); }
 
+div.picker {
+  -moz-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+  -webkit-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+  -o-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+  z-index: 24; }
+
 @keyframes image-fade {
   0% {
     -webkit-filter: contrast(0%) opacity(0%) saturate(20%); }
@@ -15570,6 +15577,13 @@ nav.nav-bottom {
   -o-box-shadow: 0 2px 32px rgba(0, 0, 0, 0.38);
   box-shadow: 0 2px 32px rgba(0, 0, 0, 0.38); }
 
+div.picker {
+  -moz-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+  -webkit-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+  -o-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+  z-index: 24; }
+
 div.snackbar {
   height: 48px;
   min-width: 288px;
@@ -28977,6 +28991,13 @@ nav.nav-bottom {
   -o-box-shadow: 0 2px 32px rgba(0, 0, 0, 0.38);
   box-shadow: 0 2px 32px rgba(0, 0, 0, 0.38); }
 
+div.picker {
+  -moz-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+  -webkit-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+  -o-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+  z-index: 24; }
+
 div.expansion-panel {
   padding: 0;
   min-height: 48px;
@@ -29117,6 +29138,10 @@ div.expansion-panel ~ div.card::before {
   -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
   -o-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38); }
+
+div.picker.datetime-local {
+  position: absolute;
+  width: 340px; }
 
 @keyframes launch-image-in {
   0% {
