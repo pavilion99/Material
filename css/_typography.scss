@@ -83,6 +83,8 @@ $text-button-line-height:     32px;
     color:                    $light;
   } @else if($color == "dark") {
     color:                    $dark;
+  } @else {
+    color:                    $color;
   }
 }
 
@@ -92,6 +94,8 @@ $text-button-line-height:     32px;
     color:                    $light;
   } @else if($color == "dark") {
     color:                    $dark;
+  } @else {
+    color:                    $color;
   }
   font-weight:                $weight;
 }

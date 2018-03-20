@@ -1,48 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<script src="js/jquery-3.1.0.min.js"></script>
-		<script src="js/material.js"></script>
-		<link rel="stylesheet" href="css/material.css" />
-		<title>Title</title>
-	</head>
-	<body class="theme-light" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/material.js"></script>
+        <link rel="stylesheet" href="css/material.css" />
+        <title>Title</title>
+    </head>
+    <body class="theme-light" lang="en">
         <nav class="app-bar teal">
-	        <button class="material-icons nav-icon">menu</button>
-	        <span class="app-title">Material Design</span>
+            <button class="material-icons nav-icon">menu</button>
+            <span class="app-title">Material Design</span>
         </nav>
-		<section class="content margin-app-bar">
-			<div class="card">
-				<input type="datetime-local">
+        <div class="launch-screen">
+        </div>
+        <nav class="nav-bottom text-dark teal text-active-orange-300 scroll-fade">
+            <div class="nav-bottom-wrapper">
+                <a class="nav-link" href="#" onclick="this.classList.toggle('active')">
+                    <span class="material-icons nav-link-icon">android</span>
+                    <span class="nav-link-text">Android</span>
+                </a>
+                <a class="nav-link" href="#" onclick="this.classList.toggle('active')">
+                    <span class="material-icons nav-link-icon">class</span>
+                    <span class="nav-link-text">Class</span>
+                </a>
+                <a class="nav-link" href="#" onclick="this.classList.toggle('active')">
+                    <span class="material-icons nav-link-icon">explore</span>
+                    <span class="nav-link-text">Explore</span>
+                </a>
+                <a class="nav-link" href="#" onclick="this.classList.toggle('active')">
+                    <span class="material-icons nav-link-icon">fingerprint</span>
+                    <span class="nav-link-text">Fingerprint</span>
+                </a>
+                <a class="nav-link" href="#" onclick="this.classList.toggle('active')">
+                    <span class="material-icons nav-link-icon">theaters</span>
+                    <span class="nav-link-text">Theaters</span>
+                </a>
+            </div>
+        </nav>
+        <!-- <section class="content margin-app-bar margin-nav-left"> -->
+        <section class="content margin-app-bar margin-nav-left">
+            <div class="card h-2">
 
-				<div class="picker-container" data-type="datetime-local">
-					<input type="text" data-year="2017" data-month="4" data-day="9" data-hour="21" data-minute="49" disabled="disabled" value="04/09/2017 9:49" onclick="openPicker(this);">
-				</div>
+            </div>
+            <div class="expansion-panel">
+                <div class="summary-container">
+                    <div class="title">Your Name</div>
+                    <div class="summary primary" id="name"></div>
+                </div>
 
-			</div>
-		</section>
-		<div class="picker datetime-local" style="top: 154px; left: 21px; width: 340px;">
-			<div class="picker-header teal" style="padding-left: 24px; padding-top: 20px; padding-right: 24px; padding-bottom: 20px;">
-				<h4 style="margin: 0; margin-bottom: 16px;">2017</h4>
-				<h1 style="margin: 0;">Sun, April 9</h1>
-			</div>
-			<div class="picker-content" style="background-color: #fff; padding-left: 24px; padding-right: 24px;">
-				<div class="month-scroll" data-month="4" data-year="2017">
-					<span class="scroll-left material-icons">
-						keyboard_arrow_left
-					</span>
-					<span class="month-display">
-						April 2017
-					</span>
-					<span class="scroll-right material-icons">
-						keyboard_arrow_right
-					</span>
-				</div>
-			</div>
-			<div class="calendar-content">
+                <div class="content-container">
+                    <div class="content-left">
 
-			</div>
-		</div>
-	</body>
+                    </div>
+                    <div class="content-center">
+                        <input type="text" placeholder="Your name" id="name-field">
+                    </div>
+                    <div class="content-right">
+                        Enter your name here.
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="flat primary" data-action="close" onmousedown="document.getElementById('name').textContent = document.getElementById('name-field').value;">
+                        Done
+                    </button>
+                </div>
+            </div>
+            <div class="card h-2">
+
+            </div>
+            <div class="card">
+                <table class="data-table">
+                    <tr>
+                        <th>Col 1</th>
+                        <th>Col 2</th>
+                        <th>Col 3</th>
+                        <th>Col 4</th>
+                    </tr>
+                    <tr>
+                        <td>data</td>
+                        <td>data</td>
+                        <td>data</td>
+                        <td>data</td>
+                    </tr>
+                    <tr>
+                        <td>data</td>
+                        <td>data</td>
+                        <td>data</td>
+                        <td>data</td>
+                    </tr>
+                    <tr>
+                        <td>data</td>
+                        <td>data</td>
+                        <td>data</td>
+                        <td>data</td>
+                    </tr>
+                    <tr>
+                        <td>data</td>
+                        <td>data</td>
+                        <td>data</td>
+                        <td>data</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- <div class="card">
+                <h5>Content</h5>
+            </div>
+            <div class="expansion-panel">
+                <div class="summary-container">
+                    <div class="title">Your Name</div>
+                    <div class="summary primary" id="name"></div>
+                </div>
+
+                <div class="content-container">
+                    <div class="content-left">
+
+                    </div>
+                    <div class="content-center">
+                        <input type="text" placeholder="Your name" id="name-field">
+                    </div>
+                    <div class="content-right">
+                        Enter your name here.
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="flat primary" data-action="close" onmousedown="document.getElementById('name').textContent = document.getElementById('name-field').value;">
+                        Done
+                    </button>
+                </div>
+            </div>
+            <div class="card">
+                <h5>Content</h5>
+            </div> -->
+            <!-- <div class="panel-3">
+
+            </div>
+            <div class="panel-5">
+                <div class="card password-card">
+                    <p class="card-title">Site Name</p>
+                    <p class="card-subtitle"></p>
+                    <img class="card-avatar" />
+                    <div class="action-area">
+                        <button class="text-teal-a-700 flat">Copy</button>
+                        <button class="flat">Delete</button>
+                    </div>
+                </div>
+                <div class="card password-card">
+
+                </div>
+                <div class="card password-card">
+
+                </div>
+                <div class="card password-card">
+
+                </div>
+                <div class="card password-card">
+
+                </div>
+            </div>
+            <div class="panel-4">
+                <div class="card account-status">
+
+                </div>
+            </div> -->
+            <!-- <progress id="test1" value="60" max="100"></progress>
+            <br />
+            <progress id="test2"></progress>
+            <br />
+            <progress data-type="circular" id="test3" value="60" max="100"></progress>
+            <br />
+            <progress data-type="circular" id="test4"></progress> -->
+        </section>
+
+        <!-- <button id="fab1" class="fab speed-dial teal" data-x="300" data-y="300" data-icon="done"></button>
+        <button class="fab-option" data-icon="email" data-fab="fab1" data-order="1"></button>
+        <button class="fab-option" data-icon="content copy" data-fab="fab1" data-order="2"></button>
+        <button class="fab-option" data-icon="announcement" data-fab="fab1" data-order="3"></button> -->
+
+        <!-- <div class="dialog-screen-shade" id="shade-1">
+
+        </div> -->
+        <!-- <div class="dialog-alert">
+
+        </div> -->
+        <!--<div class="snackbar">
+            <p class="snackbar-text">Test snackbar</p>
+            <span class="separator"></span>
+            <p class="snackbar-text action">OKAY</p>
+        </div>-->
+    </body>
 </html>

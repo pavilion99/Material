@@ -1,0 +1,67 @@
+@import "../typography";
+
+table.data-table {
+  width: 100%;
+  padding: 0;
+  @include font(13, "dark", 400);
+  border-collapse: collapse;
+
+  thead, th {
+    @include font(12, $dark-secondary, 400);
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .sort-icon {
+      display: none;
+      height: 16px;
+    }
+  }
+
+  th {
+    text-align: left;
+  }
+
+  th, td {
+    padding-right: 56px;
+    padding-left: 24px;
+  }
+
+  td ~ td {
+    padding-left: 0;
+  }
+
+  th ~ th {
+    padding-left: 0;
+  }
+
+  th.selected {
+    @include font(12, "dark", 400);
+
+    .sort-icon {
+      display: initial;
+      @include font(16, "dark", 400);
+    }
+  }
+
+  th:hover {
+    text-overflow: initial;
+    overflow: visible;
+
+    .sort-icon {
+      display: initial;
+      @include font(16, "light", 400);
+    }
+  }
+
+  td.numeric {
+    text-align: right;
+  }
+
+  tr:hover {
+    background-color: #eeeeee;
+  }
+
+  tr.selected {
+    background-color: #F5F5F5;
+  }
+}
