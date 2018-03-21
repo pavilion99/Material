@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js/jquery-3.1.0.min.js"></script>
-        <script src="js/material.js"></script>
+        <script src="js/material_old.js"></script>
         <link rel="stylesheet" href="css/material.css" />
         <title>Title</title>
     </head>
@@ -15,39 +15,16 @@
         </nav>
         <div class="launch-screen">
         </div>
-        <nav class="nav-bottom text-dark teal text-active-orange-300 scroll-fade">
-            <div class="nav-bottom-wrapper">
-                <a class="nav-link" href="#" onclick="this.classList.toggle('active')">
-                    <span class="material-icons nav-link-icon">android</span>
-                    <span class="nav-link-text">Android</span>
-                </a>
-                <a class="nav-link" href="#" onclick="this.classList.toggle('active')">
-                    <span class="material-icons nav-link-icon">class</span>
-                    <span class="nav-link-text">Class</span>
-                </a>
-                <a class="nav-link" href="#" onclick="this.classList.toggle('active')">
-                    <span class="material-icons nav-link-icon">explore</span>
-                    <span class="nav-link-text">Explore</span>
-                </a>
-                <a class="nav-link" href="#" onclick="this.classList.toggle('active')">
-                    <span class="material-icons nav-link-icon">fingerprint</span>
-                    <span class="nav-link-text">Fingerprint</span>
-                </a>
-                <a class="nav-link" href="#" onclick="this.classList.toggle('active')">
-                    <span class="material-icons nav-link-icon">theaters</span>
-                    <span class="nav-link-text">Theaters</span>
-                </a>
-            </div>
-        </nav>
         <!-- <section class="content margin-app-bar margin-nav-left"> -->
-        <section class="content margin-app-bar margin-nav-left">
+        <section class="content margin-app-bar">
             <div class="card h-2">
 
             </div>
             <div class="expansion-panel">
                 <div class="summary-container">
                     <div class="title">Your Name</div>
-                    <div class="summary primary" id="name"></div>
+                    <div class="summary primary" data-open-text="Set your name" data-closed-text="" id="name"></div>
+                    <div class="summary secondary" data-open-text="" data-closed-text="Lorem ipsum"></div>
                 </div>
 
                 <div class="content-container">

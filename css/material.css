@@ -13049,18 +13049,13 @@ div.text-field {
     margin: 0 0 7px; }
   div.text-field input[type="text"] {
     font-size: 16px;
-    height: 16px;
+    height: 18px;
     padding: 0;
     outline: none;
     display: block;
     width: 100%; }
   div.text-field input[type="text"]:focus {
     outline: none; }
-  div.text-field input[type="text"]::-webkit-input-placeholder,
-  div.text-field input[type="text"]::-moz-placeholder,
-  div.text-field input[type="text"]:-ms-input-placeholder,
-  div.text-field input[type="text"]:-moz-placeholder {
-    opacity: 0; }
   div.text-field span.text-field-label {
     display: inline-block;
     position: absolute;
@@ -29011,7 +29006,7 @@ div.expansion-panel {
   max-height: 48px;
   box-sizing: border-box;
   background-color: #fff;
-  transition: padding 0.15s, margin 0.15s; }
+  transition: padding 0.15s, margin-top 0.15s; }
   div.expansion-panel div.expand-icon {
     color: rgba(0, 0, 0, 0.38);
     transform: rotate(0deg);
@@ -29074,7 +29069,8 @@ div.expansion-panel {
       width: calc((100% - 42px) * 0.37);
       margin-right: 16px; }
     div.expansion-panel div.content-container div.content-right {
-      width: calc((100% - 42px) * 0.37); }
+      width: calc((100% - 42px) * 0.37);
+      border-left: 1px solid rgba(0, 0, 0, 0.12); }
   div.expansion-panel div.actions {
     border-top: 1px solid rgba(0, 0, 0, 0.12);
     display: none;
@@ -29085,7 +29081,7 @@ div.expansion-panel {
 
 div.expansion-panel.open {
   max-height: 100vh;
-  margin: 16px 0 16px 0; }
+  margin-top: 16px; }
   div.expansion-panel.open div.title {
     line-height: 24px; }
   div.expansion-panel.open div.expand-icon {
@@ -29131,7 +29127,11 @@ div.expansion-panel ~ div.card {
   box-shadow: none;
   margin-top: 0;
   position: relative;
-  z-index: auto; }
+  z-index: auto;
+  transition: margin-top 0.15s; }
+
+div.expansion-panel.open ~ div.card {
+  margin-top: 8px; }
 
 div.expansion-panel ~ div.card::before {
   content: "";
@@ -29141,10 +29141,7 @@ div.expansion-panel ~ div.card::before {
   left: 0;
   right: 0;
   z-index: -1;
-  -moz-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
-  -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
-  -o-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38); }
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.38); }
 
 div.picker.datetime-local {
   position: absolute;

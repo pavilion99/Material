@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "ES6",
+    "sourceMap": true,
+    "out": "js/material.js"
+  },
+  "include": [
+    "./js/app.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

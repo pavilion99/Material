@@ -11,7 +11,7 @@ div.expansion-panel {
 
   background-color: #fff;
 
-  transition: padding $duration-fast, margin $duration-fast;
+  transition: padding $duration-fast, margin-top $duration-fast;
 
   div.expand-icon {
     color: rgba(0, 0, 0, 0.38);
@@ -110,6 +110,7 @@ div.expansion-panel {
 
     div.content-right {
       width: calc((100% - 42px) * 0.37);
+      border-left: 1px solid rgba(0, 0, 0, 0.12);
     }
   }
 
@@ -129,7 +130,7 @@ div.expansion-panel {
 div.expansion-panel.open {
   max-height: 100vh;
 
-  margin: 16px 0 16px 0;
+  margin-top: 16px;
 
   div.title {
     line-height: 24px;
@@ -194,6 +195,11 @@ div.expansion-panel ~ div.card {
   margin-top: 0;
   position: relative;
   z-index: auto;
+  transition: margin-top $duration-fast;
+}
+
+div.expansion-panel.open ~ div.card {
+  margin-top: 8px;
 }
 
 div.expansion-panel ~ div.card::before {
@@ -204,5 +210,5 @@ div.expansion-panel ~ div.card::before {
   left: 0;
   right: 0;
   z-index: -1;
-  @include shadow(2);
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.38);
 }
