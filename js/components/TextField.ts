@@ -7,26 +7,25 @@ namespace MaterialPage {
             textField.classList.add("text-field");
 
             this.el = textField;
-            let element = this.el;
 
             let label = document.createElement("span");
             label.classList.add("text-field-label");
-            label.textContent = element.getAttribute("placeholder");
-
-            element.setAttribute("placeholder", "");
+            label.textContent = domEl.getAttribute("placeholder");
 
             let input = document.createElement("input");
-            for (let i = 0; i < element.attributes.length; i++) {
-                input.setAttribute(element.attributes[i].nodeName, element.attributes[i].nodeValue);
+            for (let i = 0; i < domEl.attributes.length; i++) {
+                input.setAttribute(domEl.attributes[i].nodeName, domEl.attributes[i].nodeValue);
             }
             input.addEventListener("focus", this.change);
             input.addEventListener("blur", this.change);
 
-            for (let x in element["dataset"]) {
-                if (!element["dataset"].hasOwnProperty(x))
+            input.setAttribute("placeholder", "");
+
+            for (let x in domEl["dataset"]) {
+                if (!domEl["dataset"].hasOwnProperty(x))
                     continue;
 
-                input["dataset"][x] = element["dataset"][x];
+                input["dataset"][x] = domEl["dataset"][x];
             }
 
             let hr = document.createElement("hr");
@@ -36,14 +35,16 @@ namespace MaterialPage {
             textField.appendChild(input);
             textField.appendChild(hr);
 
-            element.parentNode.insertBefore(textField, element);
-            element.parentNode.removeChild(element);
+            domEl.parentNode.insertBefore(textField, domEl);
+            domEl.parentNode.removeChild(domEl);
         }
 
-        change() {
-            let label = this.el.getElementsByClassName("text-field-label")[0];
-            let hr = this.el.getElementsByClassName("text-field-separator")[0];
-            if (document.activeElement === this.el) {
+        change = () => {
+            let label = this.el.querySelector("span.text-field-label");
+            let hr = this.el.querySelector("hr.text-field-separator");
+            let field = this.el.querySelector("input[type='text']");
+
+            if (document.activeElement === field) {
                 if (!label.classList.contains("active"))
                     label.classList.add("active");
             } else {
@@ -73,7 +74,7 @@ namespace MaterialPage {
                         label.classList.add("active");
                 }
             }
-        }
+        };
 
         static getSelectors(): Array<string> {
             return ["input[type='text']:not(.native)"];

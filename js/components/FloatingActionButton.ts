@@ -75,7 +75,7 @@ namespace MaterialPage {
             element.addEventListener("blur", this.colorRemove, true);
         }
 
-        speedDialToggle() {
+        speedDialToggle = () => {
             //TODO: Make the speed-dial function work properly
 
             let el = this.el;
@@ -150,24 +150,24 @@ namespace MaterialPage {
             }
 
             el.classList.toggle("selected");
-        }
+        };
 
-        colorApply() {
+        colorApply = () => {
             // TODO: fade FAB color on click
             if (this.interval != -1)
                 window.clearInterval(this.interval);
 
             this.interval = window.setInterval(this.backgroundGrow, 10);
-        }
+        };
 
-        colorRemove() {
+        colorRemove = () => {
             if (this.interval != -1)
                 window.clearInterval(this.interval);
 
             this.interval = window.setInterval(this.backgroundShrink, 10);
-        }
+        };
 
-        backgroundGrow() {
+        backgroundGrow = () => {
             if (this.backgroundRadius >= 150) {
                 window.clearInterval(this.interval);
                 this.interval = -1;
@@ -179,9 +179,9 @@ namespace MaterialPage {
             this.el.style.backgroundImage = "radial-gradient(circle at center, rgba(0, 0, 0, " + k + "), rgba(0, 0, 0, " + k + ")";
 
             this.backgroundRadius += FloatingActionButton.multiplier;
-        }
+        };
 
-        backgroundShrink() {
+        backgroundShrink = () => {
             if (this.backgroundRadius <= 0) {
                 window.clearInterval(this.interval);
                 this.interval = -1;
@@ -193,7 +193,7 @@ namespace MaterialPage {
             this.el.style.backgroundImage = "radial-gradient(circle at center, rgba(0, 0, 0, " + k + "), rgba(0, 0, 0, " + k + ")";
 
             this.backgroundRadius += FloatingActionButton.multiplier;
-        }
+        };
 
         static getSelectors(): Array<string> {
             return ["button.fab"];

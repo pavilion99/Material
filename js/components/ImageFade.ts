@@ -4,13 +4,13 @@ namespace MaterialPage {
             super(domEl);
         }
 
-        setUnready() {
+        setUnready = () => {
             this.el.classList.add("unready");
-        }
+        };
 
-        fade() {
+        fade = () => {
             this.el.classList.remove("unready");
-        }
+        };
 
         static getSelectors(): Array<string> {
             return ["img.fade"];

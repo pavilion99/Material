@@ -16,6 +16,9 @@ var MaterialPage;
         constructor(elements) {
             this.elements = elements;
         }
+        static getSelectors() {
+            return null;
+        }
     }
     MaterialPage.MaterialPattern = MaterialPattern;
 })(MaterialPage || (MaterialPage = {}));
@@ -24,17 +27,17 @@ var MaterialPage;
     class BottomNavigation extends MaterialPage.MaterialElement {
         constructor(domEl) {
             super(domEl);
+            this.scrollToggle = () => {
+                if (!this.scrollFade)
+                    return;
+                document.body.scrollTop > MaterialPage.App.scrollTopOld
+                    ? this.el.classList.add("offscreen")
+                    : this.el.classList.remove("offscreen");
+            };
             this.scrollFade = this.el.classList.contains("scroll-fade");
         }
         static getSelectors() {
             return ["nav.nav-bottom"];
-        }
-        scrollToggle() {
-            if (!this.scrollFade)
-                return;
-            document.body.scrollTop > MaterialPage.App.scrollTopOld
-                ? this.el.classList.add("offscreen")
-                : this.el.classList.remove("offscreen");
         }
     }
     MaterialPage.BottomNavigation = BottomNavigation;
@@ -44,6 +47,25 @@ var MaterialPage;
     class ExpansionPanel extends MaterialPage.MaterialElement {
         constructor(domEl) {
             super(domEl);
+            this.updateContent = () => {
+                let open = this.el.classList.contains("open");
+                if (open) {
+                    this.primary.textContent = this.primary["dataset"]["openText"];
+                    this.secondary.textContent = this.secondary["dataset"]["openText"];
+                }
+                else {
+                    this.primary.textContent = this.primary["dataset"]["closedText"];
+                    this.secondary.textContent = this.secondary["dataset"]["closedText"];
+                }
+            };
+            this.togglePanel = () => {
+                this.el.classList.toggle("open");
+                this.updateContent();
+            };
+            this.closePanel = () => {
+                this.el.classList.remove("open");
+                this.updateContent();
+            };
             let el = this.el;
             let primary = this.el.querySelector("div.summary.primary");
             let secondary = this.el.querySelector("div.summary.secondary");
@@ -62,6 +84,7 @@ var MaterialPage;
                 icon.textContent = "expand_more";
                 expand.appendChild(icon);
                 el.insertBefore(expand, container);
+                expandIcon = expand;
             }
             expandIcon.addEventListener("click", this.togglePanel);
             let actions = this.el.querySelector("div.actions");
@@ -72,25 +95,6 @@ var MaterialPage;
                 close.addEventListener("click", this.closePanel);
             }
             actions.appendChild(clearfix);
-        }
-        updateContent() {
-            let open = this.el.classList.contains("open");
-            if (open) {
-                this.primary.textContent = this.primary["dataset"]["openText"];
-                this.secondary.textContent = this.secondary["dataset"]["openText"];
-            }
-            else {
-                this.primary.textContent = this.primary["dataset"]["closedText"];
-                this.secondary.textContent = this.secondary["dataset"]["closedText"];
-            }
-        }
-        togglePanel() {
-            this.el.classList.toggle("open");
-            this.updateContent();
-        }
-        closePanel() {
-            this.el.classList.remove("open");
-            this.updateContent();
         }
         static getSelectors() {
             return ["div.expansion-panel"];
@@ -105,6 +109,79 @@ var MaterialPage;
             super(domEl);
             this.backgroundRadius = 0;
             this.interval = -1;
+            this.speedDialToggle = () => {
+                //TODO: Make the speed-dial function work properly
+                let el = this.el;
+                let icon = el.children[0];
+                if (el.classList.contains("selected")) {
+                    window.setTimeout(function () {
+                        icon.style.opacity = "0.4";
+                        icon.style.transform = "rotate(-45deg)";
+                        window.setTimeout(function () {
+                            icon.style.transition = "transform 0s, rotate 0s";
+                            window.setTimeout(function () {
+                                icon.style.transform = "rotate(45deg)";
+                                icon.textContent = el.dataset["icon"];
+                                window.setTimeout(function () {
+                                    el.classList.remove("selected");
+                                    icon.style.transition = "transform 0.15s, rotate 0.15s";
+                                    icon.style.transform = "unset";
+                                    icon.style.opacity = "unset";
+                                }, 20);
+                            }, 10);
+                        }, 100);
+                    }, 10);
+                }
+                else {
+                    icon.classList.add("selected");
+                    window.setTimeout(function () {
+                        icon.textContent = "close";
+                        icon.style.transition = "transform 0s, rotate 0s";
+                        window.setTimeout(function () {
+                            icon.style.transform = "rotate(-45deg)";
+                            window.setTimeout(function () {
+                                icon.style.transition = "transform 0.15s, opacity 0.15s";
+                                window.setTimeout(function () {
+                                    icon.style.opacity = "1.0";
+                                    icon.style.transform = "rotate(0deg)";
+                                }, 20);
+                            }, 10);
+                        }, 20);
+                    }, 150);
+                }
+                el.classList.toggle("selected");
+            };
+            this.colorApply = () => {
+                // TODO: fade FAB color on click
+                if (this.interval != -1)
+                    window.clearInterval(this.interval);
+                this.interval = window.setInterval(this.backgroundGrow, 10);
+            };
+            this.colorRemove = () => {
+                if (this.interval != -1)
+                    window.clearInterval(this.interval);
+                this.interval = window.setInterval(this.backgroundShrink, 10);
+            };
+            this.backgroundGrow = () => {
+                if (this.backgroundRadius >= 150) {
+                    window.clearInterval(this.interval);
+                    this.interval = -1;
+                    return;
+                }
+                let k = 0.001 * this.backgroundRadius;
+                this.el.style.backgroundImage = "radial-gradient(circle at center, rgba(0, 0, 0, " + k + "), rgba(0, 0, 0, " + k + ")";
+                this.backgroundRadius += FloatingActionButton.multiplier;
+            };
+            this.backgroundShrink = () => {
+                if (this.backgroundRadius <= 0) {
+                    window.clearInterval(this.interval);
+                    this.interval = -1;
+                    return;
+                }
+                let k = 0.001 * this.backgroundRadius;
+                this.el.style.backgroundImage = "radial-gradient(circle at center, rgba(0, 0, 0, " + k + "), rgba(0, 0, 0, " + k + ")";
+                this.backgroundRadius += FloatingActionButton.multiplier;
+            };
             let element = this.el;
             let top = parseInt(element["dataset"]["y"]);
             let left = parseInt(element["dataset"]["x"]);
@@ -161,79 +238,6 @@ var MaterialPage;
             element.addEventListener("mouseout", this.colorRemove, true);
             element.addEventListener("blur", this.colorRemove, true);
         }
-        speedDialToggle() {
-            //TODO: Make the speed-dial function work properly
-            let el = this.el;
-            let icon = el.children[0];
-            if (el.classList.contains("selected")) {
-                window.setTimeout(function () {
-                    icon.style.opacity = "0.4";
-                    icon.style.transform = "rotate(-45deg)";
-                    window.setTimeout(function () {
-                        icon.style.transition = "transform 0s, rotate 0s";
-                        window.setTimeout(function () {
-                            icon.style.transform = "rotate(45deg)";
-                            icon.textContent = el.dataset["icon"];
-                            window.setTimeout(function () {
-                                el.classList.remove("selected");
-                                icon.style.transition = "transform 0.15s, rotate 0.15s";
-                                icon.style.transform = "unset";
-                                icon.style.opacity = "unset";
-                            }, 20);
-                        }, 10);
-                    }, 100);
-                }, 10);
-            }
-            else {
-                icon.classList.add("selected");
-                window.setTimeout(function () {
-                    icon.textContent = "close";
-                    icon.style.transition = "transform 0s, rotate 0s";
-                    window.setTimeout(function () {
-                        icon.style.transform = "rotate(-45deg)";
-                        window.setTimeout(function () {
-                            icon.style.transition = "transform 0.15s, opacity 0.15s";
-                            window.setTimeout(function () {
-                                icon.style.opacity = "1.0";
-                                icon.style.transform = "rotate(0deg)";
-                            }, 20);
-                        }, 10);
-                    }, 20);
-                }, 150);
-            }
-            el.classList.toggle("selected");
-        }
-        colorApply() {
-            // TODO: fade FAB color on click
-            if (this.interval != -1)
-                window.clearInterval(this.interval);
-            this.interval = window.setInterval(this.backgroundGrow, 10);
-        }
-        colorRemove() {
-            if (this.interval != -1)
-                window.clearInterval(this.interval);
-            this.interval = window.setInterval(this.backgroundShrink, 10);
-        }
-        backgroundGrow() {
-            if (this.backgroundRadius >= 150) {
-                window.clearInterval(this.interval);
-                this.interval = -1;
-                return;
-            }
-            let k = 0.001 * this.backgroundRadius;
-            this.el.style.backgroundImage = "radial-gradient(circle at center, rgba(0, 0, 0, " + k + "), rgba(0, 0, 0, " + k + ")";
-            this.backgroundRadius += FloatingActionButton.multiplier;
-        }
-        backgroundShrink() {
-            if (this.backgroundRadius <= 0) {
-                window.clearInterval(this.interval);
-                this.interval = -1;
-                return;
-            }
-            let k = 0.001 * this.backgroundRadius;
-            this.el.style.backgroundImage = "radial-gradient(circle at center, rgba(0, 0, 0, " + k + "), rgba(0, 0, 0, " + k + ")";
-            this.backgroundRadius += FloatingActionButton.multiplier;
-        }
         static getSelectors() {
             return ["button.fab"];
         }
@@ -246,12 +250,12 @@ var MaterialPage;
     class ImageFade extends MaterialPage.MaterialElement {
         constructor(domEl) {
             super(domEl);
-        }
-        setUnready() {
-            this.el.classList.add("unready");
-        }
-        fade() {
-            this.el.classList.remove("unready");
+            this.setUnready = () => {
+                this.el.classList.add("unready");
+            };
+            this.fade = () => {
+                this.el.classList.remove("unready");
+            };
         }
         static getSelectors() {
             return ["img.fade"];
@@ -274,6 +278,31 @@ var MaterialPage;
     class Progress extends MaterialPage.MaterialElement {
         constructor(domEl) {
             super(domEl);
+            this.update = () => {
+                let progress = this.el;
+                switch (this.type) {
+                    case "circular": {
+                        let circle = document.getElementById(this.el.id + "-bar");
+                        let percent = (parseFloat(progress["dataset"].value) / parseFloat(progress["dataset"]["max"]));
+                        let str = percent * Math.PI * 2 * 20;
+                        let dash = (1.0 - percent) * Math.PI * 2 * 20;
+                        circle.style.strokeDasharray = str + ", " + dash;
+                        break;
+                    }
+                    default: {
+                        let bar = document.getElementById(this.el.id + "-bar");
+                        let perc = (parseFloat(progress["dataset"].value) / parseFloat(progress["dataset"]["max"])) * 100.0;
+                        bar.style.width = perc + "%";
+                        break;
+                    }
+                }
+            };
+            this.set = (value) => {
+                if (parseFloat(this.el["dataset"].value) >= value)
+                    return;
+                this.el["dataset"].value = value.toString();
+                this.update();
+            };
             this.type = this.el["dataset"].type == "circular" ? "circular" : "linear";
             let type = this.el["dataset"].type;
             let value = this.el.hasAttribute("value");
@@ -362,31 +391,6 @@ var MaterialPage;
                 }
             }
         }
-        update() {
-            let progress = this.el;
-            switch (this.type) {
-                case "circular": {
-                    let circle = document.getElementById(this.el.id + "-bar");
-                    let percent = (parseFloat(progress["dataset"].value) / parseFloat(progress["dataset"]["max"]));
-                    let str = percent * Math.PI * 2 * 20;
-                    let dash = (1.0 - percent) * Math.PI * 2 * 20;
-                    circle.style.strokeDasharray = str + ", " + dash;
-                    break;
-                }
-                default: {
-                    let bar = document.getElementById(this.el.id + "-bar");
-                    let perc = (parseFloat(progress["dataset"].value) / parseFloat(progress["dataset"]["max"])) * 100.0;
-                    bar.style.width = perc + "%";
-                    break;
-                }
-            }
-        }
-        set(value) {
-            if (parseFloat(this.el["dataset"].value) >= value)
-                return;
-            this.el["dataset"].value = value.toString();
-            this.update();
-        }
         static getSelectors() {
             return ["progress[data-type]"];
         }
@@ -461,66 +465,66 @@ var MaterialPage;
     class TextField extends MaterialPage.MaterialElement {
         constructor(domEl) {
             super(domEl);
+            this.change = () => {
+                let label = this.el.querySelector("span.text-field-label");
+                let hr = this.el.querySelector("hr.text-field-separator");
+                let field = this.el.querySelector("input[type='text']");
+                if (document.activeElement === field) {
+                    if (!label.classList.contains("active"))
+                        label.classList.add("active");
+                }
+                else {
+                    let isError = false;
+                    if (typeof window[this.el["dataset"]["errorTest"]] === "function")
+                        isError = window[this.el["dataset"]["errorTest"]](this.el.value);
+                    let errorColor = "red";
+                    if (this.el["dataset"]["errorColor"])
+                        errorColor = this.el["dataset"]["errorColor"];
+                    let clazz = "text-" + errorColor + "-500";
+                    let clazz2 = "border-" + errorColor + "-500";
+                    if (isError) {
+                        hr.classList.add(clazz2);
+                        label.classList.add(clazz);
+                    }
+                    else {
+                        hr.classList.remove(clazz2);
+                        label.classList.remove(clazz);
+                    }
+                    if (this.el.value === "") {
+                        if (label.classList.contains("active"))
+                            label.classList.remove("active");
+                    }
+                    else {
+                        if (!label.classList.contains("active"))
+                            label.classList.add("active");
+                    }
+                }
+            };
             let textField = document.createElement("div");
             textField.classList.add("text-field");
             this.el = textField;
-            let element = this.el;
             let label = document.createElement("span");
             label.classList.add("text-field-label");
-            label.textContent = element.getAttribute("placeholder");
-            element.setAttribute("placeholder", "");
+            label.textContent = domEl.getAttribute("placeholder");
             let input = document.createElement("input");
-            for (let i = 0; i < element.attributes.length; i++) {
-                input.setAttribute(element.attributes[i].nodeName, element.attributes[i].nodeValue);
+            for (let i = 0; i < domEl.attributes.length; i++) {
+                input.setAttribute(domEl.attributes[i].nodeName, domEl.attributes[i].nodeValue);
             }
             input.addEventListener("focus", this.change);
             input.addEventListener("blur", this.change);
-            for (let x in element["dataset"]) {
-                if (!element["dataset"].hasOwnProperty(x))
+            input.setAttribute("placeholder", "");
+            for (let x in domEl["dataset"]) {
+                if (!domEl["dataset"].hasOwnProperty(x))
                     continue;
-                input["dataset"][x] = element["dataset"][x];
+                input["dataset"][x] = domEl["dataset"][x];
             }
             let hr = document.createElement("hr");
             hr.classList.add("text-field-separator");
             textField.appendChild(label);
             textField.appendChild(input);
             textField.appendChild(hr);
-            element.parentNode.insertBefore(textField, element);
-            element.parentNode.removeChild(element);
-        }
-        change() {
-            let label = this.el.getElementsByClassName("text-field-label")[0];
-            let hr = this.el.getElementsByClassName("text-field-separator")[0];
-            if (document.activeElement === this.el) {
-                if (!label.classList.contains("active"))
-                    label.classList.add("active");
-            }
-            else {
-                let isError = false;
-                if (typeof window[this.el["dataset"]["errorTest"]] === "function")
-                    isError = window[this.el["dataset"]["errorTest"]](this.el.value);
-                let errorColor = "red";
-                if (this.el["dataset"]["errorColor"])
-                    errorColor = this.el["dataset"]["errorColor"];
-                let clazz = "text-" + errorColor + "-500";
-                let clazz2 = "border-" + errorColor + "-500";
-                if (isError) {
-                    hr.classList.add(clazz2);
-                    label.classList.add(clazz);
-                }
-                else {
-                    hr.classList.remove(clazz2);
-                    label.classList.remove(clazz);
-                }
-                if (this.el.value === "") {
-                    if (label.classList.contains("active"))
-                        label.classList.remove("active");
-                }
-                else {
-                    if (!label.classList.contains("active"))
-                        label.classList.add("active");
-                }
-            }
+            domEl.parentNode.insertBefore(textField, domEl);
+            domEl.parentNode.removeChild(domEl);
         }
         static getSelectors() {
             return ["input[type='text']:not(.native)"];
@@ -533,15 +537,19 @@ var MaterialPage;
     class LaunchScreen extends MaterialPage.MaterialPattern {
         constructor(screen) {
             super(new Map([["screen", screen]]));
+            this.hide = () => {
+                this.elements.get("screen").classList.add("hidden");
+            };
             LaunchScreen.screens.push(this);
-        }
-        hide() {
-            this.elements.get("screen").classList.add("hidden");
         }
         static hideAll() {
             LaunchScreen.screens.forEach(function (screen) { screen.hide(); });
         }
+        static getSelectors() {
+            return ["div.launch-screen"];
+        }
     }
+    LaunchScreen.screens = [];
     MaterialPage.LaunchScreen = LaunchScreen;
 })(MaterialPage || (MaterialPage = {}));
 /// <reference path="components/MaterialElement.ts" />
@@ -560,13 +568,43 @@ var MaterialPage;
 (function (MaterialPage) {
     class App {
         constructor() {
+            this.elements = [];
+            this.patterns = [];
+            this.init = () => {
+                this.loadMaterialElements();
+            };
+            this.preInit = () => {
+                const imageFadeSelectors = MaterialPage.ImageFade.getSelectors();
+                for (const selector of imageFadeSelectors) {
+                    let elements = document.querySelectorAll(selector);
+                    for (const element of elements) {
+                        let imageFade = new MaterialPage.ImageFade(element);
+                        this.elements.push(imageFade);
+                    }
+                }
+                this.initImages();
+                this.loadPatterns();
+            };
+            this.initImages = () => {
+                console.log(this);
+                console.log(this.elements);
+                for (const element of this.elements) {
+                    if (element instanceof MaterialPage.ImageFade) {
+                        element.setUnready();
+                    }
+                }
+            };
             this.addGlobalListeners();
         }
-        init() {
-            this.loadMaterialElements();
-        }
-        preInit() {
-            this.initImages();
+        loadPatterns() {
+            let launchScreenSelectors = MaterialPage.LaunchScreen.getSelectors();
+            for (const selector of launchScreenSelectors) {
+                let elements = document.querySelectorAll(selector);
+                for (const element of elements) {
+                    let launchScreen = new MaterialPage.LaunchScreen(element);
+                    this.patterns.push(launchScreen);
+                }
+            }
         }
         loadMaterialElements() {
             // Text Fields
@@ -621,13 +659,6 @@ var MaterialPage;
             }
             App.scrollTopOld = document.body.scrollTop;
         }
-        initImages() {
-            for (const element of this.elements) {
-                if (element instanceof MaterialPage.ImageFade) {
-                    element.setUnready();
-                }
-            }
-        }
         fadeImages() {
             for (const element of this.elements) {
                 if (element instanceof MaterialPage.ImageFade) {
@@ -644,4 +675,5 @@ var MaterialPage;
     App.scrollTopOld = 0;
     MaterialPage.App = App;
 })(MaterialPage || (MaterialPage = {}));
+app = new MaterialPage.App();
 //# sourceMappingURL=material.js.map

@@ -33,6 +33,8 @@ namespace MaterialPage {
                 expand.appendChild(icon);
 
                 el.insertBefore(expand, container);
+
+                expandIcon = expand;
             }
 
             expandIcon.addEventListener("click", this.togglePanel);
@@ -51,7 +53,7 @@ namespace MaterialPage {
             actions.appendChild(clearfix);
         }
 
-        updateContent() {
+        updateContent = () => {
             let open = this.el.classList.contains("open");
 
             if (open) {
@@ -61,19 +63,19 @@ namespace MaterialPage {
                 this.primary.textContent = this.primary["dataset"]["closedText"];
                 this.secondary.textContent = this.secondary["dataset"]["closedText"];
             }
-        }
+        };
 
-        togglePanel() {
+        togglePanel = () => {
             this.el.classList.toggle("open");
 
             this.updateContent();
-        }
+        };
 
-        closePanel() {
+        closePanel = () => {
             this.el.classList.remove("open");
 
             this.updateContent();
-        }
+        };
 
         static getSelectors(): Array<string> {
             return ["div.expansion-panel"];

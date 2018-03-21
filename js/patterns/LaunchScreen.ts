@@ -1,6 +1,6 @@
 namespace MaterialPage {
     export class LaunchScreen extends MaterialPattern {
-        private static screens: Array<LaunchScreen>;
+        private static screens: Array<LaunchScreen> = [];
 
         constructor (screen: Element) {
             super(new Map<string, Element>([["screen", screen]]));
@@ -8,12 +8,16 @@ namespace MaterialPage {
             LaunchScreen.screens.push(this);
         }
 
-        hide() {
+        hide = () => {
             this.elements.get("screen").classList.add("hidden");
-        }
+        };
 
         static hideAll() {
             LaunchScreen.screens.forEach(function(screen){screen.hide()});
+        }
+
+        static getSelectors(): Array<string> {
+            return ["div.launch-screen"];
         }
     }
 }

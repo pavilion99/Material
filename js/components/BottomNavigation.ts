@@ -12,13 +12,13 @@ namespace MaterialPage {
             return ["nav.nav-bottom"];
         }
 
-        scrollToggle() {
+        scrollToggle = () => {
             if (!this.scrollFade)
                 return;
 
             document.body.scrollTop > App.scrollTopOld
                 ? this.el.classList.add("offscreen")
                 : this.el.classList.remove("offscreen");
-        }
+        };
     }
 }

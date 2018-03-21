@@ -116,7 +116,7 @@ namespace MaterialPage {
             }
         }
 
-        update() {
+        update = () => {
             let progress = this.el;
 
             switch (this.type) {
@@ -137,15 +137,15 @@ namespace MaterialPage {
                     break;
                 }
             }
-        }
+        };
 
-        set(value: number) {
+        set = (value: number) => {
             if (parseFloat(this.el["dataset"].value) >= value)
                 return;
 
             this.el["dataset"].value = value.toString();
             this.update();
-        }
+        };
 
         static getSelectors(): Array<string> {
             return ["progress[data-type]"];

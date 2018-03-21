@@ -3,18 +3,42 @@
 namespace MaterialPage {
     export class App {
         public static scrollTopOld: number = 0;
-        public elements: Array<MaterialElement>;
+        public elements: Array<MaterialElement> = [];
+        public patterns: Array<MaterialPattern> = [];
 
         constructor() {
             this.addGlobalListeners();
         }
 
-        init() {
+        init = () => {
             this.loadMaterialElements();
-        }
+        };
 
-        preInit() {
+        preInit = () => {
+            const imageFadeSelectors: Array<string> = ImageFade.getSelectors();
+            for (const selector of imageFadeSelectors) {
+                let elements: NodeListOf<Element> = document.querySelectorAll(selector);
+
+                for (const element of elements) {
+                    let imageFade: ImageFade = new ImageFade(<HTMLElement>element);
+                    this.elements.push(imageFade);
+                }
+            }
+
             this.initImages();
+            this.loadPatterns();
+        };
+
+        loadPatterns() {
+            let launchScreenSelectors: Array<string> = LaunchScreen.getSelectors();
+            for (const selector of launchScreenSelectors) {
+                let elements: NodeListOf<Element> = document.querySelectorAll(selector);
+
+                for (const element of elements) {
+                    let launchScreen: LaunchScreen = new LaunchScreen(element);
+                    this.patterns.push(launchScreen);
+                }
+            }
         }
 
         loadMaterialElements() {
@@ -82,13 +106,16 @@ namespace MaterialPage {
             App.scrollTopOld = document.body.scrollTop;
         }
 
-        initImages() {
+        initImages = () => {
+            console.log(this);
+            console.log(this.elements);
+
             for (const element of this.elements) {
                 if (element instanceof ImageFade) {
                     element.setUnready();
                 }
             }
-        }
+        };
 
         fadeImages() {
             for (const element of this.elements) {
@@ -106,3 +133,6 @@ namespace MaterialPage {
         }
     }
 }
+
+declare var app;
+app = new MaterialPage.App();
