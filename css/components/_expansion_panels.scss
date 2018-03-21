@@ -179,7 +179,7 @@ div.card ~ div.expansion-panel {
   position: relative;
 }
 
-div.card ~ div.expansion-panel::before {
+div.expansion-panel::before {
   content: "";
   position: absolute;
   top: 0;

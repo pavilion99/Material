@@ -107,9 +107,6 @@ namespace MaterialPage {
         }
 
         initImages = () => {
-            console.log(this);
-            console.log(this.elements);
-
             for (const element of this.elements) {
                 if (element instanceof ImageFade) {
                     element.setUnready();

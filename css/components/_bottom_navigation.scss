@@ -107,14 +107,14 @@ section.content.margin-nav-left {
   left:                         0;
 }
 
-@each $color in $colors {
-  @each $val in $vals {
-    nav.nav-bottom.text-active-#{$color}-#{$val} a.nav-link.active span.nav-link-text,
-    nav.nav-bottom.text-active-#{$color}-#{$val} a.nav-link.active span.nav-link-icon {
-      @include text-color($color, $val);
-    }
-  }
-}
+//@each $color in $colors {
+//  @each $val in $vals {
+//    nav.nav-bottom.text-active-#{$color}-#{$val} a.nav-link.active span.nav-link-text,
+//    nav.nav-bottom.text-active-#{$color}-#{$val} a.nav-link.active span.nav-link-icon {
+//      @include text-color($color, $val);
+//    }
+//  }
+//}
 
 @media (min-width: 960px) {
   @mixin reset-nav-link {
