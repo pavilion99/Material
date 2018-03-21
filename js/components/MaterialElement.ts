@@ -1,6 +1,6 @@
 namespace MaterialPage {
     export abstract class MaterialElement {
-        constructor(private domEl: Element) {
+        constructor(protected el: HTMLElement) {
 
         }
 
