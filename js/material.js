@@ -44,6 +44,45 @@ var MaterialPage;
 })(MaterialPage || (MaterialPage = {}));
 var MaterialPage;
 (function (MaterialPage) {
+    class Button extends MaterialPage.MaterialElement {
+        constructor(domEl) {
+            super(domEl);
+            this.click = () => {
+                if (this.el.classList.contains("focus"))
+                    this.el.classList.remove("focus");
+                this.el.classList.add("active");
+                window.setTimeout(() => {
+                    this.el.classList.remove("active");
+                }, 200);
+                this.preventFocus();
+            };
+            this.focus = () => {
+                if (this.focusPrevented) {
+                    console.log("Focus prevented");
+                    this.focusPrevented = false;
+                    return;
+                }
+                this.el.classList.add("focus");
+            };
+            this.blur = () => {
+                this.focusPrevented = false;
+                this.el.classList.remove("focus");
+            };
+            this.preventFocus = () => {
+                this.focusPrevented = true;
+            };
+            this.el.addEventListener("focus", this.focus);
+            this.el.addEventListener("blur", this.blur);
+            this.el.addEventListener("mousedown", this.click);
+        }
+        static getSelectors() {
+            return ["button", ".button", "input[type='button']", "input[type='submit']"];
+        }
+    }
+    MaterialPage.Button = Button;
+})(MaterialPage || (MaterialPage = {}));
+var MaterialPage;
+(function (MaterialPage) {
     class ExpansionPanel extends MaterialPage.MaterialElement {
         constructor(domEl) {
             super(domEl);
@@ -580,6 +619,7 @@ var MaterialPage;
 /// <reference path="components/MaterialElement.ts" />
 /// <reference path="patterns/MaterialPattern.ts" />
 /// <reference path="components/BottomNavigation.ts" />
+/// <reference path="components/Button.ts" />
 /// <reference path="components/ExpansionPanel.ts" />
 /// <reference path="components/FloatingActionButton.ts" />
 /// <reference path="components/ImageFade.ts" />
@@ -664,6 +704,15 @@ var MaterialPage;
                 for (const element of elements) {
                     let floatingActionButton = new MaterialPage.FloatingActionButton(element);
                     this.elements.push(floatingActionButton);
+                }
+            }
+            // Buttons
+            const buttonSelectors = MaterialPage.Button.getSelectors();
+            for (const selector of buttonSelectors) {
+                let elements = document.querySelectorAll(selector);
+                for (const element of elements) {
+                    let button = new MaterialPage.Button(element);
+                    this.elements.push(button);
                 }
             }
             this.fadeImages();

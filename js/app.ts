@@ -86,6 +86,17 @@ namespace MaterialPage {
                 }
             }
 
+            // Buttons
+            const buttonSelectors: Array<string> = Button.getSelectors();
+            for (const selector of buttonSelectors) {
+                let elements: NodeListOf<Element> = document.querySelectorAll(selector);
+
+                for (const element of elements) {
+                    let button: Button = new Button(<HTMLElement>element);
+                    this.elements.push(button);
+                }
+            }
+
             this.fadeImages();
             LaunchScreen.hideAll();
         }

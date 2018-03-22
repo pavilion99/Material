@@ -67,6 +67,7 @@ namespace MaterialPage {
                 (<HTMLElement>this.container).style.height = this.container.scrollHeight + "px";
             else
                 (<HTMLElement>this.container).style.height = "0";
+
             this.updateContent();
         };
 

@@ -2,6 +2,7 @@
 /// <reference path="patterns/MaterialPattern.ts" />
 
 /// <reference path="components/BottomNavigation.ts" />
+/// <reference path="components/Button.ts" />
 /// <reference path="components/ExpansionPanel.ts" />
 /// <reference path="components/FloatingActionButton.ts" />
 /// <reference path="components/ImageFade.ts" />

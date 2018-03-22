@@ -1,6 +1,7 @@
 @import "../var";
 @import "../motion";
 @import "../env";
+@import "../typography";
 
 div.expansion-panel {
   position: relative;
@@ -16,8 +17,8 @@ div.expansion-panel {
     color: rgba(0, 0, 0, 0.38);
     transform: rotate(0deg);
     transition: transform $duration-fast, color $duration-fast;
-    float: right;
-    margin-right: 24px;
+    position: absolute;
+    right: 24px;
 
     span.material-icons {
       margin-top: 12px;
@@ -42,6 +43,8 @@ div.expansion-panel {
       line-height: 48px;
       color: rgba(0, 0, 0, 0.87);
       flex-basis: 25%;
+      white-space: nowrap;
+      overflow: visible;
     }
 
     div.title.multiline {
@@ -62,20 +65,22 @@ div.expansion-panel {
       font-size: 15px;
       color: rgba(0, 0, 0, 0.54);
       line-height: 48px;
-      flex-basis: 55%;
     }
 
     div.summary.primary {
       margin-right: 16px;
+      flex-basis: 45%;
     }
 
     div.summary.secondary {
-
+      flex-basis: 30%;
+      box-sizing: border-box;
+      padding-right: 64px;
     }
   }
 
   div.content-container {
-    padding: 0 48px 0 0;
+    padding: 0 0 0 24px;
     height: 0;
     transition: height $duration-fast, padding-bottom $duration-fast;
     display: flex;
@@ -88,16 +93,17 @@ div.expansion-panel {
 
     div.content-center {
       margin-right: 16px;
-      flex-basis: 55%;
+      flex-basis: 45%;
     }
 
     div.content-right {
       @include font(12, $dark-secondary, 400);
       border-left: 1px solid rgba(0, 0, 0, 0.12);
-      flex-basis: 20%;
+      flex-basis: 35%;
       padding-left: 16px;
       line-height: 16px;
-      padding-right: 48px;
+      padding-right: 64px;
+      box-sizing: border-box;
     }
   }
 
@@ -105,12 +111,6 @@ div.expansion-panel {
     border-top: 1px solid rgba(0, 0, 0, 0.12);
     display: none;
     width: 100%;
-
-    height: 0;
-
-    button {
-      float: right;
-    }
   }
 }
 
@@ -118,7 +118,7 @@ div.expansion-panel.open {
   margin-top: 16px;
 
   div.content-container {
-    padding-bottom: 10px;
+    padding-bottom: 16px;
   }
 
   div.title {
@@ -130,11 +130,10 @@ div.expansion-panel.open {
   }
 
   div.actions {
-    display: inline-block;
-  }
-
-  div.actions {
-    height: auto;
+    display: flex;
+    flex-direction: row-reverse;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   div.summary-container {
@@ -162,7 +161,7 @@ div.card + div.expansion-panel {
 }
 
 div.card + div.expansion-panel.open {
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 div.expansion-panel::before {
@@ -198,11 +197,11 @@ div.expansion-panel + div.card {
 }
 
 div.expansion-panel.open + div.card {
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 div.expansion-panel.open + div.expansion-panel {
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 div.expansion-panel + div.expansion-panel::before {

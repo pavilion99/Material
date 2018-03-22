@@ -8,6 +8,15 @@
 
 // Change accent color using fallbacks (lighter or darker) if the background doesn't work with it
 
+
+.text-theme-primary {
+  color:              $theme-primary;
+}
+
+.text-theme-secondary {
+  color:              $theme-secondary;
+}
+
 .text-dark.secondary {
   color:              $dark-secondary;
 }
