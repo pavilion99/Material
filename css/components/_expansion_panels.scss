@@ -3,9 +3,8 @@
 @import "../env";
 
 div.expansion-panel {
+  position: relative;
   padding: 0;
-  min-height: 48px;
-  max-height: 48px;
 
   box-sizing: border-box;
 
@@ -17,7 +16,6 @@ div.expansion-panel {
     color: rgba(0, 0, 0, 0.38);
     transform: rotate(0deg);
     transition: transform $duration-fast, color $duration-fast;
-    display: inline-block;
     float: right;
     margin-right: 24px;
 
@@ -33,23 +31,17 @@ div.expansion-panel {
   }
 
   div.summary-container {
-    width: calc(100% - 40px - 24px - 24px);
+    display: flex;
     height: 48px;
-
     padding-left: 24px;
-
-    display: inline-block;
-    float: left;
+    transition: padding-top $duration-fast, padding-bottom $duration-fast;
 
     div.title {
-      height: 48px;
       margin-right: 16px;
       font-size: 15px;
       line-height: 48px;
       color: rgba(0, 0, 0, 0.87);
-      display: inline-block;
-      float: left;
-      width: calc((100% - 42px) * 0.26);
+      flex-basis: 25%;
     }
 
     div.title.multiline {
@@ -67,13 +59,10 @@ div.expansion-panel {
     }
 
     div.summary {
-      height: 48px;
       font-size: 15px;
       color: rgba(0, 0, 0, 0.54);
-      display: inline-block;
-      float: left;
       line-height: 48px;
-      width: calc((100% - 42px) * 0.37);
+      flex-basis: 55%;
     }
 
     div.summary.primary {
@@ -86,31 +75,29 @@ div.expansion-panel {
   }
 
   div.content-container {
-    width: calc(100% - 40px - 24px - 24px);
-    padding-left: 24px;
-    max-height: 0;
-    display: none;
-
+    padding: 0 48px 0 0;
+    height: 0;
+    transition: height $duration-fast, padding-bottom $duration-fast;
+    display: flex;
     overflow: hidden;
 
-    div.content-left, div.content-center, div.content-right {
-      height: 0;
-      display: inline-block;
-    }
-
     div.content-left {
-      width: calc((100% - 42px) * 0.26);
       margin-right: 16px;
+      flex-basis: 25%;
     }
 
     div.content-center {
-      width: calc((100% - 42px) * 0.37);
       margin-right: 16px;
+      flex-basis: 55%;
     }
 
     div.content-right {
-      width: calc((100% - 42px) * 0.37);
+      @include font(12, $dark-secondary, 400);
       border-left: 1px solid rgba(0, 0, 0, 0.12);
+      flex-basis: 20%;
+      padding-left: 16px;
+      line-height: 16px;
+      padding-right: 48px;
     }
   }
 
@@ -128,9 +115,11 @@ div.expansion-panel {
 }
 
 div.expansion-panel.open {
-  max-height: 100vh;
-
   margin-top: 16px;
+
+  div.content-container {
+    padding-bottom: 10px;
+  }
 
   div.title {
     line-height: 24px;
@@ -140,16 +129,17 @@ div.expansion-panel.open {
     transform: rotate(180deg);
   }
 
-  div.content-container {
-    max-height: 100vh;
-  }
-
-  div.actions, div.content-container {
+  div.actions {
     display: inline-block;
   }
 
   div.actions {
     height: auto;
+  }
+
+  div.summary-container {
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 }
 
@@ -158,8 +148,8 @@ div.expansion-panel:focus {
   outline: none;
 }
 
-div.expansion-panel ~ div.expansion-panel {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+div.expansion-panel + div.expansion-panel {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 div.card div.expansion-panel {
@@ -167,19 +157,28 @@ div.card div.expansion-panel {
   margin-left: -5px;
 }
 
-div.card ~ div.expansion-panel {
+div.card + div.expansion-panel {
   margin-top: -10px;
 }
 
-div.card ~ div.expansion-panel.open {
+div.card + div.expansion-panel.open {
   margin-top: 8px;
 }
 
-div.card ~ div.expansion-panel {
-  position: relative;
+div.expansion-panel::before {
+  transition: inherit;
+  content: "";
+  position: absolute;
+  top: 2px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
 }
 
-div.expansion-panel::before {
+div.expansion-panel.open::before {
+  transition: inherit;
   content: "";
   position: absolute;
   top: 0;
@@ -187,10 +186,10 @@ div.expansion-panel::before {
   left: 0;
   right: 0;
   z-index: -1;
-  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
 }
 
-div.expansion-panel ~ div.card {
+div.expansion-panel + div.card {
   box-shadow: none;
   margin-top: 0;
   position: relative;
@@ -198,11 +197,16 @@ div.expansion-panel ~ div.card {
   transition: margin-top $duration-fast;
 }
 
-div.expansion-panel.open ~ div.card {
+div.expansion-panel.open + div.card {
   margin-top: 8px;
 }
 
-div.expansion-panel ~ div.card::before {
+div.expansion-panel.open + div.expansion-panel {
+  margin-top: 8px;
+}
+
+div.expansion-panel + div.expansion-panel::before {
+  transition: inherit;
   content: "";
   position: absolute;
   top: 0;
@@ -210,5 +214,17 @@ div.expansion-panel ~ div.card::before {
   left: 0;
   right: 0;
   z-index: -1;
-  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
+}
+
+div.expansion-panel + div.card::before {
+  transition: inherit;
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
 }

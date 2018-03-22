@@ -60,16 +60,17 @@ var MaterialPage;
             };
             this.togglePanel = () => {
                 this.el.classList.toggle("open");
-                this.updateContent();
-            };
-            this.closePanel = () => {
-                this.el.classList.remove("open");
+                if (this.el.classList.contains("open"))
+                    this.container.style.height = this.container.scrollHeight + "px";
+                else
+                    this.container.style.height = "0";
                 this.updateContent();
             };
             let el = this.el;
             let primary = this.el.querySelector("div.summary.primary");
             let secondary = this.el.querySelector("div.summary.secondary");
             let container = this.el.querySelector("div.content-container");
+            let summary = this.el.querySelector("div.summary-container");
             this.primary = primary;
             this.secondary = secondary;
             this.container = container;
@@ -83,18 +84,15 @@ var MaterialPage;
                 icon.classList.add("material-icons");
                 icon.textContent = "expand_more";
                 expand.appendChild(icon);
-                el.insertBefore(expand, container);
+                summary.appendChild(expand);
                 expandIcon = expand;
             }
             expandIcon.addEventListener("click", this.togglePanel);
             let actions = this.el.querySelector("div.actions");
-            let clearfix = MaterialPage.App.getClearfix();
-            container.appendChild(clearfix.cloneNode());
             let close = actions.querySelector("button[data-action='close']");
             if (close != null) {
-                close.addEventListener("click", this.closePanel);
+                close.addEventListener("click", this.togglePanel);
             }
-            actions.appendChild(clearfix);
         }
         static getSelectors() {
             return ["div.expansion-panel"];

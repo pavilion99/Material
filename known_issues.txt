@@ -1,1 +1,8 @@
-None!
+- card
+- exp. panel
+- exp. panel
+- exp. panel
+- exp. panel
+- card
+
+Shadows "jump" when any but the last expansion panel is opened

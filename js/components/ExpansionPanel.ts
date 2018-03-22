@@ -12,6 +12,7 @@ namespace MaterialPage {
             let primary = this.el.querySelector("div.summary.primary");
             let secondary = this.el.querySelector("div.summary.secondary");
             let container = this.el.querySelector("div.content-container");
+            let summary = this.el.querySelector("div.summary-container");
 
             this.primary = primary;
             this.secondary = secondary;
@@ -32,7 +33,7 @@ namespace MaterialPage {
 
                 expand.appendChild(icon);
 
-                el.insertBefore(expand, container);
+                summary.appendChild(expand);
 
                 expandIcon = expand;
             }
@@ -41,16 +42,10 @@ namespace MaterialPage {
 
             let actions = this.el.querySelector("div.actions");
 
-            let clearfix = App.getClearfix();
-
-            container.appendChild(clearfix.cloneNode());
-
             let close = actions.querySelector("button[data-action='close']");
             if (close != null) {
-                close.addEventListener("click", this.closePanel);
+                close.addEventListener("click", this.togglePanel);
             }
-
-            actions.appendChild(clearfix);
         }
 
         updateContent = () => {
@@ -68,12 +63,10 @@ namespace MaterialPage {
         togglePanel = () => {
             this.el.classList.toggle("open");
 
-            this.updateContent();
-        };
-
-        closePanel = () => {
-            this.el.classList.remove("open");
-
+            if (this.el.classList.contains("open"))
+                (<HTMLElement>this.container).style.height = this.container.scrollHeight + "px";
+            else
+                (<HTMLElement>this.container).style.height = "0";
             this.updateContent();
         };
 
