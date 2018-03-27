@@ -1,0 +1,127 @@
+div.list-container, ul.list-container {
+    padding:         8px 0 8px 0;
+    list-style-type: none;
+    margin:          0;
+    position:        relative;
+
+    li {
+        display:    flex;
+        padding:    20px 16px 16px 16px;
+        box-sizing: border-box;
+
+        div.left {
+            position:      absolute;
+            left:          16px;
+            padding-right: 32px;
+        }
+
+        div.content {
+            flex-basis:  100%;
+            flex-shrink: 1;
+
+            p.primary {
+                @include font(16, $dark, 400);
+                margin:      0 0 4px 0;
+                line-height: 16px;
+            }
+
+            p.secondary {
+                margin: 0;
+
+                span {
+                    @include font(14, $dark-secondary, 400);
+                    display:     block;
+                    margin:      0;
+                    line-height: 16px;
+                }
+            }
+        }
+
+        div.secondary-action {
+
+        }
+    }
+}
+
+ul.dense {
+    padding: 4px 0 4px 0;
+
+    li {
+        padding: 14px 16px 14px 16px;
+
+        div.content {
+            p.primary {
+                @include font(13, $dark, 400);
+                line-height:   14px;
+                margin-bottom: 4px;
+            }
+
+            p.secondary {
+                span {
+                    @include font(13, $dark-secondary, 400);
+                    line-height: 14px;
+                }
+            }
+        }
+    }
+}
+
+ul.list-container.threeline {
+    li {
+        padding: 16px;
+
+        div.content {
+            p.secondary {
+                span {
+                    margin-bottom: 4px;
+                }
+
+                span + span {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+ul.list-container.singleline {
+    li {
+        padding: 0 16px 0 16px;
+        height:  48px;
+
+        div.content {
+            @include font(16, "dark", 400);
+
+            p.primary {
+                line-height: 48px;
+            }
+        }
+    }
+}
+
+ul.list-container.threeline.dense {
+    padding: 4px 0 4px 0;
+
+    li {
+        padding: 10px 16px 10px 16px;
+
+        div.content {
+            p.primary, span {
+                line-height: 16px;
+            }
+        }
+    }
+}
+
+ul.list-container-singleline.dense {
+    padding: 4px 0 4px 0;
+
+    li {
+        height: 40px;
+
+        div.content {
+            @include font(13, $dark, 400);
+            line-height: 40px;
+        }
+    }
+}

@@ -1,0 +1,155 @@
+$resolution: 2;
+@keyframes background-pulse {
+  @for $i from 0 through 100 / $resolution {
+    #{$i * $resolution}% {
+      background-size: (100% + 8% * (($i * $resolution) / 100)) (100% + 8% * (($i * $resolution) / 100));
+    }
+  }
+}
+
+$resolution: 2;
+@keyframes background-press {
+  @for $i from 0 through 100 / $resolution {
+    #{$i * $resolution}% {
+      background-image: radial-gradient(circle farthest-side at center,
+              rgba(153, 153, 153, 0.22 - (0.22 * ((($i * $resolution) / 100)))) 0%,
+              rgba(153, 153, 153, 0.22 - (0.22 * ((($i * $resolution) * ($i * $resolution)) / 10000))) 60%,
+              rgba(153, 153, 153, 0.10 - (0.10 * ((($i * $resolution) * ($i * $resolution)) / 10000))) 70%);
+      background-size: (100% + 100% * (($i * $resolution) / 100)) (100% + 100% * (($i * $resolution) / 100));
+    }
+  }
+}
+
+/* This type of button (the default) should be used in the following cases:
+ * - Inline (some cases)
+ */
+button,
+button.raised,
+input[type="button"],
+input[type="button"].raised,
+input[type="submit"].raised,
+input[type="submit"],
+a.button,
+a.button.raised,
+.button.raised,
+.button {
+  min-height:                         36px;
+  margin:                             0;
+  border-radius:                      2px;
+  padding-left:                       16px;
+  padding-right:                      16px;
+  line-height:                        36px;
+  font-size:                          14px;
+  font-weight:                        500;
+  outline:                            none;
+}
+
+button.dense,
+input[type="button"].dense,
+input[type="submit"].dense,
+a.button.dense,
+.button.dense {
+  height:                             32px !important;
+  min-height:                         32px !important;
+  font-size:                          13px !important;
+}
+
+
+/* Flat buttons should be used in the following cases:
+ * - On toolbars
+ * - In dialogs
+ * - Inline (some cases)
+ */
+button.flat,
+input[type="button"].flat,
+input[type="submit"].flat,
+a.button.flat,
+.button.flat {
+  height:                             36px;
+  min-width:                          64px;
+  border-radius:                      2px;
+  padding-left:                       8px;
+  padding-right:                      8px;
+  margin:                             6px 8px 6px 8px;
+  background-color:                   transparent;
+  border-width: 0;
+
+  cursor:                             pointer;
+}
+
+body.theme-light {
+  button.flat,
+  input[type="button"].flat,
+  input[type="submit"].flat,
+  a.button.flat,
+  .button.flat {
+    /* Find a way to make the background image here */
+  }
+
+  //noinspection ALL
+  button.flat.focus,
+  input[type="button"].flat.focus,
+  input[type="submit"].flat.focus,
+  a.button.flat.focus,
+  .button.flat.focus {
+    -webkit-animation:                background-pulse 1.5s $standard-curve 0s infinite alternate;
+    animation:                        background-pulse 1.5s $standard-curve 0s infinite alternate;
+    background-repeat:                no-repeat;
+    background-position:              center center;
+    background-image:                 radial-gradient(circle farthest-side at center, rgba(153, 153, 153, 0.08) 0%, rgba(153, 153, 153, 0.08) 80%, rgba(153, 153, 153, 0.30) 80%);
+  }
+
+  //noinspection ALL
+  button.flat.active,
+  input[type="button"].flat.active,
+  input[type="submit"].flat.active,
+  a.button.flat.active,
+  .button.flat.active {
+    -webkit-animation:                background-press $duration-slow $standard-curve 0s 1 forwards;
+    animation:                        background-press $duration-slow $standard-curve 0s 1 forwards;
+    background-repeat:                no-repeat;
+    background-position:              center center;
+  }
+
+  button.flat.disabled,
+  input[type="button"].flat.disabled,
+  input[type="submit"].flat.disabled,
+  a.button.flat.disabled,
+  .button.flat.disabled {
+    color:                            rgba(0, 0, 0, 0.26);
+  }
+}
+
+body.theme-dark {
+  button.flat,
+  input[type="button"].flat,
+  input[type="submit"].flat,
+  a.button.flat,
+  .button.flat {
+
+  }
+
+  button.flat.focus,
+  input[type="button"].flat.focus,
+  input[type="submit"].flat.focus,
+  a.button.flat.focus,
+  .button.flat.focus {
+    background-color:                 rgba(204, 204, 204, 0.125);
+  }
+
+  button.flat.active,
+  input[type="button"].flat.active,
+  input[type="submit"].flat.active,
+  a.button.flat.active,
+  .button.flat.active {
+    background-color:                 rgba(204, 204, 204, 0.25);
+  }
+
+  button.flat.disabled,
+  input[type="button"].flat.disabled,
+  input[type="submit"].flat.disabled,
+  a.button.flat.disabled,
+  .button.flat.disabled {
+    color:                            rgba(255, 255, 255, 0.30);
+  }
+}

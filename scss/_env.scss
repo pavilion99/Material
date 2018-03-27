@@ -1,0 +1,89 @@
+@mixin no-shadow() {
+  -moz-box-shadow:    none;
+  -webkit-box-shadow: none;
+  -o-box-shadow:      none;
+  box-shadow:         none;
+}
+
+@mixin shadow($height) {
+  -moz-box-shadow:    0 2px (4 * $height * 1px) rgba(0, 0, 0, 0.38);
+  -webkit-box-shadow: 0 2px (4 * $height * 1px) rgba(0, 0, 0, 0.38);
+  -o-box-shadow:      0 2px (4 * $height * 1px) rgba(0, 0, 0, 0.38);
+  box-shadow:         0 2px (4 * $height * 1px) rgba(0, 0, 0, 0.38);
+}
+
+input[type="checkbox"].switch {
+  @include shadow(1);
+}
+
+.card {
+  @include shadow(2);
+
+  background-color: #fff;
+
+  margin:           0 auto 8px auto;
+
+  z-index:          2;
+}
+
+* + .card {
+  margin-top: 8px;
+}
+
+.card.raised {
+  @include shadow(8);
+}
+
+.dialog {
+  @include shadow(24);
+}
+
+.nav-drawer {
+  @include shadow(16);
+}
+
+button.fab.selected, button.fab:active {
+  @include shadow(12);
+}
+
+button.fab {
+  @include shadow(6);
+}
+
+button.fab-option {
+  @include shadow(12);
+}
+
+.refresh {
+  @include shadow(3);
+}
+
+nav.app-bar {
+  @include shadow(4);
+}
+
+.modal-bottom {
+  @include shadow(16);
+}
+
+div.snackbar {
+  @include shadow(6);
+}
+
+.menu {
+  @include shadow(8);
+}
+
+nav.nav-bottom {
+  @include shadow(8);
+}
+
+div.picker {
+  @include shadow(24);
+  z-index: 24;
+}
+
+div.card, section.card, article.card {
+  @extend .card;
+  // TODO: finish this declaration to include all elements that might need an ambient shadow
+}

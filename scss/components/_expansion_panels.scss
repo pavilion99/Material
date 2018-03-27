@@ -1,0 +1,224 @@
+div.expansion-panel {
+  position: relative;
+  padding: 0;
+
+  box-sizing: border-box;
+
+  background-color: #fff;
+
+  transition: padding $duration-fast, margin-top $duration-fast;
+
+  div.expand-icon {
+    color: rgba(0, 0, 0, 0.38);
+    transform: rotate(0deg);
+    transition: transform $duration-fast, color $duration-fast;
+    position: absolute;
+    right: 24px;
+
+    span.material-icons {
+      margin-top: 12px;
+      height: 24px;
+      cursor: pointer;
+    }
+  }
+
+  div.expand-icon:hover, div.expand-icon:focus {
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+  div.summary-container {
+    display: flex;
+    height: 48px;
+    padding-left: 24px;
+    transition: padding-top $duration-fast, padding-bottom $duration-fast;
+
+    div.title {
+      margin-right: 16px;
+      font-size: 15px;
+      line-height: 48px;
+      color: rgba(0, 0, 0, 0.87);
+      flex-basis: 25%;
+      white-space: nowrap;
+      overflow: visible;
+    }
+
+    div.title.multiline {
+      margin-right: 16px;
+
+      span.main {
+        font-size: 15px;
+        color: rgba(0, 0, 0, 0.87);
+      }
+
+      span.subtitle {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.54);
+      }
+    }
+
+    div.summary {
+      font-size: 15px;
+      color: rgba(0, 0, 0, 0.54);
+      line-height: 48px;
+    }
+
+    div.summary.primary {
+      margin-right: 16px;
+      flex-basis: 45%;
+    }
+
+    div.summary.secondary {
+      flex-basis: 30%;
+      box-sizing: border-box;
+      padding-right: 64px;
+    }
+  }
+
+  div.content-container {
+    padding: 0 0 0 24px;
+    height: 0;
+    transition: height $duration-fast, padding-bottom $duration-fast;
+    display: flex;
+    overflow: hidden;
+
+    div.content-left {
+      margin-right: 16px;
+      flex-basis: 25%;
+    }
+
+    div.content-center {
+      margin-right: 16px;
+      flex-basis: 45%;
+    }
+
+    div.content-right {
+      @include font(12, $dark-secondary, 400);
+      border-left:   1px solid rgba(0, 0, 0, 0.12);
+      flex-basis:    30%;
+      padding-left:  16px;
+      line-height:   16px;
+      padding-right: 64px;
+      box-sizing:    border-box;
+    }
+  }
+
+  div.actions {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    display: none;
+    width: 100%;
+  }
+}
+
+div.expansion-panel.open {
+  margin-top: 16px;
+
+  div.content-container {
+    padding-bottom: 16px;
+  }
+
+  div.title {
+    line-height: 24px;
+  }
+
+  div.expand-icon {
+    transform: rotate(180deg);
+  }
+
+  div.actions {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  div.summary-container {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+div.expansion-panel:focus {
+  background-color: map-get($colors, grey-200);
+  outline:          none;
+}
+
+div.expansion-panel + div.expansion-panel {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+div.card div.expansion-panel {
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+div.card + div.expansion-panel {
+  margin-top: -10px;
+}
+
+div.card + div.expansion-panel.open {
+  margin-top: 16px;
+}
+
+div.expansion-panel::before {
+  transition: inherit;
+  content: "";
+  position: absolute;
+  top: 2px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
+}
+
+div.expansion-panel.open::before {
+  transition: inherit;
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
+}
+
+div.expansion-panel + div.card {
+  box-shadow: none;
+  margin-top: 0;
+  position: relative;
+  z-index: auto;
+  transition: margin-top $duration-fast;
+}
+
+div.expansion-panel.open + div.card {
+  margin-top: 16px;
+}
+
+div.expansion-panel.open + div.expansion-panel {
+  margin-top: 16px;
+}
+
+div.expansion-panel + div.expansion-panel::before {
+  transition: inherit;
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
+}
+
+div.expansion-panel + div.card::before {
+  transition: inherit;
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
+}

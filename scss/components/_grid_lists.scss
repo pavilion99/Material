@@ -1,0 +1,102 @@
+div.grid-list {
+    display:         flex;
+    flex-wrap:       wrap;
+    justify-content: flex-start;
+
+    div.grid-list-item {
+        min-width:       200px;
+        min-height:      200px;
+        flex-grow:       1;
+        margin:          2px;
+        display:         flex;
+        justify-content: space-between;
+        flex-direction:  column;
+
+        div.content {
+            flex-grow: 1;
+            order:     2;
+        }
+
+        header {
+            order: 1;
+        }
+
+        footer {
+            order: 3;
+        }
+
+        header, footer {
+            padding: 16px;
+            display: flex;
+
+            div.text {
+                width:       100%;
+                margin:      0;
+                padding:     0;
+                flex-shrink: 1;
+                flex-basis:  100%;
+
+                p {
+                    padding:        0;
+                    margin:         0 0 4px 0;
+                    text-overflow:  ellipsis;
+                    vertical-align: top;
+                }
+
+                p * {
+                    vertical-align: top;
+                }
+
+                p + p {
+                    margin-bottom: 0;
+                    text-overflow: initial;
+
+                    .material-icons {
+                        font-size:   16px;
+                        line-height: 16px;
+                    }
+                }
+            }
+
+            div.text.singleline {
+                p {
+                    margin: 0;
+                }
+            }
+
+            div.text, div.text.grid-item-16-12 {
+                p {
+                    font-size:   16px;
+                    line-height: 16px;
+                }
+
+                p + p {
+                    font-size:   12px;
+                    line-height: 16px;
+                }
+            }
+
+            div.text.grid-item-14-14 {
+                p, p + p {
+                    font-size:   14px;
+                    line-height: 16px;
+                }
+            }
+
+            div.extra, div.text.multiline + div.extra {
+                margin:       0;
+                width:        24px;
+                height:       24px;
+                padding-left: 16px;
+            }
+
+            div.text.singleline + div.extra {
+                margin: -4px 0 -4px 0;
+            }
+        }
+    }
+
+    div.grid-list-item.filler {
+        visibility: hidden;
+    }
+}

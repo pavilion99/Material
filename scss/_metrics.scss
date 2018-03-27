@@ -1,0 +1,62 @@
+$base: 64px;
+$icon-height: 48px;
+$dense: 48px;
+
+html, body {
+  margin:                     0;
+}
+
+button {
+  padding:                    0;
+}
+
+nav.app-bar {
+  height:                     $base;
+  top:                        0;
+  left:                       0;
+  right:                      0;
+  padding-left:               16px;
+  padding-right:              16px;
+  z-index:                    4;
+}
+
+nav.app-bar.dense {
+  height:                     $dense;
+}
+
+nav.app-bar > button.nav-icon {
+  line-height:                $icon-height;
+  padding-left:               12px;
+  padding-right:              12px;
+  margin:                     ($base - $icon-height) / 2 12px ($base - $icon-height) / 2 -4px;
+}
+
+nav.app-bar.dense > button.nav-icon {
+  margin:                     ($dense - $icon-height) / 2 12px ($dense - $icon-height) / 2 -4px;
+}
+
+nav.app-bar.dense > span.app-title {
+  line-height:                $dense !important;
+}
+
+nav.app-bar > span.app-title {
+  line-height:                $base !important;
+}
+
+body {
+    margin:  0;
+    padding: 0;
+}
+
+body > section.content {
+    padding-left:  16px;
+    padding-right: 16px;
+}
+
+body > nav.app-bar ~ section.content {
+    padding-top: $base + 16px;
+}
+
+.card {
+  padding:                    5px;
+}
