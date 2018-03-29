@@ -38,6 +38,8 @@ nav.nav-bottom {
     }
 
     a.nav-link.active {
+        @include text-theme-color("primary");
+
         span.nav-link-text {
             font-size: 14px;
         }

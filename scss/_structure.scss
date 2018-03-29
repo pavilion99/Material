@@ -37,6 +37,18 @@ span.clearfix {
   display:            block;
 }
 
-.card {
-  box-sizing:         border-box;
+:not(.nav-bottom) > a {
+    @include text-theme-color("primary");
+    text-decoration: none;
+}
+
+:not(.nav-bottom) > a:visited {
+    @include text-theme-color("primary");
+    text-decoration: none;
+    line-height:     18.5px;
+}
+
+:not(.nav-bottom) > a > span.material-icons {
+    font-size:   14px;
+    line-height: 18.5px;
 }

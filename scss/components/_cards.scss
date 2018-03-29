@@ -1,0 +1,165 @@
+.card {
+    @include shadow(2);
+    margin:     0 0 8px 0;
+    z-index:    2;
+    padding:    5px;
+    box-sizing: border-box;
+
+    // TODO: headers
+    > header {
+
+    }
+
+    > header:first-child {
+        margin-top: -5px;
+    }
+
+    > div.media:first-child {
+        margin-top: -5px;
+    }
+
+    > div.media {
+        margin-left:  -5px;
+        margin-right: -5px;
+    }
+
+    > div.title:first-child {
+        margin-top: -5px;
+    }
+
+    > div.title {
+        margin-left:  -5px;
+        margin-right: -5px;
+        padding:      24px 16px;
+        font-size:    22px;
+        line-height:  19px;
+
+        span.subtitle {
+            margin-top:  12px;
+            font-size:   14px;
+            display:     block;
+            line-height: 14px;
+        }
+    }
+
+    > div.title + div.primary-text {
+        padding-top: 0;
+    }
+
+    > div.primary-text {
+        padding:      16px;
+        margin-right: -5px;
+        margin-left:  -5px;
+    }
+
+    > div.supporting-text {
+        padding:      0 16px;
+        margin-left:  -5px;
+        margin-right: -5px;
+        height:       0;
+        transition:   height $duration-fast, padding-top $duration-fast, padding-bottom $duration-fast;
+        overflow:     hidden;
+
+    }
+
+    > div.supporting-text:last-child {
+        margin-bottom: -5px;
+    }
+
+    > div.actions:last-child {
+        margin-bottom: -5px;
+    }
+
+    > div.actions {
+        padding:         8px;
+        margin-left:     -5px;
+        margin-right:    -5px;
+        display:         flex;
+        justify-content: space-between;
+
+        .actions-left {
+            .button {
+                margin: 0;
+            }
+        }
+
+        .button[data-action="expand"] {
+            border:           none;
+            background-color: transparent;
+            cursor:           pointer;
+            font-size:        24px;
+            transform:        rotate(0deg);
+            transition:       transform $duration-fast, color $duration-fast;
+            padding:          8px;
+            height:           100%;
+            margin-top:       -6px;
+            line-height:      24px;
+        }
+    }
+
+    > div.actions + div.supporting-text {
+        padding-top: 0;
+    }
+}
+
+.card.expanded {
+    > div.actions .button[data-action="expand"] {
+        transform: rotate(180deg);
+    }
+
+    > div.supporting-text {
+        padding-top:    24px;
+        padding-bottom: 24px;
+    }
+
+    > div.actions + div.supporting-text {
+        padding-bottom: 16px;
+    }
+}
+
+body.theme-light .card {
+    @include text-dark;
+
+    > div.actions .button[data-action="expand"] {
+        @include text-dark-hint;
+    }
+
+    > div.title > span.subtitle {
+        @include text-dark-secondary;
+    }
+}
+
+body.theme-dark .card {
+    @include text-light;
+
+    > div.actions .button[data-action="expand"] {
+        @include text-light-hint;
+    }
+
+    > div.title > span.subtitle {
+        @include text-light-secondary;
+    }
+}
+
+* + .card {
+    margin-top: 8px;
+}
+
+.card.raised {
+    @include shadow(8);
+}
+
+div.card, section.card, article.card {
+    @extend .card;
+    // TODO: finish this declaration to include all elements that might need an ambient shadow
+}
+
+// Coloring
+body.theme-light .card {
+    background-color: map-get($colors, white);
+}
+
+body.theme-dark .card {
+    @include text-light;
+    background-color: nth($theme-dark, 4);
+}

@@ -1,40 +1,41 @@
 @keyframes launch-image-in {
   0% {
-    transform:                        scale(0.95) translate(-50%, -50%);
-    -webkit-filter:                   saturate(0%);
+      transform:      scale(0.95);
+      filter:         saturate(0%);
+      -webkit-filter: saturate(0%);
   }
 
   70% {
-    transform:                        scale(1.0) translate(-50%, -50%);
-    -webkit-filter:                   saturate(100%);
+      transform:      scale(1.0);
+      filter:         saturate(100%);
+      -webkit-filter: saturate(100%);
   }
 
   100% {
-    transform:                        scale(1.0) translate(-50%, -50%);
-    -webkit-filter:                   saturate(100%);
+      transform:      scale(1.0);
+      filter:         saturate(100%);
+      -webkit-filter: saturate(100%);
   }
 }
 
 div.launch-screen {
-  position:                           fixed;
-  top:                                0;
-  bottom:                             0;
-  left:                               0;
-  right:                              0;
+    position:         fixed;
+    top:              0;
+    bottom:           0;
+    left:             0;
+    right:            0;
 
-  background-color:                   #fff;
+    background-color: #FFFFFF;
 
-  opacity:                            1.0;
-  z-index:                            1000;
+    opacity:          1.0;
+    z-index:          1000;
 
-  transition:                         opacity $duration-slow $acceleration-curve, z-index $duration-slow $acceleration-curve;
+    transition:       opacity $duration-slow $acceleration-curve, z-index $duration-slow $acceleration-curve;
+    display:          flex;
+    justify-content:  center;
+    align-items:      center;
 
   img.launch-screen-logo {
-    position:                         absolute;
-    top:                              50%;
-    left:                             50%;
-    transform:                        translate(-50%, -50%);
-
     max-width:                        200px;
 
     -webkit-animation:                launch-image-in 2s $standard-curve 0s 1;

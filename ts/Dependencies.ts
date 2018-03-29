@@ -5,6 +5,7 @@
 
 /// <reference path="components/BottomNavigation.ts" />
 /// <reference path="components/Button.ts" />
+/// <reference path="components/Card.ts" />
 /// <reference path="components/Dialog.ts" />
 /// <reference path="components/ExpansionPanel.ts" />
 /// <reference path="components/FloatingActionButton.ts" />

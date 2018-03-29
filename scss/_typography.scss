@@ -174,9 +174,9 @@ $text-button-line-height:     32px;
 }
 
 .text-display-2 {
-  font-size:                  45px;
-  font-weight:                400;
-  line-height:                64px;
+    font-size:   45px;
+    font-weight: 400;
+    line-height: 48px;
 }
 
 .text-display-2[lang|="ar"], .text-display-2[lang|="bn"], .text-display-2[lang|="fa"], .text-display-2[lang|="gu"], .text-display-2[lang|="hi"],
@@ -189,9 +189,9 @@ $text-button-line-height:     32px;
 }
 
 .text-display-1 {
-  font-size:                  34px;
-  font-weight:                400;
-  line-height:                52px;
+    font-size:   34px;
+    font-weight: 400;
+    line-height: 40px;
 }
 
 .text-display-1[lang|="ar"], .text-display-1[lang|="bn"], .text-display-1[lang|="fa"], .text-display-1[lang|="gu"], .text-display-1[lang|="hi"],
@@ -369,6 +369,10 @@ button[lang|="te"], button[lang|="th"], button[lang|="ur"], button[lang|="vi"],
 
 .lowercase {
   text-transform:             lowercase;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
 }
 
 h1 {

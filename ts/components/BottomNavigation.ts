@@ -1,29 +1,6 @@
 namespace MaterialPage {
     export class BottomNavigation extends MaterialElement {
         private static oldScrollTop: number = -1;
-        scrollFade = (): boolean => {
-            return this.el.classList.contains("scroll-fade");
-        };
-        scrollToggle = () => {
-            if (window.innerWidth >= 960) {
-                this.el.classList.remove("offscreen");
-                return;
-            }
-
-            if (!this.scrollFade())
-                return;
-
-            let top = window.scrollY;
-            let down = top > BottomNavigation.oldScrollTop;
-
-            if (down) {
-                this.el.classList.add("offscreen");
-            } else {
-                this.el.classList.remove("offscreen");
-            }
-
-            BottomNavigation.oldScrollTop = top;
-        };
         toggleActive = (e) => {
             let link = e.currentTarget;
 
@@ -63,31 +40,54 @@ namespace MaterialPage {
             this.backgroundStartCoordinates.x = x - rect.left;
             this.backgroundStartCoordinates.y = y - rect.top;
 
-            this.cycle = 0;
+            this.backgroundAnimateStart = -1;
 
-            this.backgroundInterval = window.setInterval(this.animateBackground, 4);
+            window.requestAnimationFrame(this.animateBackground);
         };
-        animateBackground = () => {
-            this.cycle++;
+        animateBackground = (time) => {
+            if (!this.backgroundAnimateStart || this.backgroundAnimateStart == -1)
+                this.backgroundAnimateStart = time;
 
-            if (this.cycle > this.totalCycles) {
-                window.clearInterval(this.backgroundInterval);
-                this.el.style.cssText += ";background-color: " + this.newBackgroundColor + " !important;";
+            let progress = time - this.backgroundAnimateStart;
+
+            let percent = (100 * progress) / 150;
+            this.el.style.backgroundImage = "radial-gradient(circle farthest-side at left " + this.backgroundStartCoordinates.x + "px top " +
+                this.backgroundStartCoordinates.y + "px, " + this.newBackgroundColor + " 0%, " + this.newBackgroundColor + " " + percent + "%, transparent " + percent + "%)";
+
+            if (progress < 150)
+                window.requestAnimationFrame(this.animateBackground);
+            else {
+                this.el.style.backgroundColor = this.newBackgroundColor;
                 this.el.style.backgroundImage = "unset";
+            }
+        };
+        private backgroundStartCoordinates = {"x": -1, "y": -1};
+        private oldBackgroundColor;
+        private newBackgroundColor;
+        scrollFade = (): boolean => {
+            return this.el.classList.contains("scroll-fade");
+        };
+        scrollToggle = () => {
+            if (window.innerWidth >= 960) {
+                this.el.classList.remove("offscreen");
                 return;
             }
 
-            let percent = this.cycle / this.totalCycles;
-            percent *= 100;
-            this.el.style.backgroundImage = "radial-gradient(circle farthest-side at left " + this.backgroundStartCoordinates.x + "px top " +
-                this.backgroundStartCoordinates.y + "px, " + this.newBackgroundColor + " 0%, " + this.newBackgroundColor + " " + percent + "%, transparent " + percent + "%)";
+            if (!this.scrollFade())
+                return;
+
+            let top = window.scrollY;
+            let down = top > BottomNavigation.oldScrollTop;
+
+            if (down) {
+                this.el.classList.add("offscreen");
+            } else {
+                this.el.classList.remove("offscreen");
+            }
+
+            BottomNavigation.oldScrollTop = top;
         };
-        private backgroundStartCoordinates = {"x": -1, "y": -1};
-        private backgroundInterval = -1;
-        private oldBackgroundColor;
-        private newBackgroundColor;
-        private cycle = -1;
-        private totalCycles = 50;
+        private backgroundAnimateStart: number = -1;
 
         constructor(domEl: HTMLElement) {
             super(domEl);

@@ -1,11 +1,17 @@
-$divider-light: rgba(255, 255, 255, 0.12);
-$divider-dark: rgba(0, 0, 0, 0.12);
-
-$colors: "red" "pink" "purple" "deep-purple" "indigo" "blue" "light-blue" "cyan" "teal" "green" "light-green" "lime" "yellow" "amber" "orange" "deep-orange" "brown" "grey" "blue-grey";
-$accent-colors: "red" "pink" "purple" "deep-purple" "indigo" "blue" "light-blue" "cyan" "teal" "green" "light-green" "lime" "yellow" "amber" "orange" "deep-orange";
+// Rules:
+// Pick one primary palette and a secondary palette
+// Pick three colors from the primary palette and one accent from the second palette
+// One of the three primary colors is generally a 500, with one being lighter and another darker
+// Accent used for switches, links, FAB, sliders
+// Change accent color using fallbacks (lighter or darker) if the background doesn't work with it
+// App Bar - 500
+// FAB - Accent
+// Other Data - 300
 
 $light-text: "red-400" "red-500" "red-600" "red-700" "red-800" "red-900" "red-a-200" "red-a-400" "red-a-700" "pink-300" "pink-400" "pink-500" "pink-600" "pink-700" "pink-800" "pink-900" "pink-a-200" "pink-a-400" "pink-a-700" "purple-300" "purple-400" "purple-500" "purple-600" "purple-700" "purple-800" "purple-900" "purple-a-200" "purple-a-400" "purple-a-700" "deep-purple-300" "deep-purple-400" "deep-purple-500" "deep-purple-600" "deep-purple-700" "deep-purple-800" "deep-purple-900" "deep-purple-a-200" "deep-purple-a-400" "deep-purple-a-700" "indigo-300" "indigo-400" "indigo-500" "indigo-600" "indigo-700" "indigo-800" "indigo-900" "indigo-a-200" "indigo-a-400" "indigo-a-700" "blue-500" "blue-600" "blue-700" "blue-800" "blue-900" "blue-a-200" "blue-a-400" "blue-a-700" "light-blue-600" "light-blue-700" "light-blue-800" "light-blue-900" "light-blue-a-700" "cyan-700" "cyan-800" "cyan-900" "teal-500" "teal-600" "teal-700" "teal-800" "teal-900" "green-600" "green-700" "green-800" "green-900" "light-green-700" "light-green-800" "light-green-900" "lime-900" "orange-800" "orange-900" "deep-orange-500" "deep-orange-600" "deep-orange-700" "deep-orange-800" "deep-orange-900" "deep-orange-a-400" "deep-orange-a-700" "brown-300" "brown-400" "brown-500" "brown-600" "brown-700" "brown-800" "brown-900" "blue-grey-400" "blue-grey-500" "blue-grey-600" "blue-grey-700" "blue-grey-800" "blue-grey-900";
 
+$material-colors: "red" "pink" "purple" "deep-purple" "indigo" "blue" "light-blue" "cyan" "teal" "green" "light-green" "lime" "yellow" "amber" "orange" "deep-orange" "brown" "grey" "blue-grey";
+$material-tints: 50 100 200 300 400 500 600 700 800 900;
 $colors: (
                  red-50: #FFEBEE,
                  red-100: #FFCDD2,
@@ -289,480 +295,239 @@ $a-light: map-get($colors, white);
 $a-dark: rgb(54%, 54%, 54%);
 
 // Dark Text Settings
-$dark-hint: rgba(0, 0, 0, 0.38);
-$dark-secondary: rgba(0, 0, 0, 0.54);
 $dark: rgba(0, 0, 0, 0.87);
+$dark-secondary: rgba(0, 0, 0, 0.54);
+$dark-hint: rgba(0, 0, 0, 0.38);
 
 // Light Text Settings
-$light-hint: rgba(255, 255, 255, 0.5);
-$light-secondary: rgba(255, 255, 255, 0.7);
 $light: rgba(255, 255, 255, 1.0);
+$light-secondary: rgba(255, 255, 255, 0.7);
+$light-hint: rgba(255, 255, 255, 0.5);
 
+// ------------------ USER THEME SETTINGS ------------------ //
 $theme-primary: "blue";
-$theme-primary-tint: 400;
+$theme-primary-tint: 500;
 $theme-secondary: "orange";
-$theme-secondary-tint: 400;
+$theme-secondary-tint: 600;
+// --------------------------------------------------------- //
 
+// Default Theme Values
+$theme-light: #E0E0E0 #F5F5F5 #FAFAFA #FFFFFF;
+$theme-dark: #000000 #212121 #303030 #424242;
+
+// User Theme Mixins
 @mixin theme-color($context) {
-    @if ($context == "primary") {
-        background-color: map-get($colors, $theme-primary + "-#{$theme-primary-tint}");
-    } @else if ($context == "secondary") {
-        background-color: map-get($colors, $theme-secondary + "-#{$theme-secondary-tint}");
+    @if variable-exists("theme-primary") {
+        @if ($context == "primary") {
+            background-color: map-get($colors, $theme-primary + "-#{$theme-primary-tint}");
+        } @else if ($context == "secondary") {
+            background-color: map-get($colors, $theme-secondary + "-#{$theme-secondary-tint}");
+        }
     }
 }
 
+@mixin theme-color-tint($context, $tint) {
+    @if variable_exists("theme-primary") {
+        @if ($context == "primary") {
+            background-color: map-get($colors, $theme-primary + "-#{$tint}");
+        } @else if ($context == "secondary") {
+            background-color: map-get($colors, $theme-secondary + "-#{$tint}");
+        }
+    }
+}
 @mixin text-theme-color($context) {
-    $prim-tint: 0;
-    $sec-tint: 0;
+    @if variable_exists("theme-primary") {
+        $prim-tint: 0;
+        $sec-tint: 0;
 
-    @if $theme-primary-tint < 500 {
-        $prim-tint: $theme-primary-tint + 100;
+        @if $theme-primary-tint < 500 {
+            $prim-tint: $theme-primary-tint + 100;
 
-        @if ($prim-tint % 100 != 0) {
-            $prim-tint: $prim-tint + 50;
+            @if ($prim-tint % 100 != 0) {
+                $prim-tint: $prim-tint + 50;
+            }
+        } @else if $theme-primary-tint >= 500 {
+            $prim-tint: $theme-primary-tint - 100;
         }
-    } @else if $theme-primary-tint >= 500 {
-        $prim-tint: $theme-primary-tint - 100;
-    }
-    @if $theme-secondary-tint < 500 {
-        $sec-tint: $theme-secondary-tint + 100;
+        @if $theme-secondary-tint < 500 {
+            $sec-tint: $theme-secondary-tint + 100;
 
-        @if ($sec-tint % 100 != 0) {
-            $sec-tint: $sec-tint + 50;
+            @if ($sec-tint % 100 != 0) {
+                $sec-tint: $sec-tint + 50;
+            }
+        } @else if $theme-secondary-tint >= 500 {
+            $sec-tint: $theme-secondary-tint - 100;
         }
-    } @else if $theme-secondary-tint >= 500 {
-        $sec-tint: $theme-secondary-tint - 100;
-    }
 
-    @if ($context == "primary") {
-        color: map-get($colors, $theme-primary + "-#{$prim-tint}");
-    } @else if ($context == "secondary") {
-        color: map-get($colors, $theme-secondary + "-#{$sec-tint}");
+        @if ($context == "primary") {
+            color: map-get($colors, $theme-primary + "-#{$prim-tint}");
+        } @else if ($context == "secondary") {
+            color: map-get($colors, $theme-secondary + "-#{$sec-tint}");
+        }
     }
 }
-
 @mixin text-theme($context) {
-    @if ($context == "primary") {
-        @if index($light-text, $theme-primary + "-#{$theme-primary-tint}") != null {
-            color: $light;
-        } @else {
-            color: $dark;
-        }
-    } @else if ($context == "secondary") {
-        @if index($light-text, $theme-secondary + "-#{$theme-secondary-tint}") != null {
-            color: $light-secondary;
-        } @else {
-            color: $dark-secondary;
+    @if variable_exists("theme-primary") {
+        @if ($context == "primary") {
+            @if index($light-text, $theme-primary + "-#{$theme-primary-tint}") != null {
+                color: $light;
+            } @else {
+                color: $dark;
+            }
+        } @else if ($context == "secondary") {
+            @if index($light-text, $theme-secondary + "-#{$theme-secondary-tint}") != null {
+                color: $light-secondary;
+            } @else {
+                color: $dark-secondary;
+            }
         }
     }
 }
-
 @mixin theme-all($context) {
     @include theme-color($context);
     @include text-theme($context);
 }
 
-// Rules:
-// Pick one primary palette and a secondary palette
-// Pick three colors from the primary palette and one accent from the second palette
-// One of the three primary colors is generally a 500, with one being lighter and another darker
-// Accent used for switches, links, FAB, sliders
-
-// Change accent color using fallbacks (lighter or darker) if the background doesn't work with it
-
-@mixin theme-primary {
-    background-color: $theme-primary !important;
-}
-
-@mixin theme-secondary {
-    background-color: $theme-secondary !important;
-}
-
-@mixin text-theme-primary {
-    color: $theme-primary !important;
-}
-
-@mixin text-theme-secondary {
-    color: $theme-secondary !important;
-}
-
+// Default Theme Text Mixins
 @mixin text-dark {
     color: $dark;
 }
-
 @mixin text-dark-secondary {
     color: $dark-secondary;
 }
-
 @mixin text-dark-hint {
     color: $dark-hint;
 }
-
 @mixin text-dark-disabled {
     color: $dark-hint;
 }
-
 @mixin text-light {
     color: $light;
 }
-
 @mixin text-light-secondary {
     color: $light-secondary;
 }
-
 @mixin text-light-hint {
     color: $light-hint;
 }
-
 @mixin text-light-disabled {
     color: $light-hint;
 }
 
+// Default Theme Text Classes
 .text-dark {
     @include text-dark();
 }
 
-.text-dark.secondary, .text-dark .secondary, .text-dark-secondary {
+.text-dark.secondary, .text-dark .secondary, .text-dark-secondary,
+body.theme-light .text-secondary {
     @include text-dark-secondary();
 }
 
-.text-dark.hint, .text-dark .hint, .text-dark-hint {
+.text-dark.hint, .text-dark .hint, .text-dark-hint,
+body.theme-light .text-hint {
     @include text-dark-hint();
 }
 
-.text-dark-disabled, .text-dark .disabled, .text-dark-disabled {
+.text-dark-disabled, .text-dark .disabled, .text-dark-disabled,
+body.theme-light .text-disabled {
     @include text-dark-disabled();
 }
-
 .text-light {
     @include text-light;
 }
 
-.text-light.secondary, .text-light .secondary, .text-light-secondary {
-    @include text-light-hint();
+.text-light.secondary, .text-light .secondary, .text-light-secondary,
+body.theme-dark .text-secondary {
+    @include text-light-secondary;
 }
 
-.text-light.hint, .text-light .hint, .text-light-hint {
-    @include text-light-hint();
+.text-light.hint, .text-light .hint, .text-light-hint,
+body.theme-dark .text-hint {
+    @include text-light-hint;
 }
 
-.text-light.disabled, .text-light .disabled, .text-light-disabled {
-    @include text-light-disabled();
+.text-light.disabled, .text-light .disabled, .text-light-disabled,
+body.theme-dark .text-disabled {
+    @include text-light-disabled;
 }
+
 
 // Light Theme
 body.theme-light {
     @include text-dark();
-}
-
-body.theme-light nav.app-bar {
-    @include theme-all("primary");
-}
-
-body.theme-light {
     background-color: map-get($colors, grey-50);
 }
 
-body.theme-light .card {
-    background-color: map-get($colors, white);
+body.theme-light > nav.app-bar {
+    @if variable_exists("theme-primary") {
+        background-color: map-get($colors, $theme-primary + "-#{$theme-primary-tint}");
+        @include text-theme("primary");
+    } @else {
+        background-color: nth($theme-light, 2);
+        @include text-dark;
+    }
 }
+
+body.theme-light > nav.nav-bottom {
+    background-color: nth($theme-light, 2);
+    @include text-dark;
+}
+
 
 //Dark Theme
 body.theme-dark {
     @include text-light;
+    background-color: nth($theme-dark, 3);
 }
 
-body.theme-dark nav.app-bar {
-    @include theme-all("primary");
+body.theme-dark > nav.app-bar {
+    @if variable_exists("theme-primary") {
+        background-color: map-get($colors, $theme-primary + "-#{$theme-primary-tint}");
+        @include text-theme("primary");
+    } @else {
+        background-color: nth($theme-dark, 2);
+        @include text-light;
+    }
 }
 
-body.theme-dark {
-    background-color: #303030;
+body.theme-dark > nav.nav-bottom {
+    background-color: nth($theme-dark, 2);
+    @include text-light;
 }
 
-body.theme-dark .card {
-    background-color: map-get($colors, grey-800);
-}
-
+// User Theme classes
 .theme-primary {
-    @include theme-primary;
+    @include theme-color("primary");
 }
-
 .theme-secondary {
-    @include theme-primary;
+    @include theme-color("secondary");
 }
-
 .text-theme-primary {
-    @include text-theme-primary();
+    @include text-theme-color("primary");
 }
-
 .text-theme-secondary {
-    @include text-theme-secondary;
+    @include text-theme-color("secondary");
 }
 
-// App Bar - 500
-// FAB - Accent
-// Other Data - 300
-
-@mixin red {
-    background-color: map-get($colors, red-500) !important;
-    @include text-light;
-}
-
-@mixin pink {
-    background-color: map-get($colors, pink-500) !important;
-    @include text-light;
-}
-
-@mixin purple {
-    background-color: map-get($colors, purple-500) !important;
-    @include text-light;
-}
-
-@mixin deep-purple {
-    background-color: map-get($colors, deep-purple-500) !important;
-    @include text-light;
-}
-
-@mixin indigo {
-    background-color: map-get($colors, indigo-500) !important;
-    @include text-light;
-}
-
-@mixin blue {
-    background-color: map-get($colors, blue-500) !important;
-    @include text-light;
-}
-
-@mixin light-blue {
-    background-color: map-get($colors, light-blue-500) !important;
-    @include text-dark;
-}
-
-@mixin cyan {
-    background-color: map-get($colors, cyan-500) !important;
-    @include text-dark;
-}
-
-@mixin teal {
-    background-color: map-get($colors, teal-500) !important;
-    @include text-light;
-}
-
-@mixin green {
-    background-color: map-get($colors, green-500) !important;
-    @include text-dark;
-}
-
-@mixin light-green {
-    background-color: map-get($colors, light-green-500) !important;
-    @include text-dark;
-}
-
-@mixin lime {
-    background-color: map-get($colors, lime-500) !important;
-    @include text-dark;
-}
-
-@mixin yellow {
-    background-color: map-get($colors, yellow-500) !important;
-    @include text-dark;
-}
-
-@mixin amber {
-    background-color: map-get($colors, amber-500) !important;
-    @include text-dark;
-}
-
-@mixin orange {
-    background-color: map-get($colors, orange-500) !important;
-    @include text-dark;
-}
-
-@mixin deep-orange {
-    background-color: map-get($colors, deep-orange-500) !important;
-    @include text-light;
-}
-
-@mixin brown {
-    background-color: map-get($colors, brown-500) !important;
-    @include text-light;
-}
-
-@mixin grey {
-    background-color: map-get($colors, grey-500) !important;
-    @include text-dark;
-}
-
-@mixin blue-grey {
-    background-color: map-get($colors, blue-grey-500) !important;
-    @include text-light;
-}
-
-@mixin black {
-    background-color: map-get($colors, black) !important;
-    @include text-light;
-}
-
-@mixin white {
-    background-color: map-get($colors, white) !important;
-    @include text-dark;
-}
-
-.red {
-    @include red();
-}
-
-.pink {
-    @include pink();
-}
-
-;
-
-.purple {
-    @include purple();
-}
-
-.deep-purple {
-    @include deep-purple();
-}
-
-.indigo {
-    @include indigo();
-}
-
-.blue {
-    @include blue();
-}
-
-.light-blue {
-    @include light-blue();
-}
-
-.cyan {
-    @include cyan();
-}
-
-.teal {
-    @include teal();
-}
-
-.green {
-    @include green();
-}
-
-.light-green {
-    @include light-green();
-}
-
-.lime {
-    @include lime();
-}
-
-.yellow {
-    @include yellow();
-}
-
-.amber {
-    @include amber();
-}
-
-.orange {
-    @include orange();
-}
-
-.deep-orange {
-    @include deep-orange();
-}
-
-.brown {
-    @include brown();
-}
-
-.grey {
-    @include grey();
-}
-
-.blue-grey {
-    @include blue-grey();
+// Material Color Classes
+@each $material-color in $material-colors {
+    .#{$material-color} {
+        background-color: map-get($colors, $material-color + "-500");
+        @if (index($light-text, $material-color + "-500") != null) {
+            @include text-light;
+        } @else {
+            @include text-dark;
+        }
+    }
 }
 
 .black {
-    @include black();
+    background-color: map-get($colors, "black");
+    @include text-light;
 }
 
 .white {
-    @include white();
+    background-color: map-get($colors, "white");
+    @include text-dark;
 }
-
-.orange {
-    @include orange();
-}
-
-//@mixin color($color, $val) {
-//  @extend %#{$color}-#{$val};
-//}
-
-//@mixin accent-color($color, $val) {
-//  @extend %#{$color}-a-#{$val};
-//}
-//
-//@mixin text-color($color, $val) {
-//  @extend %text-#{$color}-#{$val};
-//}
-//
-//@mixin text-accent-color($color, $val) {
-//  @extend %text-#{$color}-a-#{$val};
-//}
-//
-//@mixin border-color($color, $val) {
-//  @extend %border-#{$color}-#{$val};
-//}
-
-//@each $color in $accented-colors {
-//  @each $val in $accented-vals {
-//    .text-#{$color}-a-#{$val} {
-//      @include text-accent-color($color, $val);
-//    }
-//  }
-//}
-//
-//@each $color in $colors {
-//  @each $val in $vals {
-//    .#{$color}-#{$val} {
-//      @include color($color, $val);
-//    }
-//  }
-//}
-//
-//@each $color in $accented-colors {
-//  @each $val in $accented-vals {
-//    .#{$color}-a-#{$val} {
-//      @include accent-color($color, $val);
-//    }
-//  }
-//}
-//
-//@each $color in $colors {
-//  @each $val in $vals {
-//    .text-#{$color}-#{$val} {
-//      @include text-color($color, $val);
-//    }
-//  }
-//
-//  .text-#{$color}-500 {
-//    @include text-color($color, 500);
-//  }
-//}
-//
-//@each $color in $colors {
-//  @each $val in $vals {
-//    .border-#{$color}-#{$val} {
-//      @include border-color($color, $val);
-//    }
-//  }
-//
-//  .border-#{$color}-500 {
-//    @include border-color($color, 500);
-//  }
-//}

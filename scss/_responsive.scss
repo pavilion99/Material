@@ -1,27 +1,78 @@
-@media (min-width: 480px) {
-  
+$breakpoints: (
+                      0: 4 16,
+                      360: 4 16,
+                      400: 4 16,
+                      480: 4 16,
+                      600: 8 1624,
+                      720: 8 1624,
+                      840: 12 1624,
+                      960: 12 24,
+                      1024: 12 24,
+                      1280: 12 24,
+                      1440: 12 24,
+                      1600: 12 24,
+                      1920: 12 24
+              );
+
+$grid-levels: 1 2 3 4 5 6 7 8 9 10 11 12;
+
+section.content > div.responsive {
+    margin-left:  -16px;
+    margin-right: -16px;
 }
 
-@media (min-width: 600px) {
-
+// TODO: Add method for adjusting margins
+div.responsive {
+    display:  grid;
+    grid-gap: 8px;
 }
 
-@media (min-width: 840px) {
-
+// Gutter mixins
+@mixin gutter-16 {
+    padding: 0 16px 0 16px;
 }
 
-@media (min-width: 960px) {
-
+// TODO: Make this work correctly for 600, 720, 840
+@mixin gutter-24 {
+    padding: 0 24px 0 24px;
 }
 
-@media (min-width: 1280px) {
+@for $i from 1 to length($breakpoints) + 1 {
+    $breakpoint: nth(map_keys($breakpoints), $i);
+    $properties: map_get($breakpoints, $breakpoint);
+    $columns: nth($properties, 1);
+    $gutter: nth($properties, 2);
 
-}
+    $str: "(min-width: #{$breakpoint}px)";
+    @if ($i < length($breakpoints)) {
+        $str: $str + " and (max-width: #{nth(map_keys($breakpoints), $i + 1)}px)";
+    }
 
-@media (min-width: 1440px) {
+    @media screen and #{$str} {
+        div.responsive {
+            grid-template-columns: repeat($columns, 1fr);
 
-}
+            div.card {
+                margin: 0;
+            }
 
-@media (min-width: 1600px) {
+            @each $grid-level in $grid-levels {
+                $width: $grid-level;
+                @if ($width > $columns) {
+                    $width: $columns;
+                }
 
+                .grid-#{$grid-level} {
+                    grid-column-end: span $width;
+                }
+            }
+
+            @if ($gutter == 16) {
+                @include gutter-16;
+            } @else if ($gutter == 24 or $gutter == 1624) {
+                // TODO: thing
+                @include gutter-24;
+            }
+        }
+    }
 }
