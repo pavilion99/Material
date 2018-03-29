@@ -18,3 +18,9 @@ hr {
   border-top:                 1px solid;
   margin:                     0;
 }
+
+nav.nav-drawer hr {
+    border-top-color: $divider-dark;
+    margin-top:       8px;
+    margin-bottom:    8px;
+}

@@ -29,7 +29,6 @@ namespace MaterialPage {
                 toggle.addEventListener("click", this.toggle, true);
 
             this.el.addEventListener("click", this.closeShade, true);
-            this.el.style.display = "block";
         }
 
         static getSelectors(): Array<string> {

@@ -1,3 +1,6 @@
+Calc() transitions don't work on Edge; site still works but "jumpy"
+
+
 - card
 - exp. panel
 - exp. panel
@@ -6,3 +9,12 @@
 - card
 
 Shadows "jump" when any but the last expansion panel is opened
+
+
+REQUIRED ORDER FOR EXTRA-section.content ELEMENTS
+- Nav Drawer
+- App Bar
+- Bottom Nav
+- Section.content
+
+- Dialogs and Launch Screens can go anywhere

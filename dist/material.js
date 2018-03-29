@@ -369,7 +369,7 @@ var MaterialPage;
                 }
                 if (!this.scrollFade())
                     return;
-                let top = window.scrollY;
+                let top = document.querySelector("body > section.content").scrollTop;
                 let down = top > BottomNavigation.oldScrollTop;
                 if (down) {
                     this.el.classList.add("offscreen");
@@ -384,7 +384,7 @@ var MaterialPage;
             for (let i = 0; i < links.length; i++) {
                 links[i].addEventListener("click", this.toggleActive, true);
             }
-            window.addEventListener("scroll", this.scrollToggle);
+            document.querySelector("body > section.content").addEventListener("scroll", this.scrollToggle);
         }
         static getSelectors() {
             return ["nav.nav-bottom"];
@@ -401,14 +401,18 @@ var MaterialPage;
             this.click = (e) => {
                 if (this.el.classList.contains("focus"))
                     this.el.classList.remove("focus");
+                this.preventFocus();
+                if (this.el.classList.contains("disabled"))
+                    return;
                 let x = e.clientX;
                 let y = e.clientY;
                 let buttonCoords = this.el.getBoundingClientRect();
                 x -= buttonCoords.left;
                 y -= buttonCoords.top;
-                this.animateStart = -1;
-                window.requestAnimationFrame(this.animateBackground.bind(this, x, y));
-                this.preventFocus();
+                if (this.el.classList.contains("raised") || this.el.classList.contains("flat")) {
+                    this.animateStart = -1;
+                    window.requestAnimationFrame(this.animateBackground.bind(this, x, y));
+                }
             };
             this.focus = () => {
                 if (!this.el.classList.contains("flat"))
@@ -543,7 +547,6 @@ var MaterialPage;
             for (const toggle of toggles)
                 toggle.addEventListener("click", this.toggle, true);
             this.el.addEventListener("click", this.closeShade, true);
-            this.el.style.display = "block";
         }
         static getSelectors() {
             return ["div.dialog"];
@@ -901,6 +904,10 @@ var MaterialPage;
                         bar1.classList.add("determinate-bar");
                         container.appendChild(bar1);
                         bar1.id = this.el.id + "-bar";
+                        let attributes = this.el.attributes;
+                        for (let i = 0; i < attributes.length; i++) {
+                            container.setAttribute(attributes[i].nodeName, attributes[i].nodeValue);
+                        }
                         container.dataset.value = this.el.value.toString();
                         container.dataset["max"] = this.el.getAttribute("max");
                         this.el.parentNode.insertBefore(container, this.el);
@@ -941,6 +948,10 @@ var MaterialPage;
                         bar1.classList.add("indeterminate-bar");
                         let bar2 = document.createElement("DIV");
                         bar2.classList.add("indeterminate-bar");
+                        let attributes = this.el.attributes;
+                        for (let i = 0; i < attributes.length; i++) {
+                            container.setAttribute(attributes[i].nodeName, attributes[i].nodeValue);
+                        }
                         container.appendChild(bar1);
                         container.appendChild(bar2);
                         this.el.parentNode.insertBefore(container, this.el);
@@ -965,8 +976,10 @@ var MaterialPage;
             this.button = button;
             if (!Snackbar.isRunning()) {
                 Snackbar.running = true;
+                Snackbar.snackbars.push(this);
                 Snackbar.run();
                 Snackbar.timeout = window.setInterval(Snackbar.run, 5600);
+                return;
             }
             Snackbar.snackbars.push(this);
         }
@@ -1006,7 +1019,7 @@ var MaterialPage;
             }
             window.setTimeout(function () {
                 bar.classList.remove("ready");
-            }, 10);
+            }, 100);
             window.setTimeout(function () {
                 bar.classList.add("done");
             }, 200 + 5000);
@@ -1018,6 +1031,7 @@ var MaterialPage;
             return Snackbar.running;
         }
     }
+    Snackbar.snackbars = [];
     MaterialPage.Snackbar = Snackbar;
 })(MaterialPage || (MaterialPage = {}));
 var MaterialPage;
@@ -1139,6 +1153,40 @@ var MaterialPage;
     LaunchScreen.screens = [];
     MaterialPage.LaunchScreen = LaunchScreen;
 })(MaterialPage || (MaterialPage = {}));
+var MaterialPage;
+(function (MaterialPage) {
+    class NavigationDrawer extends MaterialPage.MaterialPattern {
+        constructor(domEl) {
+            super(new Map([["drawer", domEl]]));
+            this.close = (e) => {
+                if (e != null && e.target !== this.parent)
+                    return;
+                this.parent.style.visibility = "visible";
+                this.parent.classList.remove("open");
+                window.setTimeout(() => { this.parent.style.visibility = ""; }, 200);
+            };
+            this.toggle = () => {
+                if (this.parent.classList.contains("permanent") && window.innerWidth >= 1024)
+                    return;
+                if (this.parent.classList.contains("open"))
+                    this.close(null);
+                else {
+                    this.parent.classList.add("open");
+                }
+            };
+            this.parent = this.elements.get("drawer").parentElement;
+            let openers = document.querySelectorAll("[data-action='toggle'], nav.app-bar button.nav-icon");
+            for (const opener of openers) {
+                opener.addEventListener("click", this.toggle);
+            }
+            this.parent.addEventListener("click", this.close, true);
+        }
+        static getSelectors() {
+            return ["nav.nav-drawer"];
+        }
+    }
+    MaterialPage.NavigationDrawer = NavigationDrawer;
+})(MaterialPage || (MaterialPage = {}));
 /// <reference path="components/MaterialElement.ts" />
 /// <reference path="patterns/MaterialPattern.ts" />
 /// <reference path="Color.ts" />
@@ -1154,7 +1202,8 @@ var MaterialPage;
 /// <reference path="components/Progress.ts" />
 /// <reference path="components/Snackbar.ts" />
 /// <reference path="components/TextField.ts" />
-/// <reference path="patterns/LaunchScreen.ts" /> 
+/// <reference path="patterns/LaunchScreen.ts" />
+/// <reference path="patterns/NavigationDrawer.ts" /> 
 /// <reference path="Dependencies.ts" />
 var MaterialPage;
 (function (MaterialPage) {
@@ -1163,7 +1212,8 @@ var MaterialPage;
             this.elements = [];
             this.patterns = [];
             this.init = () => {
-                this.loadMaterialElements();
+                this.fadeImages();
+                window.setTimeout(MaterialPage.LaunchScreen.hideAll, 5600);
             };
             this.preInit = () => {
                 const imageFadeSelectors = MaterialPage.ImageFade.getSelectors();
@@ -1174,6 +1224,7 @@ var MaterialPage;
                         this.elements.push(imageFade);
                     }
                 }
+                this.loadMaterialElements();
                 this.initImages();
                 this.loadPatterns();
             };
@@ -1193,6 +1244,14 @@ var MaterialPage;
                 for (const element of elements) {
                     let launchScreen = new MaterialPage.LaunchScreen(element);
                     this.patterns.push(launchScreen);
+                }
+            }
+            let navDrawerSelectors = MaterialPage.NavigationDrawer.getSelectors();
+            for (const selector of navDrawerSelectors) {
+                let elements = document.querySelectorAll(selector);
+                for (const element of elements) {
+                    let navDrawer = new MaterialPage.NavigationDrawer(element);
+                    this.patterns.push(navDrawer);
                 }
             }
         }
@@ -1322,8 +1381,6 @@ var MaterialPage;
                     this.elements.push(dialog);
                 }
             }
-            this.fadeImages();
-            MaterialPage.LaunchScreen.hideAll();
             // Grid Lists
             const gridListSelectors = MaterialPage.GridList.getSelectors();
             for (const selector of gridListSelectors) {

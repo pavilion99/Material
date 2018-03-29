@@ -1,20 +1,20 @@
 div.snackbar {
-  height:                         48px;
-  min-width:                      288px;
-  max-width:                      568px;
-  border-radius:                  2px;
-  background-color:               #323232;
+    height:           48px;
+    min-width:        288px;
+    max-width:        568px;
+    border-radius:    2px;
+    background-color: #323232;
 
-  padding:                        0 24px 0 24px;
+    padding:          0 24px 0 24px;
 
-  position:                       fixed;
-  bottom:                         0;
-  left:                           50%;
-  transform:                      translate(-50%, 0);
+    position:         fixed;
+    bottom:           0;
+    left:             50%;
+    transform:        translate(-50%, 0);
 
-  transition:                     bottom $duration-slow $deceleration-curve;
+    transition:       bottom $duration-fast $sharp-curve, left $duration-slow;
 
-  z-index:                        6;
+    z-index:          6;
 
   @include no-shadow();
 }
@@ -41,7 +41,6 @@ div.snackbar.ready p.snackbar-text {
 }
 
 div.snackbar.done {
-  transition:                     bottom $duration-slow $acceleration-curve;
   bottom:                         -48px;
 }
 
@@ -69,17 +68,35 @@ div.snackbar div.clearfix {
 
 @media(max-width: 959px) {
 
-  div.snackbar.nav-bottom.ready {
+    nav.nav-bottom.scroll-fade ~ div.snackbar.nav-bottom.ready {
+        bottom: -48px;
+    }
+
+    nav.nav-bottom.scroll-fade.offscreen ~ div.snackbar.nav-bottom.ready {
+        bottom: -48px;
+    }
+
+    nav.nav-bottom.scroll-fade.offscreen ~ div.snackbar.nav-bottom {
+        bottom: 0;
+  }
+
+    nav.nav-bottom.scroll-fade ~ div.snackbar.nav-bottom {
     bottom:                       56px;
   }
 
-  div.snackbar.nav-bottom {
-    bottom:                       56px;
-  }
-
-  div.snackbar.nav-bottom.done {
-    transition:                     bottom $duration-slow $acceleration-curve;
+    nav.nav-bottom.scroll-fade ~ div.snackbar.nav-bottom.done {
     bottom:                         -48px;
   }
 
+    nav.nav-bottom.scroll-fade.offscreen ~ div.snackbar.nav-bottom.done {
+        bottom: -48px;
+    }
+
+}
+
+@media screen and (min-width: 1024px) {
+    body > div.nav-drawer-container.permanent ~ div.snackbar,
+    body > div.nav-drawer-container.persistent.open ~ div.snackbar {
+        left: calc(50% + 160px);
+    }
 }

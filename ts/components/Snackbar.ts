@@ -1,15 +1,17 @@
 namespace MaterialPage {
     // noinspection JSUnusedGlobalSymbols
     export class Snackbar {
-        private static snackbars: Array<Snackbar>;
+        private static snackbars: Array<Snackbar> = [];
         private static running: boolean;
         private static timeout: number | null;
 
         constructor(public text: string, public button: string) {
             if (!Snackbar.isRunning()) {
                 Snackbar.running = true;
+                Snackbar.snackbars.push(this);
                 Snackbar.run();
                 Snackbar.timeout = window.setInterval(Snackbar.run, 5600);
+                return;
             }
 
             Snackbar.snackbars.push(this);
@@ -63,7 +65,7 @@ namespace MaterialPage {
 
             window.setTimeout(function() {
                 bar.classList.remove("ready");
-            }, 10);
+            }, 100);
 
             window.setTimeout(function() {
                 bar.classList.add("done");

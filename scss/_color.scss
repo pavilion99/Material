@@ -305,7 +305,7 @@ $light-secondary: rgba(255, 255, 255, 0.7);
 $light-hint: rgba(255, 255, 255, 0.5);
 
 // ------------------ USER THEME SETTINGS ------------------ //
-$theme-primary: "blue";
+$theme-primary: "purple";
 $theme-primary-tint: 500;
 $theme-secondary: "orange";
 $theme-secondary-tint: 600;
@@ -360,9 +360,9 @@ $theme-dark: #000000 #212121 #303030 #424242;
         }
 
         @if ($context == "primary") {
-            color: map-get($colors, $theme-primary + "-#{$prim-tint}");
+            color: map-get($colors, $theme-primary + "-#{$prim-tint}") !important;
         } @else if ($context == "secondary") {
-            color: map-get($colors, $theme-secondary + "-#{$sec-tint}");
+            color: map-get($colors, $theme-secondary + "-#{$sec-tint}") !important;
         }
     }
 }

@@ -1,9 +1,35 @@
-Figure out joining and splitting
-Generate radial transformations
-Ripple effect
-Mobile resizing
+FIXME: Redo grid lists
+FIXME: Button focus animation
+FIXME: Data tables
+FIXME: Lists/list controls/subheaders
+FIXME: Pickers
+FIXME: Snackbars (buttons)
+FIXME: Text Fields (icons, textareas, formatting, fixed/solo, full-width)
+FIXME: Loading Images
 
-Bottom nav autohide
-Bottom nav shifting CSS
+CHECKME: Floating Action Buttons
+CHECKME: Chips
+CHECKME: Progress
 
-Imagery
+TODO: Other types of dialogs
+TODO: Header blocks in Cards
+TODO: Other formats of cards
+TODO: Imagery
+TODO: Apply correct timing functions to all animations
+TODO: Figure out shadow function
+TODO: Switches
+TODO: Material Transformations
+TODO: Scrims
+TODO: App Bars of Other Heights, Scrollable App Bar
+TODO: Icon Toggles (Buttons)
+TODO: Menus
+TODO: Selection Controls
+TODO: Sliders
+TODO: Steppers
+TODO: Tabs
+TODO: dropdowns
+TODO: tooltips
+TODO: errors
+TODO: permissions
+
+TODO: Bottom Sheets

@@ -1,0 +1,280 @@
+div.nav-drawer-container {
+    z-index:        16;
+    position:       fixed;
+    top:            0;
+    bottom:         0;
+    left:           0;
+    right:          0;
+    content:        "";
+    transition:     background-color $duration-fast;
+    visibility:     hidden;
+    pointer-events: none;
+
+    nav.nav-drawer {
+        position:   fixed;
+        top:        0;
+        bottom:     0;
+        z-index:    16;
+        transition: left $duration-fast $acceleration-curve;
+
+        header {
+            display:         flex;
+            min-height:      150px;
+            flex-direction:  column;
+            justify-content: space-between;
+
+            div.avatars {
+                // TODO: this
+            }
+
+            div.header-text {
+                padding-left:    16px;
+                padding-bottom:  8px;
+                padding-right:   8px;
+                height:          56px;
+                display:         flex;
+                flex-direction:  column;
+                justify-content: center;
+
+                span {
+                    line-height: 20px;
+                    display:     block;
+                }
+            }
+        }
+
+        ul.list-container {
+            margin-top: -1px;
+
+            li div.content p.primary {
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+div.nav-drawer-container.open {
+    visibility:     visible;
+    pointer-events: unset;
+
+    nav.nav-drawer {
+        left: 0;
+    }
+}
+
+body.theme-light {
+    div.nav-drawer-container {
+        nav.nav-drawer {
+            background-color: nth($theme-light, 2);
+
+            header {
+                background-color: nth($theme-light, 1);
+
+                div.header-text {
+                    span.primary {
+                        @include font(14, $dark, 500);
+                    }
+
+                    span.secondary {
+                        @include font(14, $dark, 400);
+                    }
+                }
+            }
+
+            ul.list-container {
+                border-top: 1px solid $divider-dark;
+
+                li {
+                    div.content {
+                        p.primary {
+                            @include text-dark;
+                        }
+                    }
+
+                    span.list-icon {
+                        @include text-dark-secondary;
+                    }
+                }
+            }
+        }
+    }
+
+    div.nav-drawer-container.open {
+        background-color: rgba(0, 0, 0, 0.55);
+    }
+}
+
+body.theme-dark {
+    div.nav-drawer-container {
+        nav.nav-drawer {
+            background-color: nth($theme-dark, 3);
+
+            header {
+                background-color: nth($theme-dark, 4);
+
+                div.header-text {
+                    span.primary {
+                        @include font(14, $light, 500);
+                    }
+
+                    span.secondary {
+                        @include font(14, $light, 400);
+                    }
+                }
+            }
+
+            ul.list-container li {
+                div.content {
+                    p.primary {
+                        @include text-light;
+                    }
+                }
+
+                span.list-icon {
+                    @include text-light-secondary;
+                }
+            }
+        }
+    }
+
+    div.nav-drawer-container.open {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+}
+
+@media screen and (min-width: 0) and (max-width: 599px) {
+    nav.nav-drawer {
+        width: 280px;
+        left:  -280px;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    nav.nav-drawer {
+        width: 320px;
+        left:  -320px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    div.nav-drawer-container.persistent {
+        position:         static;
+        height:           100%;
+        width:            0;
+        float:            left;
+        display:          inline-block;
+        visibility:       visible;
+        box-sizing:       border-box;
+        transition:       width $duration-slow;
+        overflow:         hidden;
+        pointer-events:   unset;
+        background-color: transparent;
+        margin-left:      -1px;
+
+        nav.nav-drawer {
+            box-shadow: none;
+            width:      320px;
+            height:     100%;
+            position:   relative;
+            top:        unset;
+            left:       unset;
+            bottom:     unset;
+            box-sizing: border-box;
+            transition: unset;
+
+            header {
+                flex-direction:  row;
+                justify-content: flex-start;
+                height:          64px;
+                min-height:      64px;
+                padding-left:    16px;
+
+                div.avatars {
+                    width:         24px;
+                    padding-right: 32px;
+                }
+
+                div.header-text {
+                    padding-bottom: 0;
+                    height:         64px;
+                    padding-left:   0;
+
+                    span + span {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    div.nav-drawer-container.persistent.open {
+        width:            320px;
+        background-color: transparent;
+
+        nav.nav-drawer {
+
+        }
+    }
+
+    div.nav-drawer-container.persistent ~ nav.app-bar {
+        transition: left $duration-slow;
+        left:       0;
+    }
+
+    div.nav-drawer-container.persistent.open ~ nav.app-bar {
+        left: 320px;
+    }
+
+    div.nav-drawer-container.persistent ~ section.content {
+        transition: width $duration-slow;
+        width:      calc(100%);
+        float:      right;
+        display:    inline-block;
+    }
+
+    div.nav-drawer-container.persistent.open ~ section.content {
+        width: calc(100% - 320px);
+    }
+
+    div.nav-drawer-container.permanent {
+        position:         static;
+        height:           100%;
+        width:            320px;
+        float:            left;
+        display:          inline-block;
+        visibility:       visible;
+        box-sizing:       border-box;
+        background-color: transparent;
+        margin-left:      -1px;
+
+        nav.nav-drawer {
+            position:    relative;
+            width:       100%;
+            min-height:  100%;
+            box-shadow:  none;
+            padding-top: 64px;
+            box-sizing:  border-box;
+            top:         unset;
+            left:        unset;
+            bottom:      unset;
+
+            header {
+                display: none;
+            }
+
+            ul.list-container {
+                margin-top: -1px;
+            }
+        }
+    }
+
+    div.nav-drawer-container.permanent ~ nav.app-bar {
+        left: 320px;
+    }
+
+    div.nav-drawer-container.permanent ~ section.content {
+        width:   calc(100% - 320px);
+        float:   left;
+        display: inline-block;
+    }
+}

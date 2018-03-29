@@ -20,6 +20,7 @@ $resolution: 2;
     font-weight:                 500;
     outline:                     none;
     margin:                      0 8px 0 8px;
+    transition:                  box-shadow $duration-slow;
     border:                      none;
     -moz-user-select:            none;
     -webkit-user-select:         none;
@@ -29,8 +30,8 @@ $resolution: 2;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
-.button.raised {
-
+.button.raised:hover {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.38);
 }
 
 .button.dense {
@@ -66,6 +67,14 @@ $resolution: 2;
     background-image:    radial-gradient(circle farthest-side at center, rgba(153, 153, 153, 0.08) 0%, rgba(153, 153, 153, 0.08) 80%, rgba(153, 153, 153, 0.30) 80%);
 }
 
+.button.disabled {
+    cursor: default;
+}
+
+.button.raised.disabled:hover {
+    box-shadow: none;
+}
+
 // Text Coloring
 body.theme-dark {
     .button {
@@ -88,6 +97,7 @@ body.theme-dark {
 
     .button.disabled {
         @include text-light-disabled;
+        background-color: rgba(255, 255, 255, 0.12);
     }
 }
 
@@ -97,7 +107,7 @@ body.theme-light {
   }
 
     .button.raised {
-        background-color: nth($theme-light, 3);
+        background-color: nth($theme-light, 1);
     }
 
     .button.disabled {

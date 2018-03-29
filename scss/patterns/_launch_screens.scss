@@ -18,22 +18,35 @@
   }
 }
 
+@keyframes show-progress {
+    0% {
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 div.launch-screen {
-    position:         fixed;
-    top:              0;
-    bottom:           0;
-    left:             0;
-    right:            0;
+    position:        fixed;
+    top:             0;
+    bottom:          0;
+    left:            0;
+    right:           0;
 
-    background-color: #FFFFFF;
+    opacity:         1.0;
+    z-index:         1000;
 
-    opacity:          1.0;
-    z-index:          1000;
-
-    transition:       opacity $duration-slow $acceleration-curve, z-index $duration-slow $acceleration-curve;
-    display:          flex;
-    justify-content:  center;
-    align-items:      center;
+    transition:      opacity $duration-slow $acceleration-curve, z-index $duration-slow $acceleration-curve;
+    display:         flex;
+    justify-content: center;
+    align-items:     center;
+    flex-direction:  column;
 
   img.launch-screen-logo {
     max-width:                        200px;
@@ -55,9 +68,25 @@ div.launch-screen {
     font-weight:    900;
     font-size:      48px;
   }
+
+    progress, div.progress-container {
+        min-width: 200px;
+        max-width: 500px;
+        width:     50%;
+        margin:    10vmin auto 0 auto;
+        animation: show-progress 2s forwards;
+    }
 }
 
 div.launch-screen.hidden {
   opacity:                            0.0;
   z-index:                            -1000;
+}
+
+body.theme-light div.launch-screen {
+    background-color: nth($theme-light, 4);
+}
+
+body.theme-dark div.launch-screen {
+    background-color: nth($theme-dark, 4);
 }

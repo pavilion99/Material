@@ -4,26 +4,25 @@ div.expansion-panel {
 
   box-sizing: border-box;
 
-  background-color: #fff;
-
   transition: padding $duration-fast, margin-top $duration-fast;
 
   div.expand-icon {
-    color: rgba(0, 0, 0, 0.38);
-    transform: rotate(0deg);
-    transition: transform $duration-fast, color $duration-fast;
-    position: absolute;
-    right: 24px;
+    transform:                   rotate(0deg);
+    transition:                  transform $duration-fast, color $duration-fast;
+    position:                    absolute;
+    right:                       24px;
+    -moz-user-select:            none;
+    -webkit-user-select:         none;
+    -ms-user-select:             none;
+    user-select:                 none;
+    -webkit-touch-callout:       none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 
     span.material-icons {
       margin-top: 12px;
       height: 24px;
       cursor: pointer;
     }
-  }
-
-  div.expand-icon:hover, div.expand-icon:focus {
-    color: rgba(0, 0, 0, 0.54);
   }
 
   div.summary-container {
@@ -36,7 +35,6 @@ div.expansion-panel {
       margin-right: 16px;
       font-size: 15px;
       line-height: 48px;
-      color: rgba(0, 0, 0, 0.87);
       flex-basis: 25%;
       white-space: nowrap;
       overflow: visible;
@@ -47,18 +45,15 @@ div.expansion-panel {
 
       span.main {
         font-size: 15px;
-        color: rgba(0, 0, 0, 0.87);
       }
 
       span.subtitle {
         font-size: 12px;
-        color: rgba(0, 0, 0, 0.54);
       }
     }
 
     div.summary {
       font-size: 15px;
-      color: rgba(0, 0, 0, 0.54);
       line-height: 48px;
     }
 
@@ -92,7 +87,6 @@ div.expansion-panel {
     }
 
     div.content-right {
-      @include font(12, $dark-secondary, 400);
       border-left:   1px solid rgba(0, 0, 0, 0.12);
       flex-basis:    30%;
       padding-left:  16px;
@@ -109,9 +103,11 @@ div.expansion-panel {
   }
 }
 
-div.expansion-panel.open {
+* + div.expansion-panel.open {
   margin-top: 16px;
+}
 
+div.expansion-panel.open {
   div.content-container {
     padding-bottom: 16px;
   }
@@ -160,6 +156,18 @@ div.card + div.expansion-panel.open {
 }
 
 div.expansion-panel::before {
+  transition: inherit;
+  content:    "";
+  position:   absolute;
+  top:        0;
+  bottom:     0;
+  left:       0;
+  right:      0;
+  z-index:    -1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
+}
+
+* + div.expansion-panel::before {
   transition: inherit;
   content: "";
   position: absolute;
@@ -221,4 +229,78 @@ div.expansion-panel + div.card::before {
   right: 0;
   z-index: -1;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
+}
+
+body.theme-dark div.expansion-panel {
+  background-color: nth($theme-dark, 4);
+  @include text-light;
+
+  div.expand-icon {
+    @include text-light-hint;
+  }
+
+  div.expand-icon:hover, div.expand-icon:focus {
+    @include text-light-secondary;
+  }
+
+  div.title {
+    @include text-light;
+  }
+
+  div.title.multiline {
+    span.main {
+      @include text-light;
+    }
+
+    span.subtitle {
+      @include text-light-secondary;
+    }
+  }
+
+  div.summary {
+    @include text-light-secondary;
+  }
+
+  div.content-container {
+    div.content-right {
+      @include text-light-secondary;
+    }
+  }
+}
+
+body.theme-light div.expansion-panel {
+  background-color: nth($theme-light, 4);
+  @include text-dark;
+
+  div.expand-icon {
+    @include text-dark-hint;
+  }
+
+  div.expand-icon:hover, div.expand-icon:focus {
+    @include text-dark-secondary;
+  }
+
+  div.title {
+    @include text-dark;
+  }
+
+  div.title.multiline {
+    span.main {
+      @include text-dark;
+    }
+
+    span.subtitle {
+      @include text-dark-secondary;
+    }
+  }
+
+  div.summary {
+    @include text-dark-secondary;
+  }
+
+  div.content-container {
+    div.content-right {
+      @include text-dark-secondary;
+    }
+  }
 }

@@ -16,11 +16,6 @@ $breakpoints: (
 
 $grid-levels: 1 2 3 4 5 6 7 8 9 10 11 12;
 
-section.content > div.responsive {
-    margin-left:  -16px;
-    margin-right: -16px;
-}
-
 // TODO: Add method for adjusting margins
 div.responsive {
     display:  grid;
@@ -52,7 +47,7 @@ div.responsive {
         div.responsive {
             grid-template-columns: repeat($columns, 1fr);
 
-            div.card {
+            > div.card {
                 margin: 0;
             }
 
@@ -67,11 +62,43 @@ div.responsive {
                 }
             }
 
-            @if ($gutter == 16) {
-                @include gutter-16;
-            } @else if ($gutter == 24 or $gutter == 1624) {
-                // TODO: thing
-                @include gutter-24;
+            .grid-half-4 {
+                @if ($columns < 4) {
+                    grid-column-end: span $columns;
+                } @else {
+                    grid-column-end: span $columns / 2;
+                }
+            }
+
+            .grid-half-8 {
+                @if ($columns < 8) {
+                    grid-column-end: span $columns;
+                } @else {
+                    grid-column-end: span $columns / 2;
+                }
+            }
+
+            .grid-half-12 {
+                @if ($columns < 12) {
+                    grid-column-end: span $columns;
+                } @else {
+                    grid-column-end: span $columns / 2;
+                }
+            }
+        }
+
+        $padding: -1;
+        @if ($gutter == 16) {
+            $padding: 16px;
+        } @else if ($gutter == 24 or $gutter == 1624) {
+            // TODO: thing
+            $padding: 24px;
+        }
+
+        @if ($breakpoint >= 960px) {
+            body > nav.nav-bottom ~ section.content {
+                padding-bottom: 16px;
+                padding-left:   56px + $padding;
             }
         }
     }

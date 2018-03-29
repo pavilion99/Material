@@ -17,3 +17,4 @@
 /// <reference path="components/TextField.ts" />
 
 /// <reference path="patterns/LaunchScreen.ts" />
+/// <reference path="patterns/NavigationDrawer.ts" />

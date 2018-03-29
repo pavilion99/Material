@@ -1,5 +1,3 @@
-$bottom-nav-height: 56px;
-
 nav.nav-bottom {
     height:          56px;
     bottom:          0;
@@ -8,28 +6,35 @@ nav.nav-bottom {
     z-index:         8;
     position:        fixed;
     text-align:      center;
-    transition:      bottom $duration-fast $sharp-curve;
+    transition:      bottom $duration-fast $sharp-curve, box-shadow $duration-fast $sharp-curve;
     display:         flex;
     justify-content: center;
 
     a.nav-link {
-        padding:          6px 12px 10px 12px;
-        height:           $bottom-nav-height;
-        min-width:        80px;
-        max-width:        168px;
-        color:            inherit;
-        text-decoration:  none;
-        flex-grow:        1;
-        flex-shrink:      1;
-        box-sizing:       border-box;
-        background-color: transparent;
-        border:           none;
-        cursor:           pointer;
+        padding:                     6px 12px 10px 12px;
+        height:                      56px;
+        min-width:                   80px;
+        max-width:                   168px;
+        color:                       inherit;
+        text-decoration:             none;
+        flex-grow:                   1;
+        flex-shrink:                 1;
+        box-sizing:                  border-box;
+        background-color:            transparent;
+        border:                      none;
+        cursor:                      pointer;
+        -moz-user-select:            none;
+        -webkit-user-select:         none;
+        -ms-user-select:             none;
+        user-select:                 none;
+        -webkit-touch-callout:       none;
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 
         span.nav-link-text {
             line-height:    24px;
             font-size:      12px;
             vertical-align: top;
+            transition:     font-size $duration-slow;
         }
 
         span.nav-link-icon {
@@ -53,7 +58,7 @@ nav.nav-bottom.shifting {
         transition: max-width $duration-slow, min-width $duration-slow;
 
         span.nav-link-icon {
-            line-height:    $bottom-nav-height - 16px;
+            line-height:    56px - 16px;
             vertical-align: text-bottom;
         }
 
@@ -101,18 +106,24 @@ nav.nav-bottom.text-light {
 }
 
 nav.nav-bottom.scroll-fade.offscreen {
-    bottom: -1 * $bottom-nav-height;
+    bottom:     -1 * 56px;
+    box-shadow: none;
 }
 
-body > nav.nav-bottom ~ section.content {
-    transition:     padding-bottom $duration-fast $sharp-curve;
-    padding-bottom: $bottom-nav-height + 16px;
-    padding-left:   16px;
+body > nav.app-bar ~ nav.nav-bottom ~ section.content {
+    height: calc(100% - 64px - 56px);
 }
 
-body > nav.nav-bottom.scroll-fade.offscreen ~ section.content {
-    padding-left:   16px;
-    padding-bottom: 16px;
+body > nav.app-bar ~ nav.nav-bottom.scroll-fade ~ section.content {
+    transition: height $duration-fast $sharp-curve;
+}
+
+body > nav.app-bar ~ nav.nav-bottom.scroll-fade.offscreen ~ section.content {
+    height: calc(100% - 64px);
+}
+
+body > div.nav-drawer-container.persistent ~ nav.app-bar ~ section.content {
+    transition: height $duration-fast $sharp-curve, width $duration-slow;
 }
 
 @media (min-width: 960px) {
@@ -133,8 +144,12 @@ body > nav.nav-bottom.scroll-fade.offscreen ~ section.content {
         display: none;
     }
 
+    nav.nav-bottom.scroll-fade.offscreen {
+        @include shadow(8);
+    }
+
     nav.nav-bottom {
-        width:   $bottom-nav-height;
+        width:   56px;
         top:     $base;
         left:    0;
         bottom:  0;
@@ -183,11 +198,30 @@ body > nav.nav-bottom.scroll-fade.offscreen ~ section.content {
 
     body > nav.nav-bottom ~ section.content {
         padding-bottom: 16px;
-        padding-left:   $bottom-nav-height + 16px;
+        padding-left:   56px + 16px;
     }
 
     body > nav.nav-bottom.scroll-fade.offscreen ~ section.content {
         padding-bottom: 16px;
-        padding-left:   $bottom-nav-height + 16px;
+        padding-left:   56px + 16px;
+    }
+
+    body > nav.app-bar ~ nav.nav-bottom ~ section.content {
+        height: calc(100% - 64px);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+
+    body > div.nav-drawer-container.persistent ~ nav.nav-bottom {
+        transition: left $duration-slow;
+    }
+
+    body > div.nav-drawer-container.persistent.open ~ nav.nav-bottom {
+        left: 320px;
+    }
+
+    body > div.nav-drawer-container.permanent ~ nav.nav-bottom {
+        left: 320px;
     }
 }

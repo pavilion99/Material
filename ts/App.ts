@@ -11,7 +11,9 @@ namespace MaterialPage {
         }
 
         init = () => {
-            this.loadMaterialElements();
+
+            this.fadeImages();
+            window.setTimeout(LaunchScreen.hideAll, 5600);
         };
 
         preInit = () => {
@@ -25,6 +27,7 @@ namespace MaterialPage {
                 }
             }
 
+            this.loadMaterialElements();
             this.initImages();
             this.loadPatterns();
         };
@@ -37,6 +40,16 @@ namespace MaterialPage {
                 for (const element of elements) {
                     let launchScreen: LaunchScreen = new LaunchScreen(element);
                     this.patterns.push(launchScreen);
+                }
+            }
+
+            let navDrawerSelectors: Array<string> = NavigationDrawer.getSelectors();
+            for (const selector of navDrawerSelectors) {
+                let elements: NodeListOf<Element> = document.querySelectorAll(selector);
+
+                for (const element of elements) {
+                    let navDrawer: NavigationDrawer = new NavigationDrawer(<HTMLElement>element);
+                    this.patterns.push(navDrawer);
                 }
             }
         }
@@ -208,9 +221,6 @@ namespace MaterialPage {
                     this.elements.push(dialog);
                 }
             }
-
-            this.fadeImages();
-            LaunchScreen.hideAll();
 
             // Grid Lists
             const gridListSelectors: Array<string> = GridList.getSelectors();

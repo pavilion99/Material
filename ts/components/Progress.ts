@@ -57,6 +57,11 @@ namespace MaterialPage {
 
                         bar1.id = this.el.id + "-bar";
 
+                        let attributes = this.el.attributes;
+                        for (let i = 0; i < attributes.length; i++) {
+                            container.setAttribute(attributes[i].nodeName, attributes[i].nodeValue);
+                        }
+
                         container.dataset.value = (<HTMLProgressElement>this.el).value.toString();
                         container.dataset["max"] = this.el.getAttribute("max");
 
@@ -104,6 +109,11 @@ namespace MaterialPage {
                         bar1.classList.add("indeterminate-bar");
                         let bar2 = document.createElement("DIV");
                         bar2.classList.add("indeterminate-bar");
+
+                        let attributes = this.el.attributes;
+                        for (let i = 0; i < attributes.length; i++) {
+                            container.setAttribute(attributes[i].nodeName, attributes[i].nodeValue);
+                        }
 
                         container.appendChild(bar1);
                         container.appendChild(bar2);

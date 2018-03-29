@@ -44,15 +44,22 @@ nav.app-bar > span.app-title {
 }
 
 body {
-    margin:  0;
-    padding: 0;
+    margin:   0;
+    padding:  0;
+    overflow: hidden;
 }
 
 body > section.content {
-    padding-left:  16px;
-    padding-right: 16px;
+    padding: 16px;
 }
 
 body > nav.app-bar ~ section.content {
-    padding-top: $base + 16px;
+    margin-top: 64px;
+    height:     calc(100% - 64px);
+}
+
+section.content {
+    width:      100%;
+    box-sizing: border-box;
+    height:     100%;
 }

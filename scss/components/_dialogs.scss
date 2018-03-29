@@ -1,4 +1,4 @@
-div.dialog-container {
+div.dialog-container:not(p):not(a):not(b) {
     position:         fixed;
     top:              0;
     bottom:           0;
@@ -8,16 +8,16 @@ div.dialog-container {
     transition:       background-color $duration-fast, visibility $duration-fast;
     visibility:       hidden;
     z-index:          23;
+    display:          flex;
+    justify-content:  center;
+    align-content:    center;
+    align-items:      center;
 
     div.dialog {
-        top:              50%;
-        left:             50%;
-        transform:        translate(-50%, -60%);
-        position:         fixed;
-        z-index:          24;
-        background-color: #FFFFFF;
-        transition:       transform $duration-slow $deceleration-curve, opacity $duration-slow $deceleration-curve;
-        opacity:          0;
+        z-index:    24;
+        transform:  translateY(-5%);
+        transition: transform $duration-slow $deceleration-curve, opacity $duration-slow $deceleration-curve;
+        opacity:    0;
 
         div.dialog-title {
             padding:     24px 24px 20px 24px;
@@ -40,23 +40,56 @@ div.dialog-container {
             }
         }
     }
-
-    div.dialog.active {
-        opacity:   1.0;
-        transform: translate(-50%, -50%);
-    }
 }
 
 div.dialog-container.active {
     visibility:       visible;
-    background-color: rgba(0, 0, 0, 0.45);
     z-index:          24;
     pointer-events:   initial;
     opacity:          1.0;
 
     div.dialog {
         opacity:    1.0;
-        transform:  translate(-50%, -50%);
+        transform:  translateY(0);
         visibility: visible;
+    }
+}
+
+body.theme-light div.dialog-container.active {
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+body.theme-dark div.dialog-container.active {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+body.theme-light div.dialog {
+    background-color: nth($theme-light, 3);
+    @include text-dark;
+}
+
+body.theme-dark div.dialog {
+    background-color: nth($theme-dark, 3);
+    @include text-light;
+}
+
+@media screen and (min-width: 0) and (max-width: 599px) {
+    div.dialog {
+        max-width: 90vw;
+        min-width: 80vw;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 839px) {
+    div.dialog {
+        min-width: 375px;
+        max-width: 90vw;
+    }
+}
+
+@media screen and (min-width: 840px) {
+    div.dialog {
+        min-width: 375px;
+        max-width: 700px;
     }
 }

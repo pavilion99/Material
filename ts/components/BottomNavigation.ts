@@ -76,7 +76,7 @@ namespace MaterialPage {
             if (!this.scrollFade())
                 return;
 
-            let top = window.scrollY;
+            let top = document.querySelector("body > section.content").scrollTop;
             let down = top > BottomNavigation.oldScrollTop;
 
             if (down) {
@@ -97,7 +97,7 @@ namespace MaterialPage {
                 (<HTMLElement>links[i]).addEventListener("click", this.toggleActive, true);
             }
 
-            window.addEventListener("scroll", this.scrollToggle);
+            document.querySelector("body > section.content").addEventListener("scroll", this.scrollToggle);
         }
 
         static getSelectors(): Array<string> {

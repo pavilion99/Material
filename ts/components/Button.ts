@@ -5,6 +5,11 @@ namespace MaterialPage {
             if (this.el.classList.contains("focus"))
                 this.el.classList.remove("focus");
 
+            this.preventFocus();
+
+            if (this.el.classList.contains("disabled"))
+                return;
+
             let x = e.clientX;
             let y = e.clientY;
 
@@ -12,10 +17,10 @@ namespace MaterialPage {
             x -= buttonCoords.left;
             y -= buttonCoords.top;
 
-            this.animateStart = -1;
-            window.requestAnimationFrame(this.animateBackground.bind(this, x, y));
-
-            this.preventFocus();
+            if (this.el.classList.contains("raised") || this.el.classList.contains("flat")) {
+                this.animateStart = -1;
+                window.requestAnimationFrame(this.animateBackground.bind(this, x, y));
+            }
         };
 
         constructor(domEl: HTMLElement) {
