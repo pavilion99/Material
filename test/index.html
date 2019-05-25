@@ -12,6 +12,21 @@
                 document.body.classList.toggle("theme-dark");
                 document.body.classList.toggle("theme-light");
             }
+
+            function persistent() {
+                document.querySelector("div.nav-drawer-container").classList.remove("permanent");
+                document.querySelector("div.nav-drawer-container").classList.add("persistent");
+            }
+
+            function permanent() {
+                document.querySelector("div.nav-drawer-container").classList.add("permanent");
+                document.querySelector("div.nav-drawer-container").classList.remove("persistent");
+            }
+
+            function temporary() {
+                document.querySelector("div.nav-drawer-container").classList.remove("permanent");
+                document.querySelector("div.nav-drawer-container").classList.remove("persistent");
+            }
         </script>
     </head>
     <body class="theme-dark" lang="en">
@@ -120,28 +135,108 @@
                     </div>
                 </div>
                 <div class="grid-half-8">
-                    <div class="expansion-panel">
-                        <div class="summary-container">
-                            <div class="title">Your Name</div>
-                            <div class="summary primary" data-update-closed-text="#name-field" id="name"></div>
-                            <div class="summary secondary"></div>
+                    <div class="card">
+                        <div class="text-center">
+                            <button class="button raised" onclick="permanent()" >Permanent</button>
+                            <br>
+                            <br>
+                            <button class="button raised" onclick="persistent()">Persistent</button>
+                            <br>
+                            <br>
+                            <button class="button raised" onclick="temporary()">Temporary</button>
+                            <br>
+                            <br>
+                        </div><br>
+                        <input class="checkbox" type="checkbox" title="test">
+                        <br>
+                        <div class="picker-date-container">
+                            <input class="picker" type="date">
                         </div>
-                        <div class="content-container">
-                            <div class="content-left">
-
-                            </div>
-                            <div class="content-center">
-                                <input type="text" placeholder="Your name" id="name-field" data-error-test="errorTest">
-                            </div>
-                            <div class="content-right">
-                                Enter your name here.
-                            </div>
-                        </div>
-                        <div class="actions">
-                            <button class="button flat text-dark secondary" data-action="close">
-                                Done
-                            </button>
-                        </div>
+                    </div>
+                </div>
+                <div class="card grid-12">
+                    <div class="grid-list">
+                        <div class="grid-list-item theme-primary"></div>
+                        <div class="grid-list-item theme-primary"></div>
+                        <div class="grid-list-item theme-primary"></div>
+                        <div class="grid-list-item theme-primary"></div>
+                    </div>
+                </div>
+                <div class="card grid-12">
+                    <div class="title">Lists</div>
+                    <div class="primary-text">
+                        <ul class="list-container">
+                            <li>
+                                <div class="content">
+                                    <p class="primary">
+                                        Lists look a little something like this.
+                                    </p>
+                                    <p class="secondary">
+                                        <span>They have content, and they can have secondary text, like this.</span>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="list-container singleline">
+                            <li>
+                                <div class="content">
+                                    <p class="primary">
+                                        The content can come in just one line.
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="list-container singleline dense">
+                            <li>
+                                <div class="content">
+                                    <p class="primary">
+                                        The content can also be densely packed when more data needs to be displayed.
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="list-container threeline">
+                            <li>
+                                <div class="content">
+                                    <p class="primary">
+                                        You can also have three lines of content.
+                                    </p>
+                                    <p class="secondary">
+                                        <span>This can come in quite handy.</span>
+                                        <span>Some content just requires more real estate to display effectively.</span>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="subheader">Test</li>
+                            <li>
+                                <div class="content">
+                                    <p class="primary">
+                                        You can also have three lines of content.
+                                    </p>
+                                    <p class="secondary">
+                                        <span>This can come in quite handy.</span>
+                                        <span>Some content just requires more real estate to display effectively.</span>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="list-container">
+                            <li>
+                                <input title="Test Checkbox" class="checkbox list-icon" type="checkbox">
+                                <div class="content">
+                                    <p class="primary">
+                                        Lists can have icons.
+                                    </p>
+                                    <p class="secondary">
+                                        <span>These can appear on the left, right, or both.</span>
+                                    </p>
+                                </div>
+                                <span class="list-icon material-icons">note</span>
+                            </li>
+                        </ul>
+                        You can combine the following list attributes in any form that you choose: line count, presence
+                        of icons, and density of the content. Each list, however, is uniform, meaning that each element
+                        in the list has the same attributes.
                     </div>
                 </div>
             </div>

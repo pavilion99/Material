@@ -33,7 +33,7 @@ body.theme-light {
   background-color: #FAFAFA; }
 
 body.theme-light > nav.app-bar {
-  background-color: #9C27B0;
+  background-color: #9575CD;
   color: white; }
 
 body.theme-light > nav.nav-bottom {
@@ -45,7 +45,7 @@ body.theme-dark {
   background-color: #303030; }
 
 body.theme-dark > nav.app-bar {
-  background-color: #9C27B0;
+  background-color: #9575CD;
   color: white; }
 
 body.theme-dark > nav.nav-bottom {
@@ -53,13 +53,13 @@ body.theme-dark > nav.nav-bottom {
   color: white; }
 
 .theme-primary {
-  background-color: #9C27B0; }
+  background-color: #9575CD; }
 
 .theme-secondary {
   background-color: #FB8C00; }
 
 .text-theme-primary {
-  color: #AB47BC !important; }
+  color: #7E57C2 !important; }
 
 .text-theme-secondary {
   color: #FF9800 !important; }
@@ -328,11 +328,11 @@ span.clearfix {
   display: block; }
 
 :not(.nav-bottom) > a {
-  color: #AB47BC !important;
+  color: #7E57C2 !important;
   text-decoration: none; }
 
 :not(.nav-bottom) > a:visited {
-  color: #AB47BC !important;
+  color: #7E57C2 !important;
   text-decoration: none;
   line-height: 18.5px; }
 
@@ -1284,7 +1284,7 @@ nav.nav-bottom {
     nav.nav-bottom a.nav-link span.nav-link-icon {
       display: block; }
   nav.nav-bottom a.nav-link.active {
-    color: #AB47BC !important; }
+    color: #7E57C2 !important; }
     nav.nav-bottom a.nav-link.active span.nav-link-text {
       font-size: 14px; }
 
@@ -1600,11 +1600,11 @@ div.progress-container {
   position: relative;
   width: 100%;
   height: 5px;
-  background-color: #E1BEE7; }
+  background-color: #D1C4E9; }
   div.progress-container div[class*="-bar"] {
     position: absolute;
     height: 100%;
-    background-color: #6A1B9A; }
+    background-color: #4527A0; }
   div.progress-container div.indeterminate-bar {
     animation: animate-indeterminate-left 2.5s linear infinite, animate-indeterminate-right 2.5s linear infinite;
     -webkit-animation: animate-indeterminate-left 2.5s linear infinite, animate-indeterminate-right 2.5s linear infinite;
@@ -1629,7 +1629,7 @@ div.progress-container.circular {
     div.progress-container.circular svg.indeterminate-spinner circle {
       -webkit-animation: animate-indeterminate-circle 6s infinite ease-in-out;
       animation: animate-indeterminate-circle 6s infinite ease-in-out;
-      stroke: #6A1B9A;
+      stroke: #4527A0;
       stroke-width: 4px;
       fill: none; }
   div.progress-container.circular svg.determinate-spinner {
@@ -1638,7 +1638,7 @@ div.progress-container.circular {
     width: 50px; }
     div.progress-container.circular svg.determinate-spinner circle {
       transition: stroke-dasharray 2s cubic-bezier(0, 0, 0.2, 1);
-      stroke: #6A1B9A;
+      stroke: #4527A0;
       stroke-width: 4px;
       fill: none;
       stroke-dasharray: 0, 125.67;
@@ -1689,7 +1689,11 @@ div.dialog-container:not(p):not(a):not(b) {
     z-index: 24;
     transform: translateY(-5%);
     transition: transform 0.2s cubic-bezier(0, 0, 0.2, 1), opacity 0.2s cubic-bezier(0, 0, 0.2, 1);
-    opacity: 0; }
+    opacity: 0;
+    -moz-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+    -webkit-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+    -o-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+    box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38); }
     div.dialog-container:not(p):not(a):not(b) div.dialog div.dialog-title {
       padding: 24px 24px 20px 24px;
       font-size: 20px;
@@ -1906,11 +1910,16 @@ nav.nav-drawer hr {
   cursor: pointer; }
 
 .button.flat.focus {
-  -webkit-animation: background-pulse 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0s infinite alternate;
-  animation: background-pulse 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0s infinite alternate;
+  -webkit-animation: background-pulse 2s cubic-bezier(0.4, 0, 1, 1) 0s infinite alternate;
+  animation: background-pulse 2s cubic-bezier(0.4, 0, 1, 1) 0s infinite alternate;
   background-repeat: no-repeat;
   background-position: center center;
   background-image: radial-gradient(circle farthest-side at center, rgba(153, 153, 153, 0.08) 0%, rgba(153, 153, 153, 0.08) 80%, rgba(153, 153, 153, 0.3) 80%); }
+
+.button.flat.disabled.focus, .button.flat.focus[disabled] {
+  -webkit-animation: none;
+  animation: none;
+  background-image: unset; }
 
 .button.disabled {
   cursor: default; }
@@ -1921,7 +1930,7 @@ nav.nav-drawer hr {
 body.theme-dark .button {
   color: white; }
 body.theme-dark .button.raised {
-  background-color: #9C27B0;
+  background-color: #673AB7;
   color: white; }
 body.theme-dark .button.disabled {
   color: rgba(255, 255, 255, 0.5);
@@ -2194,10 +2203,549 @@ body.theme-light div.expansion-panel {
   body.theme-light div.expansion-panel div.content-container div.content-right {
     color: rgba(0, 0, 0, 0.54); }
 
-div.picker.datetime-local {
-  position: absolute;
-  width: 340px; }
+@keyframes picker-date-dialog {
+  0% {
+    width: 0;
+    height: 0; }
+  75% {
+    height: 305px;
+    width: 384px; }
+  100% {
+    width: 512px;
+    height: 305px; } }
+@keyframes picker-date-dialog-portrait {
+  0% {
+    width: 0;
+    height: 0; }
+  75% {
+    width: 330px;
+    height: 363.75px; }
+  100% {
+    height: 485px;
+    width: 330px; } }
+@keyframes picker-date-dialog-reverse {
+  0% {
+    width: 512px;
+    height: 305px; }
+  75% {
+    height: 0px;
+    width: 128px; }
+  100% {
+    width: 0;
+    height: 0; } }
+@keyframes picker-date-dialog-portrait {
+  0% {
+    height: 485px;
+    width: 330px; }
+  75% {
+    width: 330px;
+    height: 121.25px; }
+  100% {
+    width: 0;
+    height: 0; } }
+@keyframes picker-background-selected {
+  0% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 0%, transparent 0%); }
+  1% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 1%, transparent 1%); }
+  2% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 2%, transparent 2%); }
+  3% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 3%, transparent 3%); }
+  4% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 4%, transparent 4%); }
+  5% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 5%, transparent 5%); }
+  6% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 6%, transparent 6%); }
+  7% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 7%, transparent 7%); }
+  8% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 8%, transparent 8%); }
+  9% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 9%, transparent 9%); }
+  10% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 10%, transparent 10%); }
+  11% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 11%, transparent 11%); }
+  12% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 12%, transparent 12%); }
+  13% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 13%, transparent 13%); }
+  14% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 14%, transparent 14%); }
+  15% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 15%, transparent 15%); }
+  16% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 16%, transparent 16%); }
+  17% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 17%, transparent 17%); }
+  18% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 18%, transparent 18%); }
+  19% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 19%, transparent 19%); }
+  20% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 20%, transparent 20%); }
+  21% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 21%, transparent 21%); }
+  22% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 22%, transparent 22%); }
+  23% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 23%, transparent 23%); }
+  24% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 24%, transparent 24%); }
+  25% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 25%, transparent 25%); }
+  26% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 26%, transparent 26%); }
+  27% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 27%, transparent 27%); }
+  28% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 28%, transparent 28%); }
+  29% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 29%, transparent 29%); }
+  30% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 30%, transparent 30%); }
+  31% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 31%, transparent 31%); }
+  32% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 32%, transparent 32%); }
+  33% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 33%, transparent 33%); }
+  34% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 34%, transparent 34%); }
+  35% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 35%, transparent 35%); }
+  36% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 36%, transparent 36%); }
+  37% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 37%, transparent 37%); }
+  38% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 38%, transparent 38%); }
+  39% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 39%, transparent 39%); }
+  40% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 40%, transparent 40%); }
+  41% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 41%, transparent 41%); }
+  42% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 42%, transparent 42%); }
+  43% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 43%, transparent 43%); }
+  44% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 44%, transparent 44%); }
+  45% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 45%, transparent 45%); }
+  46% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 46%, transparent 46%); }
+  47% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 47%, transparent 47%); }
+  48% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 48%, transparent 48%); }
+  49% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 49%, transparent 49%); }
+  50% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 50%, transparent 50%); }
+  51% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 51%, transparent 51%); }
+  52% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 52%, transparent 52%); }
+  53% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 53%, transparent 53%); }
+  54% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 54%, transparent 54%); }
+  55% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 55%, transparent 55%); }
+  56% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 56%, transparent 56%); }
+  57% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 57%, transparent 57%); }
+  58% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 58%, transparent 58%); }
+  59% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 59%, transparent 59%); }
+  60% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 60%, transparent 60%); }
+  61% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 61%, transparent 61%); }
+  62% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 62%, transparent 62%); }
+  63% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 63%, transparent 63%); }
+  64% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 64%, transparent 64%); }
+  65% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 65%, transparent 65%); }
+  66% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 66%, transparent 66%); }
+  67% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 67%, transparent 67%); }
+  68% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 68%, transparent 68%); }
+  69% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 69%, transparent 69%); }
+  70% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 70%, transparent 70%); }
+  71% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 71%, transparent 71%); }
+  72% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 72%, transparent 72%); }
+  73% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 73%, transparent 73%); }
+  74% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 74%, transparent 74%); }
+  75% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 75%, transparent 75%); }
+  76% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 76%, transparent 76%); }
+  77% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 77%, transparent 77%); }
+  78% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 78%, transparent 78%); }
+  79% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 79%, transparent 79%); }
+  80% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 80%, transparent 80%); }
+  81% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 81%, transparent 81%); }
+  82% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 82%, transparent 82%); }
+  83% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 83%, transparent 83%); }
+  84% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 84%, transparent 84%); }
+  85% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 85%, transparent 85%); }
+  86% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 86%, transparent 86%); }
+  87% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 87%, transparent 87%); }
+  88% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 88%, transparent 88%); }
+  89% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 89%, transparent 89%); }
+  90% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 90%, transparent 90%); }
+  91% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 91%, transparent 91%); }
+  92% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 92%, transparent 92%); }
+  93% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 93%, transparent 93%); }
+  94% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 94%, transparent 94%); }
+  95% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 95%, transparent 95%); }
+  96% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 96%, transparent 96%); }
+  97% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 97%, transparent 97%); }
+  98% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 98%, transparent 98%); }
+  99% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 99%, transparent 99%); }
+  100% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 100%, transparent 100%); } }
+@keyframes picker-background-unselected {
+  0% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 100%, transparent 100%); }
+  1% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 99%, transparent 99%); }
+  2% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 98%, transparent 98%); }
+  3% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 97%, transparent 97%); }
+  4% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 96%, transparent 96%); }
+  5% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 95%, transparent 95%); }
+  6% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 94%, transparent 94%); }
+  7% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 93%, transparent 93%); }
+  8% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 92%, transparent 92%); }
+  9% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 91%, transparent 91%); }
+  10% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 90%, transparent 90%); }
+  11% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 89%, transparent 89%); }
+  12% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 88%, transparent 88%); }
+  13% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 87%, transparent 87%); }
+  14% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 86%, transparent 86%); }
+  15% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 85%, transparent 85%); }
+  16% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 84%, transparent 84%); }
+  17% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 83%, transparent 83%); }
+  18% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 82%, transparent 82%); }
+  19% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 81%, transparent 81%); }
+  20% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 80%, transparent 80%); }
+  21% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 79%, transparent 79%); }
+  22% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 78%, transparent 78%); }
+  23% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 77%, transparent 77%); }
+  24% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 76%, transparent 76%); }
+  25% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 75%, transparent 75%); }
+  26% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 74%, transparent 74%); }
+  27% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 73%, transparent 73%); }
+  28% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 72%, transparent 72%); }
+  29% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 71%, transparent 71%); }
+  30% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 70%, transparent 70%); }
+  31% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 69%, transparent 69%); }
+  32% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 68%, transparent 68%); }
+  33% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 67%, transparent 67%); }
+  34% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 66%, transparent 66%); }
+  35% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 65%, transparent 65%); }
+  36% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 64%, transparent 64%); }
+  37% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 63%, transparent 63%); }
+  38% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 62%, transparent 62%); }
+  39% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 61%, transparent 61%); }
+  40% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 60%, transparent 60%); }
+  41% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 59%, transparent 59%); }
+  42% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 58%, transparent 58%); }
+  43% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 57%, transparent 57%); }
+  44% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 56%, transparent 56%); }
+  45% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 55%, transparent 55%); }
+  46% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 54%, transparent 54%); }
+  47% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 53%, transparent 53%); }
+  48% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 52%, transparent 52%); }
+  49% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 51%, transparent 51%); }
+  50% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 50%, transparent 50%); }
+  51% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 49%, transparent 49%); }
+  52% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 48%, transparent 48%); }
+  53% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 47%, transparent 47%); }
+  54% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 46%, transparent 46%); }
+  55% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 45%, transparent 45%); }
+  56% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 44%, transparent 44%); }
+  57% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 43%, transparent 43%); }
+  58% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 42%, transparent 42%); }
+  59% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 41%, transparent 41%); }
+  60% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 40%, transparent 40%); }
+  61% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 39%, transparent 39%); }
+  62% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 38%, transparent 38%); }
+  63% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 37%, transparent 37%); }
+  64% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 36%, transparent 36%); }
+  65% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 35%, transparent 35%); }
+  66% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 34%, transparent 34%); }
+  67% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 33%, transparent 33%); }
+  68% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 32%, transparent 32%); }
+  69% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 31%, transparent 31%); }
+  70% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 30%, transparent 30%); }
+  71% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 29%, transparent 29%); }
+  72% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 28%, transparent 28%); }
+  73% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 27%, transparent 27%); }
+  74% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 26%, transparent 26%); }
+  75% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 25%, transparent 25%); }
+  76% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 24%, transparent 24%); }
+  77% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 23%, transparent 23%); }
+  78% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 22%, transparent 22%); }
+  79% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 21%, transparent 21%); }
+  80% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 20%, transparent 20%); }
+  81% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 19%, transparent 19%); }
+  82% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 18%, transparent 18%); }
+  83% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 17%, transparent 17%); }
+  84% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 16%, transparent 16%); }
+  85% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 15%, transparent 15%); }
+  86% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 14%, transparent 14%); }
+  87% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 13%, transparent 13%); }
+  88% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 12%, transparent 12%); }
+  89% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 11%, transparent 11%); }
+  90% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 10%, transparent 10%); }
+  91% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 9%, transparent 9%); }
+  92% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 8%, transparent 8%); }
+  93% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 7%, transparent 7%); }
+  94% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 6%, transparent 6%); }
+  95% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 5%, transparent 5%); }
+  96% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 4%, transparent 4%); }
+  97% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 3%, transparent 3%); }
+  98% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 2%, transparent 2%); }
+  99% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 1%, transparent 1%); }
+  100% {
+    background-image: radial-gradient(circle closest-side at center, #673AB7 0%, #673AB7 0%, transparent 0%); } }
+div.picker-date-container {
+  position: relative; }
+  div.picker-date-container div.picker-date-dialog {
+    position: absolute;
+    top: 100%;
+    -moz-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+    -webkit-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+    -o-box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+    box-shadow: 0 2px 96px rgba(0, 0, 0, 0.38);
+    z-index: 24;
+    display: flex;
+    overflow: hidden;
+    animation: picker-date-dialog-reverse 0.2s cubic-bezier(0.4, 0, 0.2, 1) normal;
+    animation-fill-mode: forwards; }
+    div.picker-date-container div.picker-date-dialog div.picker-date-header {
+      box-sizing: border-box;
+      width: 170px;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      letter-spacing: 0.5px;
+      flex-shrink: 0; }
+      div.picker-date-container div.picker-date-dialog div.picker-date-header span.year {
+        font-size: 13px;
+        line-height: 18px; }
+      div.picker-date-container div.picker-date-dialog div.picker-date-header span.date {
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 38px; }
+    div.picker-date-container div.picker-date-dialog div.picker-date-body {
+      box-sizing: border-box;
+      width: 342px;
+      padding: 16px 16px 4px 16px;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0; }
+      div.picker-date-container div.picker-date-dialog div.picker-date-body div.picker-date-switch {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 10px; }
+      div.picker-date-container div.picker-date-dialog div.picker-date-body div.picker-date-calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(7, 1fr);
+        height: 212px; }
+        div.picker-date-container div.picker-date-dialog div.picker-date-body div.picker-date-calendar span {
+          height: 100%;
+          line-height: 30.28px;
+          text-align: center;
+          transition: color 0.15s cubic-bezier(0.4, 0, 1, 1); }
+        div.picker-date-container div.picker-date-dialog div.picker-date-body div.picker-date-calendar span:not(.dotw) {
+          cursor: pointer; }
+        div.picker-date-container div.picker-date-dialog div.picker-date-body div.picker-date-calendar span.selected {
+          animation: picker-background-selected 0.15s cubic-bezier(0.4, 0, 1, 1);
+          animation-fill-mode: forwards;
+          color: white; }
+        div.picker-date-container div.picker-date-dialog div.picker-date-body div.picker-date-calendar span.unselected {
+          animation: picker-background-unselected 0.15s cubic-bezier(0.4, 0, 1, 1);
+          animation-fill-mode: forwards; }
+      div.picker-date-container div.picker-date-dialog div.picker-date-body div.actions {
+        display: flex;
+        justify-content: end; }
+  div.picker-date-container div.picker-date-dialog.open {
+    animation: picker-date-dialog 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
 
+body.theme-light div.picker-date-dialog {
+  background-color: #FAFAFA; }
+  body.theme-light div.picker-date-dialog div.picker-date-header {
+    background-color: #673AB7; }
+    body.theme-light div.picker-date-dialog div.picker-date-header span.year {
+      color: rgba(255, 255, 255, 0.7); }
+    body.theme-light div.picker-date-dialog div.picker-date-header span.date {
+      color: white; }
+  body.theme-light div.picker-date-dialog div.picker-date-body span.dotw {
+    color: rgba(0, 0, 0, 0.54); }
+
+body.theme-dark div.picker-date-dialog {
+  background-color: #303030; }
+  body.theme-dark div.picker-date-dialog div.picker-date-header {
+    background-color: #673AB7;
+    color: white; }
+    body.theme-dark div.picker-date-dialog div.picker-date-header span.year {
+      color: rgba(255, 255, 255, 0.7); }
+    body.theme-dark div.picker-date-dialog div.picker-date-header span.date {
+      color: white; }
+  body.theme-dark div.picker-date-dialog div.picker-date-body span.dotw {
+    color: rgba(255, 255, 255, 0.7); }
+
+@media screen and (orientation: portrait) {
+  div.picker-date-container div.picker-date-dialog {
+    animation: picker-date-dialog-reverse-portrait 0.2s cubic-bezier(0.4, 0, 0.2, 1) normal;
+    animation-fill-mode: forwards;
+    flex-direction: column; }
+    div.picker-date-container div.picker-date-dialog div.picker-date-header {
+      width: auto; }
+      div.picker-date-container div.picker-date-dialog div.picker-date-header br {
+        display: none; } }
 table.data-table {
   width: 100%;
   padding: 0;
@@ -2248,14 +2796,13 @@ table.data-table {
     background-color: #F5F5F5; }
 
 div.grid-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start; }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-column-gap: 10px;
+  grid-row-gap: 10px; }
   div.grid-list div.grid-list-item {
     min-width: 200px;
     min-height: 200px;
-    flex-grow: 1;
-    margin: 2px;
     display: flex;
     justify-content: space-between;
     flex-direction: column; }
@@ -2321,9 +2868,7 @@ div.list-container, ul.list-container {
     div.list-container li span.list-icon, ul.list-container li span.list-icon {
       left: 16px;
       padding-right: 32px;
-      position: absolute; }
-    div.list-container li span.list-icon + div.content, ul.list-container li span.list-icon + div.content {
-      padding-left: 56px; }
+      line-height: 36px; }
     div.list-container li div.content, ul.list-container li div.content {
       width: 100%;
       flex-basis: 100%;
@@ -2333,19 +2878,17 @@ div.list-container, ul.list-container {
       overflow: hidden; }
       div.list-container li div.content p.primary, ul.list-container li div.content p.primary {
         font-size: 16px;
-        color: rgba(0, 0, 0, 0.87);
-        font-weight: 400;
         margin: 0 0 4px 0;
         line-height: 16px; }
       div.list-container li div.content p.secondary, ul.list-container li div.content p.secondary {
         margin: 0; }
         div.list-container li div.content p.secondary span, ul.list-container li div.content p.secondary span {
           font-size: 14px;
-          color: rgba(0, 0, 0, 0.54);
-          font-weight: 400;
           display: block;
           margin: 0;
           line-height: 16px; }
+    div.list-container li div.content + span.list-icon, ul.list-container li div.content + span.list-icon {
+      padding-right: 16px; }
   div.list-container li.spacer, ul.list-container li.spacer {
     border-top: 1px solid;
     margin-top: 8px;
@@ -2353,27 +2896,50 @@ div.list-container, ul.list-container {
     padding: 0;
     width: 100%;
     height: 0; }
+  div.list-container li.subheader, ul.list-container li.subheader {
+    font-size: 14px;
+    height: 48px;
+    padding: 16px; }
 
 body.theme-dark ul.list-container li.spacer {
   border-top-color: rgba(255, 255, 255, 0.12); }
+body.theme-dark ul.list-container li div.content p.primary {
+  color: white; }
+body.theme-dark ul.list-container li div.content p.secondary span {
+  color: rgba(255, 255, 255, 0.7); }
+body.theme-dark ul.list-container li.subheader {
+  color: rgba(255, 255, 255, 0.7); }
+body.theme-dark ul.list-container.dense li div.content p.primary {
+  color: white; }
+body.theme-dark ul.list-container.dense li div.content p.secondary span {
+  color: rgba(255, 255, 255, 0.7); }
+
+body.theme-light ul.list-container li.spacer {
+  border-top-color: rgba(255, 255, 255, 0.12); }
+body.theme-light ul.list-container li div.content p.primary {
+  color: rgba(0, 0, 0, 0.87); }
+body.theme-light ul.list-container li div.content p.secondary span {
+  color: rgba(0, 0, 0, 0.54); }
+body.theme-light ul.list-container li.subheader {
+  color: rgba(0, 0, 0, 0.54); }
+body.theme-light ul.list-container.dense li div.content p.primary {
+  color: rgba(0, 0, 0, 0.87); }
+body.theme-light ul.list-container.dense li div.content p.secondary span {
+  color: rgba(0, 0, 0, 0.54); }
 
 body.theme-light ul.list-container li.spacer {
   border-top-color: rgba(0, 0, 0, 0.12); }
 
-ul.dense {
+ul.list-container.dense {
   padding: 4px 0 4px 0; }
-  ul.dense li {
+  ul.list-container.dense li {
     padding: 14px 16px 14px 16px; }
-    ul.dense li div.content p.primary {
+    ul.list-container.dense li div.content p.primary {
       font-size: 13px;
-      color: rgba(0, 0, 0, 0.87);
-      font-weight: 400;
       line-height: 14px;
       margin-bottom: 4px; }
-    ul.dense li div.content p.secondary span {
+    ul.list-container.dense li div.content p.secondary span {
       font-size: 13px;
-      color: rgba(0, 0, 0, 0.54);
-      font-weight: 400;
       line-height: 14px; }
 
 ul.list-container.threeline li {
@@ -2389,9 +2955,7 @@ ul.list-container.singleline li {
   ul.list-container.singleline li span.list-icon {
     line-height: 48px; }
   ul.list-container.singleline li div.content {
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.87);
-    font-weight: 400; }
+    font-size: 16px; }
     ul.list-container.singleline li div.content p.primary {
       line-height: 48px; }
 ul.list-container.singleline li.spacer {
@@ -2410,9 +2974,52 @@ ul.list-container-singleline.dense {
     height: 40px; }
     ul.list-container-singleline.dense li div.content {
       font-size: 13px;
-      color: rgba(0, 0, 0, 0.87);
-      font-weight: 400;
       line-height: 40px; }
+
+input.checkbox[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 2px solid;
+  border-radius: 3px;
+  height: 18px;
+  width: 18px;
+  outline: none;
+  position: relative; }
+
+input.checkbox[type="checkbox"]:before {
+  content: 'check';
+  line-height: 18px;
+  border-radius: 3px;
+  font-family: "Material Icons", sans-serif;
+  font-weight: 600;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  bottom: -2px;
+  right: -2px;
+  font-size: 18px;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 1, 1);
+  transform: scale(0); }
+
+input.checkbox[type="checkbox"]:checked:before {
+  transform: scale(1); }
+
+body.theme-dark input.checkbox[type="checkbox"][disabled] {
+  border-color: rgba(255, 255, 255, 0.3); }
+body.theme-dark input.checkbox[type="checkbox"] {
+  border-color: rgba(255, 255, 255, 0.7); }
+body.theme-dark input.checkbox[type="checkbox"]:before {
+  border-color: #673AB7;
+  background-color: #673AB7;
+  color: #424242; }
+
+body.theme-light input.checkbox[type="checkbox"][disabled] {
+  border-color: rgba(0, 0, 0, 0.26); }
+body.theme-light input.checkbox[type="checkbox"] {
+  border-color: rgba(0, 0, 0, 0.54); }
+body.theme-light input.checkbox[type="checkbox"]:before {
+  border-color: #673AB7;
+  background-color: #673AB7; }
 
 @keyframes launch-image-in {
   0% {

@@ -60,11 +60,17 @@ $resolution: 2;
 
 // noinspection ALL
 .button.flat.focus {
-    -webkit-animation:   background-pulse 1.5s $standard-curve 0s infinite alternate;
-    animation:           background-pulse 1.5s $standard-curve 0s infinite alternate;
+    -webkit-animation:   background-pulse 2s $acceleration-curve 0s infinite alternate;
+    animation:           background-pulse 2s $acceleration-curve 0s infinite alternate;
     background-repeat:   no-repeat;
     background-position: center center;
     background-image:    radial-gradient(circle farthest-side at center, rgba(153, 153, 153, 0.08) 0%, rgba(153, 153, 153, 0.08) 80%, rgba(153, 153, 153, 0.30) 80%);
+}
+
+.button.flat.disabled.focus, .button.flat.focus[disabled] {
+    -webkit-animation: none;
+    animation: none;
+    background-image: unset;
 }
 
 .button.disabled {

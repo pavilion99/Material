@@ -1,16 +1,231 @@
-input[type="datetime-local"] {
-
+@keyframes picker-date-dialog {
+  0% {
+    width: 0;
+    height: 0;
+  }
+  75% {
+    height: 305px;
+    width: 512px * 0.75;
+  }
+  100% {
+    width: 512px;
+    height: 305px;
+  }
 }
 
-div.picker.datetime-local {
-  position: absolute;
-  width: 340px;
+@keyframes picker-date-dialog-portrait {
+  0% {
+    width: 0;
+    height: 0;
+  }
+  75% {
+    width: 330px;
+    height: 485px * 0.75;
+  }
+  100% {
+    height: 485px;
+    width: 330px;
+  }
+}
 
-  div.picker-header {
+@keyframes picker-date-dialog-reverse {
+  0% {
+    width: 512px;
+    height: 305px;
+  }
+  75% {
+    height: 0px;
+    width: 512px * 0.25;
+  }
+  100% {
+    width: 0;
+    height: 0;
+  }
+}
 
+@keyframes picker-date-dialog-portrait {
+  0% {
+    height: 485px;
+    width: 330px;
+  }
+  75% {
+    width: 330px;
+    height: 485px * 0.25;
+  }
+  100% {
+    width: 0;
+    height: 0;
+  }
+}
+
+@keyframes picker-background-selected {
+  @for $i from 0 to 101 {
+    #{$i}% {
+      background-image: radial-gradient(circle closest-side at center, map_get($colors, $theme-primary + "-500") 0%, map_get($colors, $theme-primary + "-500") $i * 1%, transparent $i * 1%);
+    }
+  }
+}
+
+@keyframes picker-background-unselected {
+  @for $i from 0 to 101 {
+    #{$i}% {
+      background-image: radial-gradient(circle closest-side at center, map_get($colors, $theme-primary + "-500") 0%, map_get($colors, $theme-primary + "-500") (100 - $i) * 1%, transparent (100 - $i) * 1%);
+    }
+  }
+}
+
+div.picker-date-container {
+  position: relative;
+
+  div.picker-date-dialog {
+    position: absolute;
+    top: 100%;
+    @include shadow(24);
+    z-index: 24;
+    display: flex;
+    overflow: hidden;
+    animation: picker-date-dialog-reverse $duration-slow $standard-curve normal;
+    animation-fill-mode:  forwards;
+
+    div.picker-date-header {
+      box-sizing: border-box;
+      width: 170px;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+
+      span.year {
+        font-size: 13px;
+        line-height: 18px;
+      }
+
+      span.date {
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 38px;
+      }
+    }
+
+    div.picker-date-body {
+      box-sizing: border-box;
+      width: 512px - 170px;
+      padding: 16px 16px 4px 16px;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+
+      div.picker-date-switch {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 10px;
+      }
+
+      div.picker-date-calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(7, 1fr);
+        height: 212px;
+
+        span {
+          height: 100%;
+          line-height: 30.28px;
+          text-align: center;
+          transition: color $duration-fast $acceleration-curve;
+        }
+
+        span:not(.dotw) {
+          cursor: pointer;
+        }
+
+        span.selected {
+          animation: picker-background-selected $duration-fast $acceleration-curve;
+          animation-fill-mode: forwards;
+          @include text-theme("primary");
+        }
+
+        span.unselected {
+          animation: picker-background-unselected $duration-fast $acceleration-curve;
+          animation-fill-mode: forwards;
+        }
+      }
+
+      div.actions {
+        display: flex;
+        justify-content: end;
+      }
+    }
   }
 
-  div.picker-body {
+  div.picker-date-dialog.open {
+    animation: picker-date-dialog $duration-slow $standard-curve;
+  }
+}
 
+body.theme-light div.picker-date-dialog {
+  background-color: nth($theme-light, 3);
+
+  div.picker-date-header {
+    @if (variable_exists("theme-primary")) {
+      background-color: map_get($colors, $theme-primary + "-500");
+    }
+
+    span.year {
+      @include text-theme("secondary");
+    }
+
+    span.date {
+      @include text-theme("primary");
+    }
+  }
+
+  div.picker-date-body {
+    span.dotw {
+      @include text-dark-secondary;
+    }
+  }
+}
+
+body.theme-dark div.picker-date-dialog {
+  background-color: nth($theme-dark, 3);
+
+  div.picker-date-header {
+    @if (variable_exists("theme-primary")) {
+      background-color: map_get($colors, $theme-primary + "-500");
+      @include text-theme("primary");
+    }
+
+    span.year {
+      @include text-theme("secondary");
+    }
+
+    span.date {
+      @include text-theme("primary");
+    }
+  }
+
+  div.picker-date-body {
+      span.dotw {
+        @include text-light-secondary;
+      }
+  }
+}
+
+@media screen and (orientation: portrait) {
+  div.picker-date-container {
+    div.picker-date-dialog {
+      animation: picker-date-dialog-reverse-portrait $duration-slow $standard-curve normal;
+      animation-fill-mode: forwards;
+      flex-direction: column;
+
+      div.picker-date-header {
+        width: auto;
+
+        br {
+          display: none;
+        }
+      }
+    }
   }
 }

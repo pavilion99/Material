@@ -763,49 +763,6 @@ var MaterialPage;
 })(MaterialPage || (MaterialPage = {}));
 var MaterialPage;
 (function (MaterialPage) {
-    class GridList extends MaterialPage.MaterialElement {
-        constructor(domEl) {
-            super(domEl);
-            this.resize = () => {
-                let canFit = this.calcCanFit();
-                if (canFit === this.currentCanFit)
-                    return;
-                this.currentCanFit = canFit;
-                let old = this.el.querySelectorAll("div.grid-list-item.filler");
-                for (let element of old) {
-                    element.parentElement.removeChild(element);
-                }
-                let children = this.el.childElementCount;
-                let extrasNeeded = children % canFit;
-                if (extrasNeeded !== 0)
-                    extrasNeeded = canFit - extrasNeeded;
-                for (let i = 0; i < extrasNeeded; i++) {
-                    let filler = document.createElement("DIV");
-                    filler.classList.add("grid-list-item");
-                    filler.classList.add("filler");
-                    this.el.appendChild(filler);
-                }
-            };
-            this.calcCanFit = () => {
-                let itemWidth = null;
-                if (this.el.dataset.hasOwnProperty("contentWidth"))
-                    itemWidth = parseInt(this.el.dataset["contentWidth"]);
-                else
-                    itemWidth = 200;
-                itemWidth += 4;
-                return Math.floor(this.el.offsetWidth / itemWidth);
-            };
-            window.addEventListener("resize", this.resize);
-            this.currentCanFit = -1;
-        }
-        static getSelectors() {
-            return ["div.grid-list"];
-        }
-    }
-    MaterialPage.GridList = GridList;
-})(MaterialPage || (MaterialPage = {}));
-var MaterialPage;
-(function (MaterialPage) {
     class ImageFade extends MaterialPage.MaterialElement {
         constructor(domEl) {
             super(domEl);
@@ -826,11 +783,193 @@ var MaterialPage;
 (function (MaterialPage) {
     // noinspection JSUnusedGlobalSymbols
     class Picker extends MaterialPage.MaterialElement {
-        // TODO: Figure out picker behavior
+        constructor(domEl) {
+            super(domEl);
+            this.buttons = [];
+            this.fixLeftOffset = () => {
+                let pickerDialog = this.el.parentElement.querySelector(".picker-date-dialog");
+                let offsetLeft = this.el.parentElement.getBoundingClientRect().left;
+                if (offsetLeft + 512 + 16 > window.innerWidth) {
+                    let offset = 512 + 16 + offsetLeft - window.innerWidth;
+                    pickerDialog.style.left = "-" + offset + "px";
+                }
+            };
+            this.clickInternalButton = (day) => {
+                let newDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), day);
+                console.log(newDate.toDateString());
+                let date = this.el.parentElement.querySelector("span.date");
+                date.childNodes[0].textContent = Picker.dotwAbvs[newDate.getDay()] + ", ";
+                date.childNodes[2].textContent = Picker.month[newDate.getMonth()] + " " + day;
+                let calendar = this.el.parentElement.querySelector("div.picker-date-calendar");
+                let days = calendar.querySelectorAll("span:not(.dotw)");
+                days.forEach(function (e) {
+                    if (e.classList.contains("selected")) {
+                        e.classList.remove("selected");
+                        e.classList.add("unselected");
+                    }
+                    if (e.textContent == day + "") {
+                        e.classList.remove("unselected");
+                        e.classList.add("selected");
+                    }
+                });
+                this.currentDate = newDate;
+            };
+            this.save = () => {
+                let year = this.currentDate.getFullYear();
+                let month = this.currentDate.getMonth() + 1;
+                let date = this.currentDate.getDate();
+                if (month < 10)
+                    month = "0" + month;
+                else
+                    month = month + "";
+                if (date < 10)
+                    date = "0" + date;
+                else
+                    date = date + "";
+                let dateStr = year + "-" + month + "-" + date;
+                this.el.parentElement.querySelector("input[type='date']").value = dateStr;
+                this.hidePicker(null);
+            };
+            this.updateDate = () => {
+                let date = null;
+                if (this.el.value === "")
+                    date = new Date();
+                else {
+                    date = new Date(this.el.value + "T00:00:00");
+                }
+                console.log(this.el.value);
+                console.log(date);
+                console.log(date.getDate());
+                let days = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+                let calendar = this.el.parentElement.querySelector(".picker-date-calendar");
+                let calendarItems = calendar.querySelectorAll("span:not(.dotw)");
+                calendarItems.forEach(function (e) { e.parentElement.removeChild(e); });
+                for (let i = 1; i <= days; i++) {
+                    let dateSpan = document.createElement("SPAN");
+                    dateSpan.textContent = i + "";
+                    if (i == 1) {
+                        let startDate = new Date(date.getFullYear(), date.getMonth(), 1).getDay() + 1;
+                        dateSpan.style["gridColumn"] = startDate + " / span 1";
+                    }
+                    if (i == date.getDate()) {
+                        dateSpan.classList.add("selected");
+                    }
+                    dateSpan.addEventListener("click", this.clickInternalButton.bind(this, i));
+                    calendar.appendChild(dateSpan);
+                }
+                let pickerSwitch = this.el.parentElement.querySelector(".picker-date-switch");
+                pickerSwitch.childNodes[1].textContent = Picker.month[date.getMonth()] + " " + date.getFullYear();
+                let headerDate = this.el.parentElement.querySelector("span.date");
+                let headerYear = this.el.parentElement.querySelector("span.year");
+                headerYear.textContent = date.getFullYear() + "";
+                headerDate.childNodes[0].textContent = Picker.dotwAbvs[date.getDay()] + ", ";
+                headerDate.childNodes[2].textContent = Picker.month[date.getMonth()] + " " + date.getDate();
+            };
+            this.showPicker = () => {
+                this.updateDate();
+                this.el.parentElement.querySelector(".picker-date-dialog").classList.add("open");
+            };
+            this.hidePicker = (e) => {
+                if (e != null && this.el.parentElement.contains(e.target) && this.el.parentElement != e.target)
+                    return;
+                this.el.parentElement.querySelector(".picker-date-dialog").classList.remove("open");
+            };
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                return;
+            }
+            domEl.addEventListener("focus", this.showPicker);
+            document.addEventListener("click", this.hidePicker);
+            let currentDate = null;
+            if (this.el.value != "")
+                currentDate = new Date(this.el.value);
+            else
+                currentDate = new Date();
+            this.currentDate = currentDate;
+            let dotws = "SMTWTFS";
+            let dotw = dotws.substr(currentDate.getDay(), 1);
+            let days = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+            let pickerDialog = document.createElement("DIV");
+            pickerDialog.classList.add("picker-date-dialog");
+            let pickerHeader = document.createElement("DIV");
+            pickerHeader.classList.add("picker-date-header");
+            let year = document.createElement("SPAN");
+            year.classList.add("year");
+            year.textContent = currentDate.getFullYear() + "";
+            let date = document.createElement("SPAN");
+            date.classList.add("date");
+            let dotwAbv = document.createTextNode(Picker.dotwAbvs[currentDate.getDay()] + ", ");
+            let br = document.createElement("BR");
+            let shortDate = document.createTextNode(Picker.month[currentDate.getMonth()] + " " + currentDate.getDate());
+            date.appendChild(dotwAbv);
+            date.appendChild(br);
+            date.appendChild(shortDate);
+            pickerHeader.appendChild(year);
+            pickerHeader.appendChild(date);
+            let pickerBody = document.createElement("DIV");
+            pickerBody.classList.add("picker-date-body");
+            let pickerSwitch = document.createElement("DIV");
+            pickerSwitch.classList.add("picker-date-switch");
+            let left = document.createElement("SPAN");
+            left.classList.add("material-icons");
+            left.textContent = "keyboard_arrow_left";
+            let right = document.createElement("SPAN");
+            right.classList.add("material-icons");
+            right.textContent = "keyboard_arrow_right";
+            let text = document.createTextNode(Picker.month[currentDate.getMonth()] + " " + currentDate.getFullYear());
+            pickerSwitch.appendChild(left);
+            pickerSwitch.appendChild(text);
+            pickerSwitch.appendChild(right);
+            pickerBody.appendChild(pickerSwitch);
+            let pickerCalendar = document.createElement("DIV");
+            pickerCalendar.classList.add("picker-date-calendar");
+            for (let i = 0; i < dotws.length; i++) {
+                let dotwSpan = document.createElement("SPAN");
+                dotwSpan.classList.add("dotw");
+                dotwSpan.textContent = dotws.substr(i, 1);
+                pickerCalendar.appendChild(dotwSpan);
+            }
+            for (let i = 1; i < -days; i++) {
+                let dateSpan = document.createElement("SPAN");
+                dateSpan.textContent = i + "";
+                if (i == 1) {
+                    let startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay() + 1;
+                    dateSpan.style["gridColumn"] = startDate + " / span 1";
+                }
+                if (i == currentDate.getDate()) {
+                    dateSpan.classList.add("selected");
+                }
+                dateSpan.addEventListener("click", this.clickInternalButton.bind(this, i));
+                pickerCalendar.appendChild(dateSpan);
+            }
+            pickerBody.appendChild(pickerCalendar);
+            let pickerActions = document.createElement("DIV");
+            pickerActions.classList.add("actions");
+            let ok = document.createElement("BUTTON");
+            ok.classList.add("button");
+            ok.classList.add("flat");
+            ok.textContent = "OK";
+            ok.addEventListener("click", this.save);
+            let okButton = new MaterialPage.Button(ok);
+            let cancel = document.createElement("BUTTON");
+            cancel.classList.add("button");
+            cancel.classList.add("flat");
+            cancel.textContent = "Cancel";
+            let cancelButton = new MaterialPage.Button(cancel);
+            this.buttons.push(okButton, cancelButton);
+            pickerActions.appendChild(cancel);
+            pickerActions.appendChild(ok);
+            pickerBody.appendChild(pickerActions);
+            pickerDialog.appendChild(pickerHeader);
+            pickerDialog.appendChild(pickerBody);
+            this.el.parentElement.appendChild(pickerDialog);
+            this.fixLeftOffset();
+        }
         static getSelectors() {
-            return null;
+            return ["input.picker[type='date']"];
         }
     }
+    Picker.month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    Picker.dotwAbvs = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     MaterialPage.Picker = Picker;
 })(MaterialPage || (MaterialPage = {}));
 var MaterialPage;
@@ -1196,14 +1335,13 @@ var MaterialPage;
 /// <reference path="components/Dialog.ts" />
 /// <reference path="components/ExpansionPanel.ts" />
 /// <reference path="components/FloatingActionButton.ts" />
-/// <reference path="components/GridList.ts" />
 /// <reference path="components/ImageFade.ts" />
 /// <reference path="components/Picker.ts" />
 /// <reference path="components/Progress.ts" />
 /// <reference path="components/Snackbar.ts" />
 /// <reference path="components/TextField.ts" />
 /// <reference path="patterns/LaunchScreen.ts" />
-/// <reference path="patterns/NavigationDrawer.ts" /> 
+/// <reference path="patterns/NavigationDrawer.ts" />
 /// <reference path="Dependencies.ts" />
 var MaterialPage;
 (function (MaterialPage) {
@@ -1213,7 +1351,7 @@ var MaterialPage;
             this.patterns = [];
             this.init = () => {
                 this.fadeImages();
-                window.setTimeout(MaterialPage.LaunchScreen.hideAll, 5600);
+                MaterialPage.LaunchScreen.hideAll();
             };
             this.preInit = () => {
                 const imageFadeSelectors = MaterialPage.ImageFade.getSelectors();
@@ -1381,16 +1519,6 @@ var MaterialPage;
                     this.elements.push(dialog);
                 }
             }
-            // Grid Lists
-            const gridListSelectors = MaterialPage.GridList.getSelectors();
-            for (const selector of gridListSelectors) {
-                let elements = document.querySelectorAll(selector);
-                for (const element of elements) {
-                    let gridList = new MaterialPage.GridList(element);
-                    gridList.resize();
-                    this.elements.push(gridList);
-                }
-            }
             // Bottom Navigation
             const bottomNavSelectors = MaterialPage.BottomNavigation.getSelectors();
             for (const selector of bottomNavSelectors) {
@@ -1407,6 +1535,15 @@ var MaterialPage;
                 for (const element of elements) {
                     let card = new MaterialPage.Card(element);
                     this.elements.push(card);
+                }
+            }
+            // Cards
+            const pickerSelectors = MaterialPage.Picker.getSelectors();
+            for (const selector of pickerSelectors) {
+                let elements = document.querySelectorAll(selector);
+                for (const element of elements) {
+                    let picker = new MaterialPage.Picker(element);
+                    this.elements.push(picker);
                 }
             }
         }

@@ -305,8 +305,8 @@ $light-secondary: rgba(255, 255, 255, 0.7);
 $light-hint: rgba(255, 255, 255, 0.5);
 
 // ------------------ USER THEME SETTINGS ------------------ //
-$theme-primary: "purple";
-$theme-primary-tint: 500;
+$theme-primary: "deep-purple";
+$theme-primary-tint: 300;
 $theme-secondary: "orange";
 $theme-secondary-tint: 600;
 // --------------------------------------------------------- //
@@ -375,7 +375,7 @@ $theme-dark: #000000 #212121 #303030 #424242;
                 color: $dark;
             }
         } @else if ($context == "secondary") {
-            @if index($light-text, $theme-secondary + "-#{$theme-secondary-tint}") != null {
+            @if index($light-text, $theme-primary + "-#{$theme-primary-tint}") != null {
                 color: $light-secondary;
             } @else {
                 color: $dark-secondary;
@@ -412,6 +412,24 @@ $theme-dark: #000000 #212121 #303030 #424242;
 }
 @mixin text-light-disabled {
     color: $light-hint;
+}
+
+@mixin text($shade, $context: "primary") {
+    @if ($context == "primary") {
+        @if ($shade == "text-light") {
+            @include text-light;
+        } @else if ($shade == "text-dark") {
+            @include text-dark;
+        }
+    } @else if ($context == "secondary") {
+        @if ($shade == "text-light") {
+            @include text-light-secondary;
+        } @else if ($shade == "text-dark") {
+            @include text-dark-secondary;
+        }
+    }
+
+
 }
 
 // Default Theme Text Classes

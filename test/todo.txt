@@ -1,7 +1,5 @@
-FIXME: Redo grid lists
-FIXME: Button focus animation
 FIXME: Data tables
-FIXME: Lists/list controls/subheaders
+FIXME: Lists/list controls
 FIXME: Pickers
 FIXME: Snackbars (buttons)
 FIXME: Text Fields (icons, textareas, formatting, fixed/solo, full-width)

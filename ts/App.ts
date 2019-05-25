@@ -11,9 +11,8 @@ namespace MaterialPage {
         }
 
         init = () => {
-
             this.fadeImages();
-            window.setTimeout(LaunchScreen.hideAll, 5600);
+            LaunchScreen.hideAll();
         };
 
         preInit = () => {
@@ -222,18 +221,6 @@ namespace MaterialPage {
                 }
             }
 
-            // Grid Lists
-            const gridListSelectors: Array<string> = GridList.getSelectors();
-            for (const selector of gridListSelectors) {
-                let elements: NodeListOf<Element> = document.querySelectorAll(selector);
-
-                for (const element of elements) {
-                    let gridList: GridList = new GridList(<HTMLElement>element);
-                    gridList.resize();
-                    this.elements.push(gridList);
-                }
-            }
-
             // Bottom Navigation
             const bottomNavSelectors: Array<string> = BottomNavigation.getSelectors();
             for (const selector of bottomNavSelectors) {
@@ -253,6 +240,17 @@ namespace MaterialPage {
                 for (const element of elements) {
                     let card: Card = new Card(<HTMLElement>element);
                     this.elements.push(card);
+                }
+            }
+
+            // Cards
+            const pickerSelectors: Array<string> = Picker.getSelectors();
+            for (const selector of pickerSelectors) {
+                let elements: NodeListOf<Element> = document.querySelectorAll(selector);
+
+                for (const element of elements) {
+                    let picker: Picker = new Picker(<HTMLElement>element);
+                    this.elements.push(picker);
                 }
             }
         }

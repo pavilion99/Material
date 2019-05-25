@@ -1,0 +1,73 @@
+input.checkbox[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 2px solid;
+    border-radius: 3px;
+    height: 18px;
+    width: 18px;
+    outline: none;
+    position: relative;
+}
+
+input.checkbox[type="checkbox"]:before {
+    content: 'check';
+    line-height: 18px;
+    border-radius: 3px;
+    font-family: "Material Icons", sans-serif;
+    font-weight: 600;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    bottom: -2px;
+    right: -2px;
+    font-size: 18px;
+    transition: transform 0.15s $acceleration-curve;
+    transform: scale(0);
+}
+
+input.checkbox[type="checkbox"]:checked:before {
+    transform: scale(1);
+}
+
+body.theme-dark {
+    input.checkbox[type="checkbox"][disabled] {
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    input.checkbox[type="checkbox"] {
+        border-color: rgba(255, 255, 255, 0.7);
+    }
+
+    input.checkbox[type="checkbox"]:before {
+        @if (variable_exists("theme-primary")) {
+            border-color: map_get($colors, $theme-primary + "-500");
+            background-color: map_get($colors, $theme-primary + "-500");
+        } @else {
+            background-color: rgba(255, 255, 255, 1.0);
+            border-color: rgba(255, 255, 255, 1.0);
+        }
+
+        color: nth($theme-dark, 4);
+    }
+}
+
+body.theme-light {
+    input.checkbox[type="checkbox"][disabled] {
+        border-color: rgba(0, 0, 0, 0.26);
+    }
+
+    input.checkbox[type="checkbox"] {
+        border-color: rgba(0, 0, 0, 0.54);
+    }
+
+    input.checkbox[type="checkbox"]:before {
+        @if (variable_exists("theme-primary")) {
+            border-color: map_get($colors, $theme-primary + "-500");
+            background-color: map_get($colors, $theme-primary + "-500");
+        } @else {
+            background-color: rgba(0, 0, 0, 1.0);
+            border-color: rgba(0, 0, 0, 1.0);
+        }
+        color: map_get($colors, "white");
+    }
+}

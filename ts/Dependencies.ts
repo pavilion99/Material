@@ -9,7 +9,6 @@
 /// <reference path="components/Dialog.ts" />
 /// <reference path="components/ExpansionPanel.ts" />
 /// <reference path="components/FloatingActionButton.ts" />
-/// <reference path="components/GridList.ts" />
 /// <reference path="components/ImageFade.ts" />
 /// <reference path="components/Picker.ts" />
 /// <reference path="components/Progress.ts" />

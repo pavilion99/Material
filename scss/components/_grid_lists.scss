@@ -1,13 +1,12 @@
 div.grid-list {
-    display:         flex;
-    flex-wrap:       wrap;
-    justify-content: flex-start;
+    display:         grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
 
     div.grid-list-item {
         min-width:       200px;
         min-height:      200px;
-        flex-grow:       1;
-        margin:          2px;
         display:         flex;
         justify-content: space-between;
         flex-direction:  column;
